@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/25 14:56:22 by atoof             #+#    #+#             */
+/*   Updated: 2023/10/25 15:52:49 by atoof            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
@@ -20,12 +32,12 @@ class PhoneBook
 	public:
 		PhoneBook();
 		~PhoneBook();
-		void	add_contact(Contact contact);
-		void	print_contact(int index);
-		void	search_contact(void);
-		void	ft_display(void);
-		void	ft_add(void);
-		void	ft_input(std::string *input);
+		void		search_contact(void);
+		void		ft_display(void);
+		void		ft_add(void);
+		std::string	truncate(std::string str);
 };
+
+void	ft_input(std::string &input);
 
 #endif

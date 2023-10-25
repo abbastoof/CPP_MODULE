@@ -6,12 +6,12 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:53:36 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/24 16:21:06 by atoof            ###   ########.fr       */
+/*   Updated: 2023/10/25 15:13:13 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
-
+#include "PhoneBook.hpp"
 
 Contact::Contact(void)
 {
@@ -25,90 +25,81 @@ Contact::~Contact(void)
 
 void	Contact::set_first_name(std::string first_name)
 {
-	this->first_name = first_name;
+	this->_first_name = first_name;
 }
 
-std::string	Contact::get_first_name(void)
+std::string	Contact::get_first_name(void) const
 {
-	return (this->first_name);
+	return (this->_first_name);
 }
 
-std::string Contact::get_last_name(void)
+std::string Contact::get_last_name(void) const
 {
-	return (this->last_name);
+	return (this->_last_name);
 }
 
 void	Contact::set_last_name(std::string last_name)
 {
-	this->last_name = last_name;
+	this->_last_name = last_name;
 }
 
-std::string	Contact::get_nickname(void)
+std::string	Contact::get_nickname(void) const
 {
-	return (this->nickname);
+	return (this->_nickname);
 }
 
 void	Contact::set_nickname(std::string nickname)
 {
-	this->nickname = nickname;
+	this->_nickname = nickname;
 }
 
-std::string Contact::get_login(void)
+std::string Contact::get_phone_number(void) const
 {
-	return (this->login);
-}
-
-void	Contact::set_login(std::string login)
-{
-	this->login = login;
-}
-
-std::string Contact::get_postal_address(void)
-{
-	return (this->postal_address);
-}
-
-void	Contact::set_postal_address(std::string postal_address)
-{
-	this->postal_address = postal_address;
-}
-
-std::string Contact::get_email_address(void)
-{
-	return (this->email_address);
-}
-
-void	Contact::set_email_address(std::string email_address)
-{
-	this->email_address = email_address;
-}
-
-std::string Contact::get_phone_number(void)
-{
-	return (this->phone_number);
+	return (this->_phone_number);
 }
 
 void	Contact::set_phone_number(std::string phone_number)
 {
-	this->phone_number = phone_number;
+	this->_phone_number = phone_number;
 }
 
-std::string Contact::get_birthday_date(void)
+std::string Contact::get_darkest_secret(void) const
 {
-	return (this->birthday_date);
-}
-
-void	Contact::set_birthday_date(std::string birthday_date)
-{
-	this->birthday_date = birthday_date;
-}
-
-std::string Contact::get_darkest_secret(void)
-{
-	return (this->darkest_secret);
+	return (this->_darkest_secret);
 }
 
 void	Contact::set_darkest_secret(std::string darkest_secret)
 {
-	this->darkest_secret = darkest_secret;
+	this->_darkest_secret = darkest_secret;
+}
+
+void	Contact::print_contact(void) const
+{
+	std::cout << "First name: " << _first_name << std::endl;
+	std::cout << "Last name: " << _last_name << std::endl;
+	std::cout << "Nickname: " << _nickname << std::endl;
+	std::cout << "Darkest secret: " << _darkest_secret << std::endl;
+}
+
+Contact Contact::add_contact()
+{
+	Contact		contact;
+	std::string	input;
+
+	std::cout << "Enter first name: " << std::flush;
+	ft_input(input);
+	contact._first_name = (input);
+	std::cout << "Enter last name: " << std::flush;
+	ft_input(input);
+	contact._last_name = (input);
+	std::cout << "Enter nickname: " << std::flush;
+	ft_input(input);
+	contact._nickname = (input);
+	std::cout << "Enter phone number: " << std::flush;
+	ft_input(input);
+	contact._phone_number = (input);
+	std::cout << "Enter darkest secret: " << std::flush;
+	ft_input(input);
+	contact._darkest_secret = (input);
+	return (contact);
 }
