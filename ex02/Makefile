@@ -5,14 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/24 16:07:58 by atoof             #+#    #+#              #
-#    Updated: 2023/10/25 16:26:23 by atoof            ###   ########.fr        #
+#    Created: 2023/10/26 13:50:29 by atoof             #+#    #+#              #
+#    Updated: 2023/10/26 13:54:20 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = phonebook
-SRC = Contact.cpp main.cpp PhoneBook.cpp
-HEADER = Contact.hpp PhoneBook.hpp
+NAME = account
+
+SRC = Account.cpp tests.cpp
+HEADER = Account.hpp
 
 SRC_DIR = src/
 HEADER_DIR = include/
