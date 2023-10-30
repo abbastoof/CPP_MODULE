@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:09:39 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/30 11:11:26 by atoof            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:22:47 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <sstream>
 #endif
