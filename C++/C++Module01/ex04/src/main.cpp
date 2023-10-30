@@ -6,30 +6,29 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:20:29 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/28 01:37:59 by atoof            ###   ########.fr       */
+/*   Updated: 2023/10/30 11:13:53 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "../include/Sed.hpp"
 
-bool replaceAndWriteFile(const std::string& inputFilename, const std::string& outputFilename, const std::string& s1, const std::string& s2) {
+bool replaceAndWriteFile(const std::string& inputFilename, const std::string& outputFilename, const std::string& s1, const std::string& s2)
+{
     std::ifstream inputFile(inputFilename);
+    std::ofstream outputFile(outputFilename);
+	char ch;
+	std::string buffer;
+
     if (!inputFile)
 	{
         std::cerr << "Error: Could not open input file " << inputFilename << std::endl;
         return false;
     }
-
-    std::ofstream outputFile(outputFilename);
     if (!outputFile)
 	{
         std::cerr << "Error: Could not open output file " << outputFilename << std::endl;
         return false;
     }
-	char ch;
-	std::string buffer;
 	while (inputFile.get(ch))
 	{
 		if (ch == s1[0])

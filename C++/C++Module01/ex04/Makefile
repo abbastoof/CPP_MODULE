@@ -6,21 +6,24 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 13:18:46 by atoof             #+#    #+#              #
-#    Updated: 2023/10/27 13:20:22 by atoof            ###   ########.fr        #
+#    Updated: 2023/10/30 11:12:24 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Sed_is_for_losers
+
 SRC = main.cpp
+HEADER = Sed.hpp
 
 SRC_DIR = src/
+HEADER_DIR = include/
 OBJ_DIR = obj/
 FLAGS = -Wall -Werror -Wextra
-# EXTRA_FLAGS = -std=c++98
+EXTRA_FLAGS = -std=c++98
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRCS:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
-
+HEADERS = $(addprefix $(HEADER_DIR), $(HEADER))
 
 # ANSI escape sequences for text formatting
 BOLD = \033[1m
@@ -42,10 +45,10 @@ $(NAME): $(OBJS)
 		echo "$(GREEN)$(BOLD)$(NAME) successfully compiled!$(NC)"; \
 	fi
 
-$(OBJ_DIR)%.o: %.cpp
+$(OBJ_DIR)%.o: %.cpp $(HEADERS)
 	@echo "$(YELLOW)$(BOLD)Compiling $<...$(NC)"
 	@mkdir -p $(@D)
-	@g++ $(FLAGS) -c -o $@ $<
+	@g++ $(FLAGS) $(EXTRA_FLAGS) -I$(HEADER_DIR) -c -o $@ $<
 
 clean:
 	@echo "$(CYAN)$(BOLD)Cleaning object files...$(NC)"
