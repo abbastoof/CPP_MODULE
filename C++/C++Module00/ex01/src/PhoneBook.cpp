@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:47:04 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/25 15:26:09 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/03 16:13:04 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ std::string	PhoneBook::truncate(std::string str)
 	return (str);
 }
 
+static int my_atoi(std::string str)
+{
+	int i = 0;
+	if (str.at(i) == '-' || str.empty())
+		return (-1);
+	else if ((i == 0) && str.at(i) == '+')
+		i++;
+	while (i < str.length())
+	{
+		if (!isdigit(str.at(i)))
+			return (-1);
+	}
+	return (atoi(str.c_str()));
+}
+
 void	PhoneBook::search_contact(void)
 {
 	int				i;
@@ -44,7 +59,7 @@ void	PhoneBook::search_contact(void)
 	}
 	std::cout << "\nEnter index of the contact you want to see: ";
 	ft_input(input);
-	try {(search_index = std::stoi(input));} catch (...) {}
+	try {(search_index = my_atoi(input));} catch (...) {}
     if (search_index >= 0 && search_index < _index)
         _contacts[search_index].print_contact();
 	else
@@ -76,8 +91,8 @@ void	PhoneBook::ft_add(void)
 	}
 	else
 	{
-		this->_contacts[_index] = contact;
-		_index = (_index + 1) % MAX_CONTACTS;
+		this->_contacts[_index] = contact; // we simply assign the contact to the array
+		_index = (_index + 1) % MAX_CONTACTS; // we increment the index and if it's greater than 8, we set it to 0
 		std::cout << "\nAdded successfully.\n" << std::endl;
 	}
 }

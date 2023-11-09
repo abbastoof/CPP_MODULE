@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 11:35:49 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/26 12:04:58 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/06 11:29:22 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ int	Account::_totalNbWithdrawals = 0;
 
 void	Account::_displayTimestamp()
 {
-	std::time_t		t; // time_t is a type suitable for storing the calendar time.
-	std::tm			*now; // tm structure containing a calendar date and time broken down into its components.
+	std::time_t		t = std::time(nullptr); // Get current time_t
+	std::tm			*now = std::localtime(&t); //Convert time_t to tm as local time
 	char			buf[20]; // Buffer for storing time as string
-	
-	t = std::time(nullptr); // Get current time_t
-	now = std::localtime(&t); // Convert time_t to tm as local time
+
 	std::strftime(buf, sizeof(buf), "[%Y%m%d_%H%M%S] ", now); // Format time as string
-	std::cout << buf;
+	std::cout << buf;	
 }
 
 Account::Account(int initial_deposit)

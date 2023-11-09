@@ -5,22 +5,24 @@
 #                                                     +:+ +:+         +:+      #
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/29 13:42:14 by atoof             #+#    #+#              #
-#    Updated: 2023/11/03 15:55:22 by atoof            ###   ########.fr        #
+#    Created: 2023/10/31 11:14:36 by atoof             #+#    #+#              #
+#    Updated: 2023/10/31 11:40:52 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
-SRC = megaphone.cpp
+NAME = Fixed
+SRC = Fixed.cpp main.cpp
+HEADER = Fixed.hpp
 
 SRC_DIR = src/
+HEADER_DIR = include/
 OBJ_DIR = obj/
 FLAGS = -Wall -Werror -Wextra
 EXTRA_FLAGS = -std=c++98
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRCS:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
-
+HEADERS = $(addprefix $(HEADER_DIR), $(HEADER))
 
 # ANSI escape sequences for text formatting
 BOLD = \033[1m
@@ -42,10 +44,10 @@ $(NAME): $(OBJS)
 		echo "$(GREEN)$(BOLD)$(NAME) successfully compiled!$(NC)"; \
 	fi
 
-$(OBJ_DIR)%.o: %.cpp
+$(OBJ_DIR)%.o: %.cpp $(HEADERS)
 	@echo "$(YELLOW)$(BOLD)Compiling $<...$(NC)"
 	@mkdir -p $(@D)
-	@g++ $(FLAGS) $(EXTRA_FLAGS) -c -o $@ $<
+	@g++ $(FLAGS) $(EXTRA_FLAGS) -I$(HEADER_DIR) -c -o $@ $<
 
 clean:
 	@echo "$(CYAN)$(BOLD)Cleaning object files...$(NC)"

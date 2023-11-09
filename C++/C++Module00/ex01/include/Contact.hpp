@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:56:29 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/25 14:57:38 by atoof            ###   ########.fr       */
+/*   Updated: 2023/10/30 12:33:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+
 
 class Contact
 {
