@@ -34,7 +34,7 @@
 
 class ClapTrap
 {
-	private:
+	protected:
 		std::string		_name;
 		unsigned int	_hitPoints;
 		unsigned int	_energyPoints;
@@ -45,9 +45,7 @@ class ClapTrap
 		ClapTrap(const ClapTrap &copy); // Copy constructor
 		~ClapTrap(); // Destructor
 		ClapTrap &operator=(const ClapTrap &copy); // Assignation operator overload
-		
-		// Member functions
-		void attack(std::string const &target);
+		virtual void attack(std::string const &target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
 		// my own test

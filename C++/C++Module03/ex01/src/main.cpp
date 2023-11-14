@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/ClapTrap.hpp"
+#include "../include/ScavTrap.hpp"
 
 
 int main()
 {
-	ClapTrap fury(BOLD BLUE "Fury" RESET);
-	ClapTrap iron_man(BOLD RED "Iron Man" RESET);
-	
+	ScavTrap fury(BOLD BLUE "Fury" RESET);
+	ScavTrap iron_man(BOLD RED "Iron Man" RESET);
+
+	fury.attack(BOLD RED "Iron man" RESET);
+	iron_man.takeDamage(fury.getAttackDamage());
 	fury.setAttackDamage(50);
 	fury.attack(BOLD RED "Iron man" RESET);
 	iron_man.takeDamage(fury.getAttackDamage());
@@ -25,10 +27,6 @@ int main()
 	iron_man.takeDamage(fury.getAttackDamage());
 	fury.attack(BOLD RED "Iron man" RESET);
 	iron_man.takeDamage(fury.getAttackDamage());
-	fury.attack(BOLD RED "Iron man" RESET);
-	iron_man.takeDamage(fury.getAttackDamage());
-	fury.attack(BOLD RED "Iron man" RESET);
-	iron_man.takeDamage(fury.getAttackDamage());
-	iron_man.beRepaired(10);
+	iron_man.guardGate();
     return (0);
 }

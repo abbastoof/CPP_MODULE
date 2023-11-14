@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/ClapTrap.hpp"
+#include "../include/ClapTrap.hpp"
 
 // Constructor and Destructor
 
 ClapTrap::ClapTrap() : _name("unknown"), _hitPoints(10), _energyPoints(10), _attackDamage(0) // default constructor
 {
-	std::cout << "ClapTrap default constructor called" << std::endl;
+	std::cout << "ClapTrap Default Constructor Called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) // Constructor Overload
+ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) // parameter constructor
 {
     std::cout << "ClapTrap " << this->_name << " has been created" << std::endl;
 }
@@ -27,18 +27,18 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoint
 
 ClapTrap::ClapTrap(const ClapTrap &copy) // Copy Constructor
 {
-	std::cout << "ClapTrap copy constructor called" << std::endl;
+	std::cout << "ClapTrap copy Constructor Called" << std::endl;
 	*this = copy;
 }
 
 ClapTrap::~ClapTrap() // Destructor
 {
-	std::cout << "ClapTrap destructor for " << this->_name << " called " << std::endl;
+	std::cout << "ClapTrap Destructor for " << this->_name << " Called " << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &copy) // Assignation operator overload
 {
-	std::cout << "ClapTrap assignation operator called" << std::endl;
+	std::cout << "ClapTrap assignation operator Called" << std::endl;
 	if (this != &copy)
 	{
 		this->_name = copy._name;
@@ -75,7 +75,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 	{
 		std::cout << "ClapTrap " << this->_name << " takes " << amount << " points of damage!" << std::endl;
 		this->_hitPoints = 0;
-		std::cout << RED "ClapTrap " << this->_name << " is dead" << std::endl;
+		std::cout << "ClapTrap " << this->_name << " is dead" << std::endl;
 	}
 	else
 	{
