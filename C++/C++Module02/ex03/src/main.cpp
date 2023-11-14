@@ -5,24 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 11:59:27 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/10 14:15:09 by atoof            ###   ########.fr       */
+/*   Created: 2023/11/10 14:22:23 by atoof             #+#    #+#             */
+/*   Updated: 2023/11/10 19:10:05 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Fixed.hpp"
+#include "../include/Point.hpp"
 
 int main( void )
 {
-	Fixed a;
-	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << a++ << std::endl;
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
-	std::cout << Fixed::max( a, b ) << std::endl;
-	
+	Point a(0, 0);
+	Point b(10, 30);
+	Point c(20, 0);
+	Point p1(10, 15);
+	Point p2(30, 15);
+	Point p3(19.5, 1);
+	if (bsp(a, b, c, p1))
+		std::cout << "Inside the area" << std::endl;
+	else
+		std::cout << "Outside the area" << std::endl;
+	if (bsp(a, b, c, p2))
+		std::cout << "Inside the area" << std::endl;
+	else
+		std::cout << "outside the area" << std::endl;
+	if (bsp(a, b, c, p3))
+		std::cout << "Inside the area" << std::endl;
+	else
+		std::cout << "outside the area" << std::endl;
 	return 0;
 }

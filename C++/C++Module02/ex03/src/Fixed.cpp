@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:59:50 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/10 14:17:49 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/10 16:16:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ Fixed Fixed::operator*(const Fixed &rhs) const
 	Fixed result;
 	
 	result.setRawBits((this->_fixedPointValue * rhs.getRawBits()) >> _fractionalBits);
+	// round it to the nearest integer: (this->_fixedPointValue * rhs.getRawBits() + (_fractionalBits >> 1)) >> _fractionalBitsx
 	return (result);
 }
 

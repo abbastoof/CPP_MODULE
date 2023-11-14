@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:02:34 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/09 12:07:29 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/10 11:29:30 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	Fixed::setRawBits(int const raw)
 
 float	Fixed::toFloat(void) const
 {
-	return ((float)_fixedPointValue / (1 << _fractionalBits));
+	return (static_cast<float>(_fixedPointValue) / (1 << _fractionalBits));
 }
 
 int		Fixed::toInt(void) const
