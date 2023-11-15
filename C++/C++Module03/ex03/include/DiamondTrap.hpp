@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:16:20 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/15 16:25:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/15 18:45:52 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class DiamondTrap: public ScavTrap, public FragTrap
 		DiamondTrap &operator=(const DiamondTrap &rhs); // Assignation operator overload
 		//methods
 		void whoAmI(void);
+		virtual void reportStatus(void) const;
 };
 
 #endif

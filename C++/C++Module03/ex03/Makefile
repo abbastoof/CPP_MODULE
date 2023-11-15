@@ -6,12 +6,12 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 15:10:34 by atoof             #+#    #+#              #
-#    Updated: 2023/11/15 15:15:16 by atoof            ###   ########.fr        #
+#    Updated: 2023/11/15 19:18:55 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = DiamondTrap
-SRC = ClapTrap.cpp FragTrap.cpp ScavTrap.cpp main.cpp
+SRC = ClapTrap.cpp FragTrap.cpp ScavTrap.cpp main.cpp DiamondTrap.cpp
 HEADER = ClapTrap.hpp FragTrap.hpp
 
 SRC_DIR = src/
