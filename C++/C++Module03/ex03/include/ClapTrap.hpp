@@ -43,7 +43,7 @@ class ClapTrap
 		ClapTrap(); // default constructor
 		ClapTrap(std::string name); // Constructor Overload
 		ClapTrap(const ClapTrap &copy); // Copy constructor
-		virtual ~ClapTrap(); // Destructor
+		virtual ~ClapTrap(); // Destructor ,why it should be virtual? https://stackoverflow.com/questions/461203/when-to-use-virtual-destructors
 		ClapTrap &operator=(const ClapTrap &copy); // Assignation operator overload
 		virtual void attack(std::string const &target);
 		void takeDamage(unsigned int amount);

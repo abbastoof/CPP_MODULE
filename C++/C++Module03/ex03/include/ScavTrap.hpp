@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:11:45 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/15 16:39:04 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 14:53:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class ScavTrap : virtual public ClapTrap
 		// Member Functions
 		virtual void attack(std::string const &target);
 		void guardGate();
+		void setEnergyPoints(void);
 };
 
 #endif

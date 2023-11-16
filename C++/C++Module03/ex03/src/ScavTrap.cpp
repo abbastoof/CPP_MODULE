@@ -6,16 +6,15 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:20:26 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/15 19:42:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 15:28:09 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ScavTrap.hpp"
 
 // Constructor and Destructor
-ScavTrap::ScavTrap() : ClapTrap() // default constructor
+ScavTrap::ScavTrap() // default constructor
 {
-	this->_name = "unknown";
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
@@ -81,4 +80,7 @@ void ScavTrap::guardGate()
 			std::cout << "ScavTrap " << this->_name << " is now in Gate keeper mode." << std::endl;
 			this->_energyPoints -= 1;
 		}
+}
+void ScavTrap::setEnergyPoints(void){
+	this->_energyPoints = 50;
 }

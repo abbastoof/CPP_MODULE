@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:16:12 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/15 19:33:01 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 15:16:44 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 DiamondTrap::DiamondTrap() : ClapTrap("unknown_clap_name"), _name("unknown")
 {
+	ScavTrap::setEnergyPoints();
 	std::cout << "DiamondTrap Default Constructor Called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name), _name(name)
+DiamondTrap::DiamondTrap(std::string nameVal) : ClapTrap(nameVal + "_clap_name"), _name(nameVal)
 {
 	std::cout << "DiamondTrap Constructor Called" << std::endl;
+	ScavTrap::setEnergyPoints();
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &copy)
@@ -49,7 +51,7 @@ DiamondTrap &DiamondTrap::operator=(const DiamondTrap &rhs)
 void DiamondTrap::whoAmI(void)
 {
 	std::cout << "My DiamondTrap name is: " << this->_name << std::endl;
-	std::cout << "My ClapTrap name is: " << ClapTrap::_name << std::endl;
+	std::cout << "My ClapTrap name is: " << this->ClapTrap::_name << std::endl;
 }
 
 void DiamondTrap::reportStatus(void) const

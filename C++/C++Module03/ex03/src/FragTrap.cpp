@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:51:26 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/15 14:59:24 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 15:28:23 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 // Constructor and Destructor
 
-FragTrap::FragTrap() : ClapTrap() // default constructor
+FragTrap::FragTrap() // default constructor
 {
-	this->_name = "unknown";
 	this->_hitPoints = 100;
 	this->_energyPoints = 100;
 	this->_attackDamage = 30;
