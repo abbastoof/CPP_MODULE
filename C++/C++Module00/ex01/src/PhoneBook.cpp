@@ -6,13 +6,13 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:47:04 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/03 16:13:04 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/21 19:21:49 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook(void) :_index(0)
+PhoneBook::PhoneBook(void) :_index(0), _counter(0)
 {
 }
 
@@ -34,10 +34,11 @@ static int my_atoi(std::string str)
 		return (-1);
 	else if ((i == 0) && str.at(i) == '+')
 		i++;
-	while (i < str.length())
+	while (i < (int)str.length())
 	{
 		if (!isdigit(str.at(i)))
 			return (-1);
+		i++;
 	}
 	return (atoi(str.c_str()));
 }
@@ -45,12 +46,12 @@ static int my_atoi(std::string str)
 void	PhoneBook::search_contact(void)
 {
 	int				i;
-	int				search_index;
+	int				search_index; // index of the contact we want to see
 	std::string		input;
 
 	i = 0;
 	std::cout << "     index|first name| last name|  nickname" << std::endl;
-	while (!this->_contacts[i].get_first_name().empty() && i < MAX_CONTACTS)
+	while (i < _counter)
 	{
 		std::cout << std::right << std::setw(10) << i << "|" << std::setw(10) << truncate(this->_contacts[i].get_first_name()) \
 		<< "|" << std::setw(10) << truncate(this->_contacts[i].get_last_name()) \
@@ -59,8 +60,8 @@ void	PhoneBook::search_contact(void)
 	}
 	std::cout << "\nEnter index of the contact you want to see: ";
 	ft_input(input);
-	try {(search_index = my_atoi(input));} catch (...) {}
-    if (search_index >= 0 && search_index < _index)
+	try {(search_index = my_atoi(input));} catch (...) {} //catches any exception thrown by my_atoi and does nothing with it
+    if (search_index >= 0 && search_index < _counter)
         _contacts[search_index].print_contact();
 	else
         std::cout << "Invalid index." << std::endl;
@@ -92,7 +93,9 @@ void	PhoneBook::ft_add(void)
 	else
 	{
 		this->_contacts[_index] = contact; // we simply assign the contact to the array
-		_index = (_index + 1) % MAX_CONTACTS; // we increment the index and if it's greater than 8, we set it to 0
+		_index = (_index + 1) % MAX_CONTACTS; // we increment the index and if it's greater than 8, we set it to 0, alternatively we could use an if statement
+		if (_counter < MAX_CONTACTS)
+			_counter++;
 		std::cout << "\nAdded successfully.\n" << std::endl;
 	}
 }

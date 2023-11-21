@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:59:50 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/10 14:17:49 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 15:33:03 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Fixed::Fixed() : _fixedPointValue(0)
 {
 }
 
-Fixed::Fixed(const Fixed &copy)
+Fixed::Fixed(const Fixed &copy) // copy constructor
 {
 	*this = copy;
 }

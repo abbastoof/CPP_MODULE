@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:59:46 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/10 10:44:36 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/15 18:23:18 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ class Fixed
 		static Fixed &min(Fixed &a, Fixed &b); // returns the minimum of a and b
 		static Fixed &max(Fixed &a, Fixed &b); // returns the maximum of a and b
 		static const Fixed &min(const Fixed &a, const Fixed &b); // returns the minimum of a and b
-		static const Fixed &max(const Fixed &a, const Fixed &b); // returns the maximum of a and b
+		static const Fixed &max(const Fixed &a, const Fixed &b); // returns the maximum of a and b , because we are not usiing member variables, we can make these static
 };
 
 std::ostream &operator<<(std::ostream &out, const Fixed &rhs); // insertion operator overload

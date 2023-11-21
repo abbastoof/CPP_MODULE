@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:43:41 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/16 16:32:21 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/20 13:29:06 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Animal
 		Animal(); // default constructor
 		Animal(std::string type); // constructor overload
 		Animal(const Animal &copy); // copy constructor
-		virtual ~Animal(); // destructor
+		virtual ~Animal(); //	Always make base classes' destructors virtual when they're meant to be manipulated polymorphically.
 		
 		// Operator Overloads
 		Animal &operator=(const Animal &rhs); // assignment operator overload

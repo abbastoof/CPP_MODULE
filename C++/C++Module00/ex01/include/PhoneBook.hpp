@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:56:22 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/25 15:52:49 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/21 19:08:41 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,23 @@
 class PhoneBook
 {
 	private:
+	//member variables(aka attributes)
 		Contact		_contacts[MAX_CONTACTS];
 		int			_index;
+		int			_counter;
 
 	public:
+	//constructor and destructor
 		PhoneBook();
 		~PhoneBook();
-		void		search_contact(void);
-		void		ft_display(void);
-		void		ft_add(void);
-		std::string	truncate(std::string str);
+	//member functions(aka methods)
+		void		search_contact(void); //searches phonebook
+		void		ft_display(void); //displays phonebook
+		void		ft_add(void); //adds contact to phonebook
+		std::string	truncate(std::string str); //truncates string to 10 characters
 };
 
-void	ft_input(std::string &input);
+//non-member functions
+void	ft_input(std::string &input); //gets input from user
 
 #endif

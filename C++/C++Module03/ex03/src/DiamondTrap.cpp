@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:16:12 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/16 15:16:44 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/16 15:39:15 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ DiamondTrap::DiamondTrap() : ClapTrap("unknown_clap_name"), _name("unknown")
 	std::cout << "DiamondTrap Default Constructor Called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string nameVal) : ClapTrap(nameVal + "_clap_name"), _name(nameVal)
+DiamondTrap::DiamondTrap(std::string nameVal) : ClapTrap(nameVal + "_clap_name"), _name(nameVal) 
 {
 	std::cout << "DiamondTrap Constructor Called" << std::endl;
 	ScavTrap::setEnergyPoints();

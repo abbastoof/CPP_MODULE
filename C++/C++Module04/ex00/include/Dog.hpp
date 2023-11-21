@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:12:47 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/16 16:18:03 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/20 13:41:28 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Dog : public Animal
 		Dog &operator=(const Dog &assigned); // assignment operator overload
 		
 		// member function
-		void makeSound(void) const;
+		virtual void makeSound(void) const;
 };
 
 #endif

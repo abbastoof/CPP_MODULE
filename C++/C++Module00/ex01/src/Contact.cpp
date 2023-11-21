@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:53:36 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/25 15:13:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/21 18:45:53 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ Contact Contact::add_contact()
 	Contact		contact;
 	std::string	input;
 
-	std::cout << "Enter first name: " << std::flush;
+	std::cout << "Enter first name: " << std::flush; //flushes the buffer, because we are using getline and cin together and cin leaves a newline character in the buffer
 	ft_input(input);
 	contact._first_name = (input);
 	std::cout << "Enter last name: " << std::flush;

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:56:29 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/30 12:33:19 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:45:59 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Contact
 		Contact();
 		~Contact();
 
+		//Getters and setters
 		void			set_first_name(std::string first_name);
 		std::string		get_first_name(void) const;
 		void			set_last_name(std::string last_name);

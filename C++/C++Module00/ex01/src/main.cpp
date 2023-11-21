@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:52:15 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/25 14:09:35 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/21 19:32:17 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_input(std::string &input)
 {
 	std::getline(std::cin, input);
-	if (std::cin.eof())
+	if (std::cin.eof()) //checks if user has pressed ctrl+d
 	{
 		std::cout << YELLOW << "\n+----------------		GOOD BYE	----------------+\n" RESET << std::endl;
 		exit(0);
@@ -28,7 +28,7 @@ int main()
 	PhoneBook		phonebook;
 	while (true)
 	{
-		phonebook.ft_display();
+		phonebook.ft_display(); // this is called every time the user is prompted for input
 		ft_input(command);
 		if (command == "ADD")
 			phonebook.ft_add();
@@ -36,7 +36,7 @@ int main()
 			phonebook.search_contact();
 		else if (command == "EXIT")
 		{
-			std::cout << YELLOW << "GOOD BYE" << std::endl;
+			std::cout << YELLOW << "GOOD BYE" RESET << std::endl;
 			exit(0);
 		}
 		else

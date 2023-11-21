@@ -6,14 +6,13 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 15:33:55 by atoof             #+#    #+#              #
-#    Updated: 2023/11/16 15:34:27 by atoof            ###   ########.fr        #
+#    Updated: 2023/11/20 11:56:10 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Polymorphism
-SRC = Polymorphism.cpp main.cpp
-HEADER = ClapTrap.hpp FragTrap.hpp
-
+SRC = Animal.cpp Dog.cpp WrongAnimal.cpp Cat.cpp main.cpp WrongCat.cpp
+HEADER = Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp
 SRC_DIR = src/
 HEADER_DIR = include/
 OBJ_DIR = obj/
