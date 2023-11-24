@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:20:29 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/02 12:38:56 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/24 18:28:13 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool replaceAndWriteFile(const std::string& inputFilename, const std::string& outputFilename, const std::string& s1, const std::string& s2)
 {
-    std::ifstream 		inputFile(inputFilename);
-	std::ofstream 		outputFile(outputFilename);
+    std::ifstream 		inputFile;
+	std::ofstream 		outputFile;
 	std::stringstream	bufferFile;
 	std::string			read_buff;
 	std::string			read_str;
@@ -23,12 +23,22 @@ bool replaceAndWriteFile(const std::string& inputFilename, const std::string& ou
 	size_t				prev_found = 0;
 	// char ch;
 	// std::string buffer;
-
+	struct stat fileStat;
+    if (stat(inputFilename.c_str(), &fileStat) == 0)
+	{
+		if (S_ISDIR(fileStat.st_mode))
+		{
+            std::cout << inputFilename << " is a directory." << std::endl;
+			return false;
+		}
+	}
+	inputFile.open(inputFilename,std::ios::in);
     if (inputFile.fail())
 	{
         std::cerr << "Error: Could not open input file " << inputFilename << std::endl;
         return false;
     }
+	outputFile.open(outputFilename,std::ios::out);
     if (outputFile.fail())
 	{
         std::cerr << "Error: Could not open output file " << outputFilename << std::endl;
@@ -39,7 +49,7 @@ bool replaceAndWriteFile(const std::string& inputFilename, const std::string& ou
 		bufferFile << inputFile.rdbuf(); // read the file
 		read_buff = bufferFile.str(); // read the file into a string
 		last_found = read_buff.find(s1);
-		while (last_found != std::string::npos)
+		while (last_found != std::string::npos) // while the string is found
 		{
 			read_str += read_buff.substr(prev_found, last_found - prev_found); // add the string from the last found to the current found
 			read_str += s2; // add the replacement string
@@ -85,17 +95,14 @@ int main(int argc, char* argv[])
         std::cerr << "Usage: " << argv[0] << " <filename> <string1> <string2>\n";
         return 1;
     }
-
     std::string filename = argv[1];
     std::string s1 = argv[2];
     std::string s2 = argv[3];
-
     if(s1.empty())
 	{
         std::cerr << "Error: The search string cannot be empty" << std::endl;
         return 1;
     }
-
     std::string outputFilename = filename + ".replace"; // append .replace to the input filename
     if(replaceAndWriteFile(filename, outputFilename, s1, s2))
 	{

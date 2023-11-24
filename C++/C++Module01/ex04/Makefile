@@ -6,7 +6,7 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 13:18:46 by atoof             #+#    #+#              #
-#    Updated: 2023/10/30 11:12:24 by atoof            ###   ########.fr        #
+#    Updated: 2023/11/24 18:12:19 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ CYAN = \033[0;36m
 NC = \033[0m
 
 vpath %.cpp $(SRC_DIR)
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 

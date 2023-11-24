@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:34:17 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/26 15:20:50 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/24 17:28:39 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ class Zombie
 	private:
 		std::string	_name;
 };
+
+Zombie*	newZombie( std::string name );
+void	randomChump( std::string name );
 
 #endif

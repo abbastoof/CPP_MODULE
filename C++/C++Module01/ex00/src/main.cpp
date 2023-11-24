@@ -6,14 +6,12 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:34:42 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/26 15:51:05 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/24 17:28:44 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Zombie.hpp"
 
-Zombie*	newZombie( std::string name );
-void	randomChump( std::string name );
 
 int		main(void)
 {

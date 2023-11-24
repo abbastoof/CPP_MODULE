@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 17:48:04 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/28 18:06:20 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/24 19:07:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define HARL_HPP
 
 # include <iostream>
+
+enum	levels
+{
+	DEBUG,
+	INFO,
+	WARNING,	
+	ERROR
+};
 
 class Harl
 {
