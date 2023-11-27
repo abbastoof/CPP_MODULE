@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 16:38:14 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/28 17:25:09 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/27 13:11:43 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ class Harl
 		void	error(void);
 };
 
-typedef void (Harl::*HarlFunc)(void);
+typedef void (Harl::*HarlFunc)(void); // HarlFunc is a pointer to a member function of Harl
 
 #endif

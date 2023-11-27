@@ -6,88 +6,89 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:20:29 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/24 18:28:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/27 12:50:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Sed.hpp"
 
-bool replaceAndWriteFile(const std::string& inputFilename, const std::string& outputFilename, const std::string& s1, const std::string& s2)
+bool fileExists(const std::string& filename)
 {
-    std::ifstream 		inputFile;
-	std::ofstream 		outputFile;
-	std::stringstream	bufferFile;
-	std::string			read_buff;
-	std::string			read_str;
-	size_t				last_found = 0;
-	size_t				prev_found = 0;
-	// char ch;
-	// std::string buffer;
-	struct stat fileStat;
-    if (stat(inputFilename.c_str(), &fileStat) == 0)
-	{
-		if (S_ISDIR(fileStat.st_mode))
-		{
-            std::cout << inputFilename << " is a directory." << std::endl;
-			return false;
-		}
-	}
-	inputFile.open(inputFilename,std::ios::in);
-    if (inputFile.fail())
-	{
-        std::cerr << "Error: Could not open input file " << inputFilename << std::endl;
-        return false;
-    }
-	outputFile.open(outputFilename,std::ios::out);
-    if (outputFile.fail())
-	{
-        std::cerr << "Error: Could not open output file " << outputFilename << std::endl;
-        return false;
-    }
-	if (inputFile.is_open())
-	{
-		bufferFile << inputFile.rdbuf(); // read the file
-		read_buff = bufferFile.str(); // read the file into a string
-		last_found = read_buff.find(s1);
-		while (last_found != std::string::npos) // while the string is found
-		{
-			read_str += read_buff.substr(prev_found, last_found - prev_found); // add the string from the last found to the current found
-			read_str += s2; // add the replacement string
-			prev_found = last_found + s1.length(); // set prev_found to the end of the string
-			last_found = read_buff.find(s1, prev_found); // find next occurence
-		}
-		read_str += read_buff.substr(prev_found, last_found - prev_found); // add the rest of the string
-	}
-	outputFile << read_str; // write the string to the output file
-	// while (inputFile.get(ch))
-	// {
-	// 	if (ch == s1[0])
-	// 	{
-	// 		buffer += ch;
-	// 		for (size_t i = 1; i < s1.length(); i++)
-	// 		{
-	// 			inputFile >> ch;
-	// 			buffer += ch;
-	// 		}
-	// 		if (buffer == s1)
-	// 		{
-	// 			outputFile << s2;
-	// 			buffer = "";
-	// 		}
-	// 		else
-	// 		{
-	// 			outputFile << buffer;
-	// 			buffer = "";
-	// 		}
-	// 	}
-	// 	else
-	// 		outputFile << ch;
-	// }
-	inputFile.close();
-	outputFile.close();
-	return true;
+    struct stat fileStat;
+    return stat(filename.c_str(), &fileStat) == 0 && !S_ISDIR(fileStat.st_mode);
 }
 
+bool openFile(const std::string& filename, std::ifstream& fileStream)
+{
+    fileStream.open(filename);
+    if (!fileStream.is_open())
+	{
+        std::cerr << "Error: Could not open file " << filename << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool createFile(const std::string& filename, std::ofstream& fileStream)
+{
+    fileStream.open(filename);
+    if (!fileStream.is_open())
+	{
+        std::cerr << "Error: Could not create file " << filename << std::endl;
+        return false;
+    }
+    return true;
+}
+
+std::string replaceContent(const std::string& input, const std::string& toFind, const std::string& replaceWith)
+{
+    std::string modifiedContent;
+    size_t lastFound = 0;
+    size_t prevFound = 0;
+
+    while ((lastFound = input.find(toFind, prevFound)) != std::string::npos) // find all occurrences of toFind in input string, prevFound is the starting position
+	{
+        modifiedContent += input.substr(prevFound, lastFound - prevFound);
+        modifiedContent += replaceWith;
+        prevFound = lastFound + toFind.length();
+    }
+
+    modifiedContent += input.substr(prevFound); // add the rest of the string after the last occurrence of toFind
+    return modifiedContent;
+}
+
+bool replaceAndWriteFile(const std::string& inputFilename, const std::string& outputFilename,
+                         const std::string& toFind, const std::string& replaceWith)
+{
+    if (!fileExists(inputFilename)) {
+        std::cerr << "Error: Invalid input file." << std::endl;
+        return false;
+    }
+
+    std::ifstream inputFile;
+    if (!openFile(inputFilename, inputFile)) {
+        return false;
+    }
+
+    std::ofstream outputFile;
+    if (!createFile(outputFilename, outputFile)) {
+        inputFile.close();
+        return false;
+    }
+
+    std::stringstream bufferFile; // read the file into a buffer
+    bufferFile << inputFile.rdbuf();
+    std::string readBuff = bufferFile.str();
+
+    std::string modifiedContent = replaceContent(readBuff, toFind, replaceWith);
+
+    outputFile << modifiedContent;
+
+    inputFile.close();
+    outputFile.close();
+
+    return true;
+}
 int main(int argc, char* argv[])
 {
     if(argc != 4)
@@ -103,7 +104,7 @@ int main(int argc, char* argv[])
         std::cerr << "Error: The search string cannot be empty" << std::endl;
         return 1;
     }
-    std::string outputFilename = filename + ".replace"; // append .replace to the input filename
+    std::string outputFilename = filename + ".replace"; // append .replace to the filename
     if(replaceAndWriteFile(filename, outputFilename, s1, s2))
 	{
         std::cout << "Replacement complete! Output written to " << outputFilename << std::endl;

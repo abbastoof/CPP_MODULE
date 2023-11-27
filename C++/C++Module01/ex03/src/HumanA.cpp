@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:11:52 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/27 13:16:00 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/27 13:16:18 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 HumanA::HumanA(std::string name, Weapon& weapon) : _name(name), _weapon(weapon)
 {
-	return ;
 }
 
 HumanA::~HumanA()
 {
-	return ;
 }
 
 void	HumanA::attack()

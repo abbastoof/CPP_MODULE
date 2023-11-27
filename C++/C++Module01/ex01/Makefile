@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = zambie
+NAME = Moar_brainz
 SRC = main.cpp zombie.cpp zombieHorde.cpp
 HEADER = zombie.hpp
 

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 17:48:01 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/24 19:11:22 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/25 12:45:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ Harl::~Harl(void)
 
 void	Harl::complain(std::string level)
 {
-	HarlFunc	funcs[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	HarlFunc	funcs[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error}; // array of pointers to member functions of Harl class
 	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	int i = 0;
-	while (i < 4 && levels[i].compare(level))
+	while (i < 4 && levels[i].compare(level)) //compare the strings and if they are not equal
 		i++;
 	switch(i)
 	{

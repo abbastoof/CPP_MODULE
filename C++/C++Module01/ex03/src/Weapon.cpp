@@ -6,30 +6,26 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:12:06 by atoof             #+#    #+#             */
-/*   Updated: 2023/10/27 06:08:12 by atoof            ###   ########.fr       */
+/*   Updated: 2023/11/27 13:28:42 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
 
-Weapon::Weapon(std::string type)
+Weapon::Weapon(std::string type) : _type(type)
 {
-	this->_type = type;
-	return ;
 }
 
 Weapon::~Weapon()
 {
-	return ;
 }
 
-const std::string&	Weapon::getType()
+const std::string&	Weapon::getType() const
 {
-	return (this->_type);
+	return ((const std::string&) this->_type);
 }
 
 void	Weapon::setType(std::string type)
 {
 	this->_type = type;
-	return ;
 }
