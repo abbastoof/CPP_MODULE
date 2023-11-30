@@ -22,25 +22,15 @@ private:
 	int					_fixedPointValue;
 	static const int	_fractionalBits = 8;
 public:
-
-	//Constractor
 	Fixed(void);
 	Fixed(const int num);
 	Fixed(const float num);
 	Fixed(const Fixed& copy);
 	Fixed	&operator=(const Fixed &rhs);
-
-
-	//Destructor 	
 	~Fixed();
-	
-	//getter
+
 	int		getRawBits(void) const;
-	
-	// setter
 	void	setRawBits(int const raw);
-	
-	//Public method
 	float	toFloat(void) const;
 	int		toInt(void) const;			
 };

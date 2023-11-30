@@ -18,8 +18,8 @@
 class Point
 {
 	private:
-		Fixed const x;
-		Fixed const y;
+		const Fixed x;
+		const Fixed y;
 	public:
 		Point(); // default constructor
 		Point(const Point &copy); // copy constructor
@@ -28,8 +28,9 @@ class Point
 		Point &operator=(const Point &copy); // assignment operator overload
 		Fixed getX(void) const; // returns the x coordinate
 		Fixed getY(void) const; // returns the y coordinate
-		void setX(const float x); // sets the x coordinate
-		void setY(const float y); // sets the y coordinate
+		void	setX(Fixed &fixed_x);
+		void	setY(Fixed &fixed_y);
+
 		
 };
 

@@ -10,12 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
+#include "../include/Fixed.hpp"
 
-Fixed::Fixed()
+Fixed::Fixed() : _fixedPointValue(0)
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->_fixedPointValue = 0;
+}
+
+// this is a copy constructor that creates a copy of the object passed as a parameter to the constructor
+Fixed::Fixed(const Fixed &rhs)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = rhs;
+}
+
+Fixed& Fixed::operator=(const Fixed &rhs)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &rhs)
+	{
+		this->_fixedPointValue = rhs.getRawBits();
+		return (*this);
+	}
+	return (*this);
 }
 
 Fixed::~Fixed()
@@ -25,27 +42,10 @@ Fixed::~Fixed()
 
 int		Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (this->_fixedPointValue);
 }
 
 void	Fixed::setRawBits(int const raw)
 {
-	std::cout << "setRawBits member function called" << std::endl;
 	this->_fixedPointValue = raw;
-}
-// this is a copy constructor that creates a copy of the object passed as a parameter to the constructor
-Fixed::Fixed(const Fixed &fixed)
-{
-	std::cout << "Copy constructor called" << std::endl;
-	*this = fixed;
-}
-
-Fixed& Fixed::operator=(const Fixed &fixed)
-{
-	std::cout << "Copy assignment operator called" << std::endl;
-	this->_fixedPointValue = fixed.getRawBits();
-	if (this == &fixed)
-		return (*this);
-	return (*this);
 }
