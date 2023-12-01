@@ -17,21 +17,17 @@ Fixed::Fixed() : _fixedPointValue(0)
 	std::cout << "Default constructor called" << std::endl;
 }
 
-// this is a copy constructor that creates a copy of the object passed as a parameter to the constructor
-Fixed::Fixed(const Fixed &rhs)
+Fixed::Fixed(const Fixed &copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = rhs;
+	*this = copy;
 }
 
 Fixed& Fixed::operator=(const Fixed &rhs)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &rhs)
-	{
 		this->_fixedPointValue = rhs.getRawBits();
-		return (*this);
-	}
 	return (*this);
 }
 
