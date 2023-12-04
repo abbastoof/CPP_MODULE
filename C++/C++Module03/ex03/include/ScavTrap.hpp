@@ -23,10 +23,10 @@ class ScavTrap : virtual public ClapTrap
 		ScavTrap(std::string nameVal); // Constructor Overload
 		ScavTrap(const ScavTrap &copy); // Copy constructor
 		~ScavTrap(); // Destructor
-		
+
 		// Operator Overloads
 		ScavTrap &operator=(const ScavTrap &rhs); // Assignation operator overload
-		
+
 		// Member Functions
 		virtual void attack(std::string const &target);
 		void guardGate();

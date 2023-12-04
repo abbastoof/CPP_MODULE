@@ -59,7 +59,7 @@ ScavTrap	&ScavTrap::operator=(const ScavTrap &rhs)
 // Member Functions
 void ScavTrap::attack(std::string const &target)
 {
-	if (this->_energyPoints <= 0)
+	if (this->_energyPoints == 0)
 		std::cout << "ScavTrap " <<this->_name << " has no energy points left to attack!" << std::endl;
 	if (this->_hitPoints <= 0)
 		std::cout << "ScavTrap " << this->_name << " has no hit points left to attack!" << std::endl;
@@ -67,12 +67,14 @@ void ScavTrap::attack(std::string const &target)
 	{
 		std::cout << "ScavTrap " << this->_name << " attacks " << target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
 		this->_energyPoints -= 1;
+		if (_energyPoints <= 0)
+			_energyPoints = 0;
 	}
 }
 
 void ScavTrap::guardGate()
 {
-	if (this->_energyPoints <= 0)
+	if (this->_energyPoints == 0)
 		std::cout << "ScavTrap " << this->_name << " has no energy points left to guard the gate!" << std::endl;
 	if (this->_hitPoints <= 0)
 		std::cout << "ScavTrap " << this->_name << " has no hit points left to guard the gate!" << std::endl;
@@ -80,5 +82,7 @@ void ScavTrap::guardGate()
 		{
 			std::cout << "ScavTrap " << this->_name << " is now in Gate keeper mode." << std::endl;
 			this->_energyPoints -= 1;
+			if (_energyPoints <= 0)
+				_energyPoints = 0;
 		}
 }

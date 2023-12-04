@@ -85,7 +85,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->_energyPoints > 0 && this->_hitPoints > 0 && this->_hitPoints + amount <= 10) // The ClapTrap can't be repaired to have more than 10 hit points
+	if (this->_energyPoints > 0 && this->_hitPoints > 0)
 	{
 		this->_hitPoints += amount;
 		std::cout << "ClapTrap " << this->_name << " repaired itself and gained " << amount << " of hit points, he now has " << this->_hitPoints << " hit points." << std::endl;
@@ -95,8 +95,6 @@ void	ClapTrap::beRepaired(unsigned int amount)
 		std::cout << "ClapTrap " << this->_name << " is not able to repair itself, because he doesn't have enough energy points." << std::endl;
 	else if (this->_hitPoints == 0)
 		std::cout << "ClapTrap " << this->_name << " is not able to repair itself, because he doesn't have enough hit points." << std::endl;
-	else
-		std::cout << "ClapTrap " << this->_name << " can't be repaired to have more than 10 hit points." << std::endl;
 }
 
 int ClapTrap::getAttackDamage() const

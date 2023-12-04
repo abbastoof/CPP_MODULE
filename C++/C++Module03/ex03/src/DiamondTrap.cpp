@@ -20,8 +20,8 @@ DiamondTrap::DiamondTrap() : ClapTrap("unknown_clap_name"), _name("unknown")
 
 DiamondTrap::DiamondTrap(std::string nameVal) : ClapTrap(nameVal + "_clap_name"), _name(nameVal) 
 {
-	std::cout << "DiamondTrap Constructor Called" << std::endl;
 	ScavTrap::setEnergyPoints();
+	std::cout << "DiamondTrap Constructor Called" << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &copy)
@@ -56,7 +56,7 @@ void DiamondTrap::whoAmI(void)
 
 void DiamondTrap::reportStatus(void) const
 {
-	std::cout << "\n\n--- DiamondTrap Status Report ---" << std::endl;
+	std::cout << "\n\n--- " << this->_name << " Status Report ---" << std::endl;
 	std::cout << "\n|" << BOLD << "ClapTrap" << RESET << "|" << std::endl;
 	std::cout << "Name: " << ClapTrap::_name << std::endl;
 	std::cout << "Hit Points: " << ClapTrap::_hitPoints << std::endl;
