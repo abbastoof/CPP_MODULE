@@ -6,14 +6,16 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:10:21 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/07 16:52:10 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 17:57:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _ICHARACTER_HPP_
 # define _ICHARACTER_HPP_
 
-#include "AMateria.hpp"
+#include <string>
+#include "colors.hpp"
+class AMateria;
 
 class ICharacter
 {

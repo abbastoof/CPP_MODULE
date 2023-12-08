@@ -6,14 +6,16 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:34:52 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/07 18:38:07 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 17:57:00 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
 
-#include "../include/AMateria.hpp"
+#include "ICharacter.hpp"
+#include "colors.hpp"
+class AMateria;
 
 class Character : public ICharacter
 {
@@ -25,7 +27,7 @@ class Character : public ICharacter
 		Character(std::string name);
 		Character(const Character &copy);
 		Character &operator=(const Character &rhs);
-		~Character();		
+		~Character();
 		virtual std::string const & getName() const;
 		virtual void equip(AMateria* materia);
 		virtual void unequip(int idx);

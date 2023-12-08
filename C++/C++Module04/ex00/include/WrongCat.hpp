@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:12:50 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/20 13:42:25 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 16:40:38 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class WrongCat : public WrongAnimal
 		WrongCat &operator=(const WrongCat &assigned); // assignment operator overload
 		
 		// member function
-		virtual void makeSound(void) const;
+		void makeSound(void) const;
 		std::string getType(void) const;
 };
 

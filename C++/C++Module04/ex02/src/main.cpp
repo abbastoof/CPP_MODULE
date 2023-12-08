@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:34:58 by atoof             #+#    #+#             */
-/*   Updated: 2023/11/21 15:42:35 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 13:38:16 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int main()
 	std::cout << "cat2 idea = " << cat2.getIdea(3) << std::endl;
 	for (int i = 0; i < 20; i++)
 		delete animal[i];
+	delete *animal;
 	
 	return (0);
 }

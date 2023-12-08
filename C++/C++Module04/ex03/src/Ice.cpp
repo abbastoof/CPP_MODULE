@@ -6,11 +6,12 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:41:03 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/07 18:07:02 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 17:58:50 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Ice.hpp"
+#include "../include/ICharacter.hpp"
 
 Ice::Ice()
 {

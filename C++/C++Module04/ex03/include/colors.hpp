@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   colors.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 12:06:59 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/08 17:57:08 by atoof            ###   ########.fr       */
+/*   Created: 2023/12/08 17:04:40 by atoof             #+#    #+#             */
+/*   Updated: 2023/12/08 17:05:55 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_HPP
-# define ICE_HPP
+#ifndef COLORS_HPP
+#define COLORS_HPP
 
-#include "AMateria.hpp"
-#include "colors.hpp"
-
-class Ice: public AMateria
-{
-	public:
-		Ice();
-		Ice(const Ice &copy);
-		~Ice();
-		Ice &operator=(const Ice &rhs);
-		
-		
-		virtual AMateria* clone() const;
-		virtual void use(ICharacter& target);
-};
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
 
 #endif

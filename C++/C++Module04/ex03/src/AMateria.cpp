@@ -6,11 +6,12 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:57:52 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/07 16:23:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/08 17:56:25 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/AMateria.hpp"
+#include "../include/ICharacter.hpp"
 
 AMateria::AMateria() {std::cout << "AMateria Default constructor called" << std::endl;}
 
@@ -38,3 +39,4 @@ void AMateria::use(ICharacter& target)
 {
 	std::cout << "AMateria uses " << _type << "on " << target.getName() << std::endl;
 }
+
