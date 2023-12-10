@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:57:52 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/08 17:56:25 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/10 15:04:24 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ AMateria::AMateria(const AMateria &copy)
 	*this = copy;
 }
 
-AMateria::AMateria(std::string const &type): _type(type) {std::cout << "AMateria Argument constructor called" << std::endl;}
+AMateria::AMateria(std::string const &type): _type(type)
+{
+	std::cout << "AMateria Argument constructor called" << std::endl;
+}
 
 AMateria::~AMateria() {std::cout << "AMateria Destructor called" << std::endl;}
 

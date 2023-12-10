@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:57:46 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/08 17:50:13 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/10 15:02:05 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class AMateria
 		AMateria(std::string const & type);
 		AMateria &operator=(const AMateria &rhs);
 		virtual ~AMateria();
-		std::string const & getType() const; //Returns the materia type
+		std::string const & getType() const;
 		virtual AMateria* clone() const = 0;
 		virtual void use(ICharacter& target);
 };

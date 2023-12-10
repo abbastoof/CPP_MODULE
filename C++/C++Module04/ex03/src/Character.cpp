@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:56:08 by atoof             #+#    #+#             */
-/*   Updated: 2023/12/08 18:21:41 by atoof            ###   ########.fr       */
+/*   Updated: 2023/12/10 17:52:43 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ Character::Character(): _name("Default name")
 	std::cout << "Character Default Constructor called" << std::endl;
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = NULL;
+	for (int i = 0; i < FLOOR_LIM; i++)
+		_floor[i] = NULL;
 }
 
 Character::Character(std::string name) : _name(name)
@@ -26,6 +28,8 @@ Character::Character(std::string name) : _name(name)
 	std::cout << "Character Argument Constructor called" << std::endl;
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = NULL;
+	for (int i = 0; i < FLOOR_LIM; i++)
+		_floor[i] = NULL;
 }
 
 Character::Character(const Character &copy)
@@ -38,6 +42,11 @@ Character::Character(const Character &copy)
 Character &Character::operator=(const Character &rhs)
 {
 	std::cout << "Character Copy assignment operator called" << std::endl;
+	for (int i = 0; i < FLOOR_LIM; i++)
+	{
+		if (_floor[i] != NULL)
+			delete _floor[i];
+	}
 	for (int i = 0; i < 4; i++)
 	{
 		if (this->_inventory[i] != NULL)
@@ -50,6 +59,13 @@ Character &Character::operator=(const Character &rhs)
 		else
 			this->_inventory[i] = NULL;
 	}
+	for (int index = 0; index < FLOOR_LIM; index++)
+	{
+		if (rhs._floor[index] != NULL)
+			this->_floor[index] = rhs._floor[index]->clone();
+		else
+			this->_floor[index] = NULL;
+	}
 	return (*this);
 }
 
@@ -60,6 +76,11 @@ Character::~Character()
 	{
 		if (this->_inventory[i] != NULL)
 			delete this->_inventory[i];
+	}
+	for (int i = 0; i < FLOOR_LIM; i++)
+	{
+		if (_floor[i] != NULL)
+			delete _floor[i];
 	}
 }
 
@@ -88,11 +109,23 @@ std::string const &Character::getName() const
 
 void Character::unequip(int idx)
 {
-	if (idx >= 0 && idx < 4)
+	if (idx >= 0 && idx < 4 && _inventory[idx] != NULL)
 	{
-		std::cout << GREEN "Materia " << _inventory[idx]->getType() << " unequipted successfully" RESET << std::endl;
-		_inventory[idx] = NULL;
+		for (int i = 0; i < FLOOR_LIM; i++)
+		{
+			if (_floor[i] == NULL)
+			{
+				_floor[i] = _inventory[idx];
+				std::cout << GREEN "Materia " << _inventory[idx]->getType() << " unequipped successfully" RESET << std::endl;
+				_inventory[idx] = NULL;
+				break;
+			}
+			else if (i == FLOOR_LIM - 1 && _floor[i] != NULL)
+				std::cout << RED "Floor does not have space to unequip the item" RESET << std::endl;
+		}
 	}
+	else
+		std::cout << RED "Invalid index" RESET << std::endl;
 	
 }
 
