@@ -38,7 +38,7 @@ WrongAnimal &WrongAnimal::operator=(const WrongAnimal &assigned) // assignment o
 
 void WrongAnimal::makeSound() const
 {
-	std::cout << this->getType() << "says Roarrrrrrr" << std::endl;
+	std::cout << this->getType() << " says Roarrrrrrr" << std::endl;
 }
 
 std::string WrongAnimal::getType() const
