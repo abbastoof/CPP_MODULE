@@ -40,8 +40,7 @@ class Form
 		Form &operator=(const Form &rhs);
 
 		//getter
-
-
+		
 };
 
 #endif
