@@ -11,15 +11,18 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/Form.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
+	std::cout << "Bureaucrat default constructor " << this->getName() << " called" << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
+	std::cout << "Bureaucrat destructor " << this->getName() << " called" << std::endl;
 }
 
 // Parameter constructor
@@ -29,19 +32,21 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	else
-		this->_grade = grade;
+	this->_grade = grade;
+	std::cout << "Bureaucrat parameter constructor " << this->getName() << " called" << std::endl;
 }
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name)
 {
 	*this = copy;
+	std::cout << "Bureaucrat copy constructor " << this->getName() << " called" << std::endl;
 }
 
 // Operator overloads
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
 {
+	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &other)
 	{
 		this->_grade = other._grade;
@@ -98,4 +103,19 @@ std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
 	return (os);
+}
+
+
+// sign form
+void	Bureaucrat::signForm(Form &form)
+{
+	if (form.getSigned())
+		std::cout << this->_name << " cannot sign " << form.getName() << " because it's already signed." << std::endl;
+	else if (this->_grade > form.getGradeToSign())
+		std::cout << this->_name << " cannot sign " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
+	else
+	{
+		form.beSigned(*this);
+		std::cout << this->_name << " signs " << form.getName() << std::endl;
+	}
 }

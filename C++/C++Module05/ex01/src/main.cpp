@@ -11,54 +11,45 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/Form.hpp"
 
 int		main(void)
 {
-	Bureaucrat	bureaucrat("Bureaucrat", 150);
+	Form form1("Form1", 10, 10);
+	Bureaucrat bureaucrat("Bureaucrat1", 10);
 
-	std::cout << bureaucrat << std::endl;
+	std::cout << form1;
+	std::cout << bureaucrat;
+
 	try
 	{
-		bureaucrat.incrementGrade();
+		form1.beSigned(bureaucrat);
+		std::cout << form1;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << bureaucrat << std::endl;
+	std::cout << form1;
 	try
 	{
-		bureaucrat.decrementGrade();
+		Bureaucrat bureaucrat2("Bureaucrat2", 11);
+		std::cout << bureaucrat2 << std::endl;
+		bureaucrat2.signForm(form1);
+		std::cout << form1;
 	}
-	catch (std::exception &e)
+	catch(const std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << '\n';
 	}
-	std::cout << bureaucrat << std::endl;
+
 	try
 	{
-		bureaucrat.decrementGrade();
+		Form form2("Form2", 0, 0);
 	}
-	catch (std::exception &e)
+	catch(const std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
-	}
-	std::cout << bureaucrat << std::endl;
-	try
-	{
-		Bureaucrat	bureaucrat2("Bureaucrat2", 0);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat	bureaucrat3("Bureaucrat3", 151);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << '\n';
 	}
 	return (0);
 }

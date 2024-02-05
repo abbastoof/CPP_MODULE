@@ -15,11 +15,13 @@
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
+	std::cout << "Default constructor called" << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
+	std::cout << "Destructor called" << std::endl;
 }
 
 // Parameter constructor
@@ -31,12 +33,14 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 		throw Bureaucrat::GradeTooLowException();
 	else
 		this->_grade = grade;
+	std::cout << "Parameter constructor for " << this->_name << " called" << std::endl;
 }
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name)
 {
 	*this = copy;
+	std::cout << "Copy constructor for " << this->_name << " called" << std::endl;
 }
 
 // Operator overloads

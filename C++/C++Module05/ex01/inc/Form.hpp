@@ -13,7 +13,6 @@
 #ifndef FORM_HPP
 # define FORM_HPP
 
-# include <iostream>
 # include "Bureaucrat.hpp"
 
 class Bureaucrat; // forward declaration
@@ -33,6 +32,7 @@ class Form
 		Form(std::string name, int gradeToSign, int gradeToExecute);
 		// Copy constructor
 		Form(const Form &rhs);
+
 		// Destructor
 		~Form();
 
@@ -40,7 +40,29 @@ class Form
 		Form &operator=(const Form &rhs);
 
 		//getter
-		
+		const std::string	&getName() const;
+		bool			getSigned() const;
+		int			getGradeToSign() const;
+		int			getGradeToExecute() const;
+
+		//member functions
+		void			beSigned(Bureaucrat &bureaucrat);
+
+		// Exceptions classes
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
+
 };
+
+std::ostream	&operator<<(std::ostream &out, const Form &rhs);
 
 #endif
