@@ -31,7 +31,7 @@ class AForm
 		// Default constructor
 		AForm();
 		// Parameter constructor
-		AForm(std::string name, int gradeToSign, int gradeToExecute);
+		AForm(std::string name, bool sign, int gradeToSign, int gradeToExecute);
 		// Copy constructor
 		AForm(const AForm &rhs);
 

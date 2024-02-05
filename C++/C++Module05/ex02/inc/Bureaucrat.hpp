@@ -44,6 +44,7 @@ class Bureaucrat
 		void				incrementGrade();
 		void				decrementGrade();
 		void				signForm(AForm &form);
+		void				executeForm(AForm const &form);
 		// Exceptions classes
 		class GradeTooHighException : public std::exception
 		{
@@ -56,6 +57,7 @@ class Bureaucrat
 			public:
 				virtual const char	*what() const throw();
 		};
+
 };
 
 // Output stream operator overload

@@ -29,7 +29,7 @@ class Form
 		// Default constructor
 		Form();
 		// Parameter constructor
-		Form(std::string name, int gradeToSign, int gradeToExecute);
+		Form(std::string name, bool sign, int gradeToSign, int gradeToExecute);
 		// Copy constructor
 		Form(const Form &rhs);
 

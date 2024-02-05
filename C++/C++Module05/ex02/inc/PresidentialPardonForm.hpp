@@ -10,4 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
+
+# include "AForm.hpp"
+
+class PresidentialPardonForm : public AForm
+{
+	private:
+		std::string	_target;
+
+	public:
+		// Default constructor
+		PresidentialPardonForm();
+		// Parameter constructor
+		PresidentialPardonForm(std::string target);
+		// Copy constructor
+		PresidentialPardonForm(const PresidentialPardonForm &copy);
+		// Destructor
+		~PresidentialPardonForm();
+
+		// Operator overloads
+		PresidentialPardonForm	&operator=(const PresidentialPardonForm &other);
+		// member functions
+		virtual void	execute(Bureaucrat const &executor) const;
+};
+
+#endif
