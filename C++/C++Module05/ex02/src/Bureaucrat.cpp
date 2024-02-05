@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/AForm.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(MIN_GRADE)
 {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Bureaucrat default constructor " << this->getName() << " called" << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "Bureaucrat destructor " << this->getName() << " called" << std::endl;
 }
 
 // Parameter constructor
@@ -31,20 +32,20 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException();
-	else
-		this->_grade = grade;
-	std::cout << "Parameter constructor for " << this->_name << " called" << std::endl;
+	this->_grade = grade;
+	std::cout << "Bureaucrat parameter constructor " << this->getName() << " called" << std::endl;
 }
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy._grade)
 {
-	std::cout << "Copy constructor for " << this->_name << " called" << std::endl;
+	std::cout << "Bureaucrat copy constructor " << this->getName() << " called" << std::endl;
 }
 
 // Operator overloads
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
 {
+	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &other)
 	{
 		this->_grade = other._grade;
@@ -101,4 +102,19 @@ std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
 	return (os);
+}
+
+
+// sign Aform
+void	Bureaucrat::signForm(AForm &Aform)
+{
+	if (Aform.getSigned())
+		std::cout << this->_name << " cannot sign " << Aform.getName() << " because it's already signed." << std::endl;
+	else if (this->_grade > Aform.getGradeToSign())
+		std::cout << this->_name << " cannot sign " << Aform.getName() << " because bureaucrat's grade is too low." << std::endl;
+	else
+	{
+		Aform.beSigned(*this);
+		std::cout << this->_name << " signs " << Aform.getName() << std::endl;
+	}
 }

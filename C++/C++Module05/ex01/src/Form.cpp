@@ -38,7 +38,6 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name),
 // Copy constructor
 Form::Form(const Form &rhs) : _name(rhs._name), _signed(rhs._signed), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute)
 {
-	*this = rhs;
 	std::cout << "Form copy constructor " << this->getName() << " called" << std::endl;
 }
 

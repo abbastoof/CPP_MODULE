@@ -13,43 +13,43 @@
 #include "../inc/Bureaucrat.hpp"
 #include "../inc/Form.hpp"
 
-int		main(void)
+int main(void)
 {
-	Form form1("Form1", 10, 10);
-	Bureaucrat bureaucrat("Bureaucrat1", 10);
+    try
+    {
+        Bureaucrat seniorBureaucrat("Senior John", 5);
+        Form importantForm("ImportantForm", 10, 5);
+        std::cout << importantForm << std::endl;
+        std::cout << seniorBureaucrat << std::endl;
+        importantForm.beSigned(seniorBureaucrat);
+        std::cout << importantForm << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 
-	std::cout << form1;
-	std::cout << bureaucrat;
+    try
+    {
+        Bureaucrat juniorBureaucrat("Junior Jim", 15);
+        Form standardForm("StandardForm", 20, 10);
+        std::cout << juniorBureaucrat << std::endl;
+        juniorBureaucrat.signForm(standardForm);
+        std::cout << standardForm << std::endl;
+    }
+    catch(const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
 
-	try
-	{
-		form1.beSigned(bureaucrat);
-		std::cout << form1;
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	std::cout << form1;
-	try
-	{
-		Bureaucrat bureaucrat2("Bureaucrat2", 11);
-		std::cout << bureaucrat2 << std::endl;
-		bureaucrat2.signForm(form1);
-		std::cout << form1;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+    try
+    {
+        Form invalidForm("InvalidForm", 0, -1);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Error: " << e.what() << '\n';
+    }
 
-	try
-	{
-		Form form2("Form2", 0, 0);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	return (0);
+    return 0;
 }

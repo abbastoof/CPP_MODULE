@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 19:17:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/05 19:17:00 by atoof            ###   ########.fr       */
+/*   Created: 2024/02/05 19:16:08 by atoof             #+#    #+#             */
+/*   Updated: 2024/02/05 19:16:08 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 
 # include <iostream>
-
 const int MAX_GRADE = 1;
 const int MIN_GRADE = 150;
+
+class AForm; // forward declaration
 
 class Bureaucrat
 {
@@ -42,7 +43,7 @@ class Bureaucrat
 		int					getGrade() const;
 		void				incrementGrade();
 		void				decrementGrade();
-
+		void				signForm(AForm &form);
 		// Exceptions classes
 		class GradeTooHighException : public std::exception
 		{
