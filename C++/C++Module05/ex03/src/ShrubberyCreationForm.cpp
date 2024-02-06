@@ -51,18 +51,18 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 			std::ofstream file;
 			file.open(this->_target + "_shrubbery");
 			std::string tree = R"(
- 						 *
-						/\\
-			          /\\/\\       
-			         /\\*\\/\\      
-			        /\\O\\*\/\\     
-			       /*/\\/\\/\/\\    
-			      /\\O\\/\\*\\/\\   
-			     /\\*\\/\\*\\/\\/\\  
-			    /\\O\\/\\/*/\\/O/\\ 
-			          ||       
-			          ||       
-			          ||        )";
+                         *
+                        /\\
+                      /\\/\\
+                     /\\*\\/\\
+                    /\\O\\*\\/\\
+                   /*/\\/\\/\/\\
+                  /\\O\\/\\*\\/\\
+                 /\\*\\/\\*\\/\\/\\
+                /\\O\\/\\/*/\\/O/\\
+                      ||
+                      ||
+                      ||        )";
 			file << tree;
 			file.close();
 		}
