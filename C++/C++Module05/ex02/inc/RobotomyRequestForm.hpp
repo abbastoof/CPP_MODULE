@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 19:15:56 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/05 19:15:56 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/06 14:49:45 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class RobotomyRequestForm : public AForm
 		// Operator overloads
 		RobotomyRequestForm	&operator=(const RobotomyRequestForm &other);
 		// member functions
-		virtual void	execute(Bureaucrat const &executor) const;
+		virtual void	execute(Bureaucrat const &executor) const override;
 };
 
 #endif

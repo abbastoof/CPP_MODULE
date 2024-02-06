@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 19:16:08 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/05 19:16:08 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/06 14:53:34 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 
 # include <iostream>
-const int MAX_GRADE = 1;
-const int MIN_GRADE = 150;
 
 class AForm; // forward declaration
 
@@ -49,13 +47,13 @@ class Bureaucrat
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 };

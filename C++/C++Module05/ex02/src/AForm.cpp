@@ -26,9 +26,9 @@ AForm::~AForm()
 }
 
 // Parameter constructor
-AForm::AForm(std::string name, bool sign, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+AForm::AForm(std::string name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
-	if (gradeToSign < MIN_GRADE || gradeToExecute < MIN_GRADE)
+	if (gradeToSign < MAX_GRADE || gradeToExecute < MAX_GRADE)
 		throw AForm::GradeTooHighException();
 	else if (gradeToSign > MIN_GRADE || gradeToExecute > MIN_GRADE)
 		throw AForm::GradeTooLowException();

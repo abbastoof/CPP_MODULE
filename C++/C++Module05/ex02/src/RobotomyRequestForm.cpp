@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:13:31 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/05 15:13:31 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/06 15:02:55 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 // Default constructor
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm",false, 72, 45), _target("default")
+RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), _target("default")
 {
 	std::cout << "RobotomyRequestForm default constructor for " << this->getName() << " is called" << std::endl;
 }
 
 // Parameter constructor
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", false, 72, 45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
 {
 	std::cout << "RobotomyRequestForm parameter constructor for " << this->getName() << " is called" << std::endl;
 }
@@ -57,9 +57,9 @@ RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &r
 void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
 	std::cout << "RobotomyRequestForm execute for " << this->getName() << " is called" << std::endl;
-	if (this->getSigned() == true) // if form is signed
+	if (this->getSigned() == true)
 	{
-		if (executor.getGrade() <= this->getGradeToExecute()) // if executor's grade is high enough
+		if (executor.getGrade() <= this->getGradeToExecute())
 		{
 			std::cout << "Drilling noises" << std::endl;
 			if (rand() % 2 == 0)
@@ -68,8 +68,8 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 				std::cout << this->_target << " robotomization failed" << std::endl;
 		}
 		else
-			throw AForm::GradeTooLowException();
+			throw GradeTooLowException();
 		}
 	else
-		throw AForm::FormNotSignedException();
+		std::cout << "form " << this->_target << "is not signed" << std::endl;
 }

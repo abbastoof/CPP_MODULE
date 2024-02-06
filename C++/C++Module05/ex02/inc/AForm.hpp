@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 23:35:41 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/02 23:35:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/06 14:53:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,36 @@ class AForm
 		const int		_gradeToExecute;
 
 	public:
-		// Default constructor
 		AForm();
-		// Parameter constructor
-		AForm(std::string name, bool sign, int gradeToSign, int gradeToExecute);
-		// Copy constructor
+		AForm(std::string name, int gradeToSign, int gradeToExecute);
 		AForm(const AForm &rhs);
-
-		// Destructor
-		virtual ~AForm() = 0; // Making destructor virtual as a good practice for base classes
-		//Operator Overload
+		virtual ~AForm(); 
 		AForm &operator=(const AForm &rhs);
 
-		//getter
 		const std::string	&getName() const;
 		bool			getSigned() const;
 		int			getGradeToSign() const;
 		int			getGradeToExecute() const;
 
-		//member functions
 		virtual void		beSigned(Bureaucrat &bureaucrat);
-		virtual void execute(Bureaucrat const &executor) const = 0; // Pure virtual function
-		// Exceptions classes
+		virtual void execute(Bureaucrat const &executor) const = 0;
+
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 		class FormNotSignedException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 };

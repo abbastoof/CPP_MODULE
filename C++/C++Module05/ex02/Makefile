@@ -1,12 +1,12 @@
-NAME = Form
-SRCS = main.cpp Bureaucrat.cpp Form.cpp	\
+NAME = No_you_need_form_28B
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp	\
 	ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJS = $(SRCS:.cpp=.o)
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 INC_DIR = ./inc/
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++14
 RM = rm -f
 
 all: $(NAME)

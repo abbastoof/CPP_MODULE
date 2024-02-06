@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 23:35:41 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/02 23:35:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/06 14:54:25 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Form
 		// Default constructor
 		Form();
 		// Parameter constructor
-		Form(std::string name, bool sign, int gradeToSign, int gradeToExecute);
+		Form(std::string name, int gradeToSign, int gradeToExecute);
 		// Copy constructor
 		Form(const Form &rhs);
 
@@ -52,13 +52,13 @@ class Form
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char	*what() const throw();
+				virtual const char	*what() const noexcept;
 		};
 
 };
