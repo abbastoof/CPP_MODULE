@@ -12,17 +12,18 @@
 
 #include "../inc/Bureaucrat.hpp"
 #include "../inc/AForm.hpp"
+#include "../inc/Colors.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(MIN_GRADE)
 {
-	std::cout << "Bureaucrat default constructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::GREEN << "Bureaucrat default constructor " << this->getName() << " called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat destructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::RED << "Bureaucrat destructor " << this->getName() << " called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
@@ -33,17 +34,17 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 	else if (grade > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException();
 	this->_grade = grade;
-	std::cout << "Bureaucrat parameter constructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::GREEN << "Bureaucrat parameter constructor " << this->getName() << " called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy._grade)
 {
-	std::cout << "Bureaucrat copy constructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::GREEN << "Bureaucrat copy constructor " << this->getName() << " called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads
-Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
 	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &other)
@@ -56,19 +57,18 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
 // member functions
 
 // getters
-const std::string	&Bureaucrat::getName() const
+const std::string &Bureaucrat::getName() const
 {
 	return (this->_name);
 }
 
-int		Bureaucrat::getGrade() const
+int Bureaucrat::getGrade() const
 {
 	return (this->_grade);
 }
 
-
 // increment and decrement grade
-void	Bureaucrat::incrementGrade()
+void Bureaucrat::incrementGrade()
 {
 	if (this->_grade - 1 < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException();
@@ -76,7 +76,7 @@ void	Bureaucrat::incrementGrade()
 		this->_grade--;
 }
 
-void	Bureaucrat::decrementGrade()
+void Bureaucrat::decrementGrade()
 {
 	if (this->_grade + 1 > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException();
@@ -86,50 +86,49 @@ void	Bureaucrat::decrementGrade()
 
 // exceptions
 
-const char	*Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Grade is too high!");
 }
 
-const char	*Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade is too low!");
 }
 
 // non-member functions
 
-std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
 	return (os);
 }
 
-
 // sign Aform
-void	Bureaucrat::signForm(AForm &form)
+void Bureaucrat::signForm(AForm &form)
 {
-	if (form.getSigned())
-		std::cout << this->_name << " cannot sign " << form.getName() << " because it's already signed." << std::endl;
+	if (form.getSign())
+		std::cout << Colors::YELLOW << this->_name << " cannot sign " << form.getName() << " because it's already signed." << Colors::RESET << std::endl;
 	else if (this->_grade > form.getGradeToSign())
-		std::cout << this->_name << " cannot sign " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
+		std::cout << Colors::YELLOW << this->_name << " cannot sign " << form.getName() << " because bureaucrat's grade is too low." << Colors::RESET << std::endl;
 	else
 	{
 		form.beSigned(*this);
-		std::cout << this->_name << " signs " << form.getName() << std::endl;
+		std::cout << Colors::BRIGHT_BLUE << this->_name << " signs " << form.getName() << Colors::RESET << std::endl;
 	}
 }
 
 // execute Aform
 
-void	Bureaucrat::executeForm(AForm const &form)
+void Bureaucrat::executeForm(AForm const &form)
 {
-	if (!form.getSigned())
-		std::cout << this->_name << " cannot execute " << form.getName() << " because it's not signed." << std::endl;
+	if (!form.getSign())
+		std::cout << Colors::YELLOW << this->_name << " cannot execute " << form.getName() << " because it's not signed." << Colors::RESET << std::endl;
 	else if (this->_grade > form.getGradeToExecute())
-		std::cout << this->_name << " cannot execute " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
+		std::cout << Colors::YELLOW << this->_name << " cannot execute " << form.getName() << " because bureaucrat's grade is too low." << Colors::RESET << std::endl;
 	else
 	{
 		form.execute(*this);
-		std::cout << this->_name << " executes " << form.getName() << std::endl;
+		std::cout << Colors::BRIGHT_MAGENTA << this->_name << " executes " << form.getName() << Colors::RESET << std::endl;
 	}
 }

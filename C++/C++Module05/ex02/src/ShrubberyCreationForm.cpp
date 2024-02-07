@@ -11,28 +11,29 @@
 /* ************************************************************************** */
 
 #include "../inc/ShrubberyCreationForm.hpp"
+#include "../inc/Colors.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), _target("default")
 {
-	std::cout << "ShrubberyCreationForm default constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm default constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
-	std::cout << "ShrubberyCreationForm parameter constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm parameter constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const & rhs) : AForm(rhs), _target(rhs._target)
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << "ShrubberyCreationForm copy constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm copy constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-	std::cout << "ShrubberyCreationForm destructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::RED << "ShrubberyCreationForm destructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
 }
 
-ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm const & rhs)
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &rhs)
 {
 	if (this != &rhs)
 	{
@@ -41,28 +42,28 @@ ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm c
 	return (*this);
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	std::cout << "ShrubberyCreationForm execute for " << this->getName() << " is called" << std::endl;
-	if (this->getSigned() == true)
+	std::cout << Colors::BRIGHT_MAGENTA << "ShrubberyCreationForm execute is called" << Colors::RESET << std::endl;
+	if (this->getSign() == true)
 	{
 		if (executor.getGrade() <= this->getGradeToExecute())
 		{
 			std::ofstream file;
 			file.open(this->_target + "_shrubbery");
 			std::string tree = R"(
- 						 *
-						/\\
-			          /\\/\\       
-			         /\\*\\/\\      
-			        /\\O\\*\/\\     
-			       /*/\\/\\/\/\\    
-			      /\\O\\/\\*\\/\\   
-			     /\\*\\/\\*\\/\\/\\  
-			    /\\O\\/\\/*/\\/O/\\ 
-			          ||       
-			          ||       
-			          ||        )";
+                         *
+                        /\\
+                      /\\/\\
+                     /\\*\\/\\
+                    /\\O\\*\\/\\
+                   /*/\\/\\/\/\\
+                  /\\O\\/\\*\\/\\
+                 /\\*\\/\\*\\/\\/\\
+                /\\O\\/\\/*/\\/O/\\
+                      ||
+                      ||
+                      ||        )";
 			file << tree;
 			file.close();
 		}
@@ -71,5 +72,4 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	}
 	else
 		throw AForm::FormNotSignedException();
-
 }
