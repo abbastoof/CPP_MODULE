@@ -16,13 +16,13 @@
 // Default constructor
 Form::Form() : _name("Default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
 {
-	std::cout << "Form default constructor " << this->getName() << " called" << std::endl;
+	std::cout << "Form default constructor is called" << std::endl;
 }
 
 // Destructor
 Form::~Form()
 {
-	std::cout << "Form destructor " << this->getName() << " called" << std::endl;
+	std::cout << "Form destructor is called" << std::endl;
 }
 
 // Parameter constructor
@@ -32,13 +32,13 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name),
 		throw Form::GradeTooHighException();
 	else if (gradeToSign > 150 || gradeToExecute > 150)
 		throw Form::GradeTooLowException();
-	std::cout << "Form parameter constructor " << this->getName() << " called" << std::endl;
+	std::cout << "Form parameter constructor is called" << std::endl;
 }
 
 // Copy constructor
 Form::Form(const Form &rhs) : _name(rhs._name), _signed(rhs._signed), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute)
 {
-	std::cout << "Form copy constructor " << this->getName() << " called" << std::endl;
+	std::cout << "Form copy constructor is called" << std::endl;
 }
 
 // Operator overloads
