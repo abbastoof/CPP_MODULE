@@ -43,7 +43,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy.
 }
 
 // Operator overloads
-Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
 	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &other)
@@ -56,19 +56,18 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
 // member functions
 
 // getters
-const std::string	&Bureaucrat::getName() const
+const std::string &Bureaucrat::getName() const
 {
 	return (this->_name);
 }
 
-int		Bureaucrat::getGrade() const
+int Bureaucrat::getGrade() const
 {
 	return (this->_grade);
 }
 
-
 // increment and decrement grade
-void	Bureaucrat::incrementGrade()
+void Bureaucrat::incrementGrade()
 {
 	if (this->_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
@@ -76,7 +75,7 @@ void	Bureaucrat::incrementGrade()
 		this->_grade--;
 }
 
-void	Bureaucrat::decrementGrade()
+void Bureaucrat::decrementGrade()
 {
 	if (this->_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
@@ -86,35 +85,34 @@ void	Bureaucrat::decrementGrade()
 
 // exceptions
 
-const char	*Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Grade is too high!");
 }
 
-const char	*Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade is too low!");
 }
 
 // non-member functions
 
-std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
 	return (os);
 }
 
-
 // sign form
-void	Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(Form &form)
 {
-	if (form.getSigned())
-		std::cout << this->_name << " cannot sign " << form.getName() << " because it's already signed." << std::endl;
+	if (form.getSign())
+		std::cout << this->_name << " couldn't sign < " << form.getName() << " because it's already signed." << std::endl;
 	else if (this->_grade > form.getGradeToSign())
-		std::cout << this->_name << " cannot sign " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
+		std::cout << this->_name << " couldn't sign < " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
 	else
 	{
 		form.beSigned(*this);
-		std::cout << this->_name << " signs " << form.getName() << std::endl;
+		std::cout << this->_name << " signed " << form.getName() << std::endl;
 	}
 }
