@@ -11,23 +11,24 @@
 /* ************************************************************************** */
 
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/Colors.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(MIN_GRADE)
 {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << Colors::YELLOW << "Default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << Colors::RED << "Destructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
-	std::cout << "Parameter constructor for " << this->_name << " called" << std::endl;
+	std::cout << Colors::YELLOW << "Parameter constructor is called" << Colors::RESET << std::endl;
 	if (grade < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > MIN_GRADE)
@@ -38,7 +39,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy._grade)
 {
-	std::cout << "Copy constructor for " << this->_name << " called" << std::endl;
+	std::cout << Colors::YELLOW << "Copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads
@@ -95,8 +96,8 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 
 // non-member functions
 
-std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &rhs)
 {
-	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
+	os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << std::endl;
 	return (os);
 }

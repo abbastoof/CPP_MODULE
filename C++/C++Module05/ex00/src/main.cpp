@@ -18,12 +18,11 @@ void testBureaucrat(const std::string &name, int grade)
 	try
 	{
 		Bureaucrat bureaucrat(name, grade);
-
-		std::cout << Colors::GREEN << bureaucrat << Colors::RESET << std::endl;
+		std::cout << Colors::GREEN << bureaucrat << Colors::RESET;
 		try
 		{
 			bureaucrat.decrementGrade();
-			std::cout << "After decrement: " << Colors::CYAN << bureaucrat << Colors::RESET << std::endl;
+			std::cout << "After decrement: " << Colors::CYAN << bureaucrat << Colors::RESET;
 		}
 		catch (const std::exception &e)
 		{
@@ -32,7 +31,7 @@ void testBureaucrat(const std::string &name, int grade)
 		try
 		{
 			bureaucrat.incrementGrade();
-			std::cout << "After increment: " << Colors::CYAN << bureaucrat << Colors::RESET << std::endl;
+			std::cout << "After increment: " << Colors::CYAN << bureaucrat << Colors::RESET;
 		}
 		catch (const std::exception &e)
 		{
@@ -47,19 +46,19 @@ void testBureaucrat(const std::string &name, int grade)
 
 int main(void)
 {
-	std::cout << Colors::BG_BLUE << "Test 1" << Colors::RESET << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Test 1" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat1", MIN_GRADE);
 
-	std::cout << Colors::BG_BLUE << "Test 2" << Colors::RESET << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Test 2" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat2", MAX_GRADE);
 
-	std::cout << Colors::BG_BLUE << "Test 3" << Colors::RESET << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Test 3" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat3", 100);
 
-	std::cout << Colors::BG_BLUE << "Test 4" << Colors::RESET << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Test 4" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat4", 0);
 
-	std::cout << Colors::BG_BLUE << "Test 5" << Colors::RESET << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Test 5" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat5", 151);
 
 	return 0;
