@@ -17,13 +17,13 @@
 // Default constructor
 AForm::AForm() : _name("Default"), _signed(false), _gradeToSign(MIN_GRADE), _gradeToExecute(MIN_GRADE)
 {
-	std::cout << Colors::GREEN << "AForm default constructor " << this->getName() << " called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "AForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 AForm::~AForm()
 {
-	std::cout << Colors::RED << "AForm destructor " << this->getName() << " called" << Colors::RESET << std::endl;
+	std::cout << Colors::RED << "AForm destructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
@@ -33,13 +33,13 @@ AForm::AForm(std::string name, int gradeToSign, int gradeToExecute) : _name(name
 		throw AForm::GradeTooHighException();
 	else if (gradeToSign > MIN_GRADE || gradeToExecute > MIN_GRADE)
 		throw AForm::GradeTooLowException();
-	std::cout << Colors::GREEN << "AForm parameter constructor " << this->getName() << " called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "AForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
 AForm::AForm(const AForm &rhs) : _name(rhs._name), _signed(rhs._signed), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute)
 {
-	std::cout << Colors::GREEN << "AForm copy constructor " << this->getName() << " called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "AForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads

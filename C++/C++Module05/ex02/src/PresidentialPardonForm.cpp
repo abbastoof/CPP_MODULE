@@ -16,25 +16,25 @@
 // Default constructor
 PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5), _target("default")
 {
-	std::cout << Colors::GREEN << "PresidentialPardonForm default constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 25, 5), _target(target)
 {
-	std::cout << Colors::GREEN << "PresidentialPardonForm parameter constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << Colors::GREEN << "PresidentialPardonForm copy constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 PresidentialPardonForm::~PresidentialPardonForm()
 {
-	std::cout << Colors::RED << "PresidentialPardonForm destructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::RED << "PresidentialPardonForm destructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads

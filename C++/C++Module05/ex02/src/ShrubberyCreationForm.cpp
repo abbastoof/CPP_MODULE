@@ -15,22 +15,22 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), _target("default")
 {
-	std::cout << Colors::GREEN << "ShrubberyCreationForm default constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
-	std::cout << Colors::GREEN << "ShrubberyCreationForm parameter constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << Colors::GREEN << "ShrubberyCreationForm copy constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-	std::cout << Colors::RED << "ShrubberyCreationForm destructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::RED << "ShrubberyCreationForm destructor is called" << Colors::RESET << std::endl;
 }
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &rhs)

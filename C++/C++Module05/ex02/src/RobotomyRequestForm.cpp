@@ -17,25 +17,25 @@
 // Default constructor
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), _target("default")
 {
-	std::cout << Colors::GREEN << "RobotomyRequestForm default constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
 {
-	std::cout << Colors::GREEN << "RobotomyRequestForm parameter constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << Colors::GREEN << "RobotomyRequestForm copy constructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 RobotomyRequestForm::~RobotomyRequestForm()
 {
-	std::cout << Colors::RED << "RobotomyRequestForm destructor for " << this->getName() << " is called" << Colors::RESET << std::endl;
+	std::cout << Colors::RED << "RobotomyRequestForm destructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads
