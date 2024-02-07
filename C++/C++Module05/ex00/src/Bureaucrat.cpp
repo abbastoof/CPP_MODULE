@@ -27,13 +27,12 @@ Bureaucrat::~Bureaucrat()
 // Parameter constructor
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
+	std::cout << "Parameter constructor for " << this->_name << " called" << std::endl;
 	if (grade < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException();
-	else
-		this->_grade = grade;
-	std::cout << "Parameter constructor for " << this->_name << " called" << std::endl;
+	this->_grade = grade;
 }
 
 // Copy constructor
@@ -43,7 +42,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy.
 }
 
 // Operator overloads
-Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
 	if (this != &other)
 	{
@@ -55,19 +54,18 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &other)
 // member functions
 
 // getters
-const std::string	&Bureaucrat::getName() const
+const std::string &Bureaucrat::getName() const
 {
 	return (this->_name);
 }
 
-int		Bureaucrat::getGrade() const
+int Bureaucrat::getGrade() const
 {
 	return (this->_grade);
 }
 
-
 // increment and decrement grade
-void	Bureaucrat::incrementGrade()
+void Bureaucrat::incrementGrade()
 {
 	if (this->_grade - 1 < MAX_GRADE)
 		throw Bureaucrat::GradeTooHighException();
@@ -75,7 +73,7 @@ void	Bureaucrat::incrementGrade()
 		this->_grade--;
 }
 
-void	Bureaucrat::decrementGrade()
+void Bureaucrat::decrementGrade()
 {
 	if (this->_grade + 1 > MIN_GRADE)
 		throw Bureaucrat::GradeTooLowException();
@@ -85,19 +83,19 @@ void	Bureaucrat::decrementGrade()
 
 // exceptions
 
-const char	*Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Grade is too high!");
 }
 
-const char	*Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade is too low!");
 }
 
 // non-member functions
 
-std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
 	return (os);
