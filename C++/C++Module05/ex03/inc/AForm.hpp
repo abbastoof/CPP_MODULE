@@ -31,11 +31,11 @@ class AForm
 		AForm();
 		AForm(std::string name, int gradeToSign, int gradeToExecute);
 		AForm(const AForm &rhs);
-		virtual ~AForm(); 
+		virtual ~AForm();
 		AForm &operator=(const AForm &rhs);
 
 		const std::string	&getName() const;
-		bool			getSigned() const;
+		bool			getSign() const;
 		int			getGradeToSign() const;
 		int			getGradeToExecute() const;
 

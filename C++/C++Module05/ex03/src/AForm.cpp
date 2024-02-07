@@ -12,39 +12,39 @@
 
 #include "../inc/AForm.hpp"
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/Colors.hpp"
 
 // Default constructor
 AForm::AForm() : _name("Default"), _signed(false), _gradeToSign(MIN_GRADE), _gradeToExecute(MIN_GRADE)
 {
-	std::cout << "AForm default constructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::GREEN << "AForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 AForm::~AForm()
 {
-	std::cout << "AForm destructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::RED << "AForm destructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 AForm::AForm(std::string name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
+	std::cout << Colors::GREEN << "AForm parameter constructor is called" << Colors::RESET << std::endl;
 	if (gradeToSign < MAX_GRADE || gradeToExecute < MAX_GRADE)
 		throw AForm::GradeTooHighException();
 	else if (gradeToSign > MIN_GRADE || gradeToExecute > MIN_GRADE)
 		throw AForm::GradeTooLowException();
-	std::cout << "AForm parameter constructor " << this->getName() << " called" << std::endl;
 }
 
 // Copy constructor
 AForm::AForm(const AForm &rhs) : _name(rhs._name), _signed(rhs._signed), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute)
 {
-	std::cout << "AForm copy constructor " << this->getName() << " called" << std::endl;
+	std::cout << Colors::GREEN << "AForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads
 AForm	&AForm::operator=(const AForm &rhs)
 {
-	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &rhs)
 	{
 		this->_signed = rhs._signed;
@@ -58,7 +58,7 @@ const std::string	&AForm::getName() const
 	return (this->_name);
 }
 
-bool	AForm::getSigned() const
+bool	AForm::getSign() const
 {
 	return (this->_signed);
 }
@@ -107,11 +107,11 @@ const char	*AForm::FormNotSignedException::what() const throw()
 // non-member functions
 // Output stream operator overload
 
-std::ostream	&operator<<(std::ostream &os, const AForm &AForm)
+std::ostream &operator<<(std::ostream &os, const AForm &form)
 {
-	os <<"AForm name: " << AForm.getName()
-	<< ", signed: " << AForm.getSigned()
-	<< ", grade to sign: "<< AForm.getGradeToSign()
-	<< ", grade to execute: " << AForm.getGradeToExecute() << std::endl;
+	os << "Form name: " << form.getName() << ", "
+	   << " signature : " << std::boolalpha << form.getSign() << ", "
+	   << " grade to be signed off: " << form.getGradeToSign() << ", "
+	   << " grade to be executed: " << form.getGradeToExecute() << std::endl;
 	return (os);
 }

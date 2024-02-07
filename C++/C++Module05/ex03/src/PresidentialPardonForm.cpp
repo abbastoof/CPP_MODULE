@@ -11,55 +11,49 @@
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
-
+#include "../inc/Colors.hpp"
 
 // Default constructor
-
 PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5), _target("default")
 {
-	std::cout << "PresidentialPardonForm default constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
-
 PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 25, 5), _target(target)
 {
-	std::cout << "PresidentialPardonForm parameter constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
-
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << "PresidentialPardonForm copy constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "PresidentialPardonForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
-
 PresidentialPardonForm::~PresidentialPardonForm()
 {
-	std::cout << "PresidentialPardonForm destructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::RED << "PresidentialPardonForm destructor is called" << Colors::RESET << std::endl;
 }
 
-// Operator overloads
-
+// Assignment operator
 PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPardonForm &rhs)
 {
-	if (this != &rhs) // check for self-assignment, self-assignment can lead to problems and is often inefficient
+	if (this != &rhs)
 	{
 		this->_target = rhs._target;
 	}
 	return (*this);
 }
 
-// member functions
-
+// Member functions
 void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	std::cout << "PresidentialPardonForm execute for " << this->getName() << " is called" << std::endl;
-	if (this->getSigned() == true) // if form is signed
+	std::cout << Colors::BRIGHT_BLUE << "PresidentialPardonForm execute is called" << Colors::RESET << std::endl;
+	if (this->getSign() == true)
 	{
-		if (executor.getGrade() <= this->getGradeToExecute()) // if bureaucrat has enough grade
+		if (executor.getGrade() <= this->getGradeToExecute())
 		{
 			std::cout << this->_target << " has been pardoned by Zafod Beeblebrox" << std::endl;
 		}

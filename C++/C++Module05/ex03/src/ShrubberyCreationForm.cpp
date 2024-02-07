@@ -11,27 +11,33 @@
 /* ************************************************************************** */
 
 #include "../inc/ShrubberyCreationForm.hpp"
+#include "../inc/Colors.hpp"
 
+// Default constructor
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), _target("default")
 {
-	std::cout << "ShrubberyCreationForm default constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm default constructor is called" << Colors::RESET << std::endl;
 }
 
+// Parameter constructor
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
-	std::cout << "ShrubberyCreationForm parameter constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
+// Copy constructor
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const & rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << "ShrubberyCreationForm copy constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "ShrubberyCreationForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
+// Destructor
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-	std::cout << "ShrubberyCreationForm destructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::RED << "ShrubberyCreationForm destructor is called" << Colors::RESET << std::endl;
 }
 
+// Assignment operator
 ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm const & rhs)
 {
 	if (this != &rhs)
@@ -41,10 +47,11 @@ ShrubberyCreationForm & ShrubberyCreationForm::operator=(ShrubberyCreationForm c
 	return (*this);
 }
 
+// Member functions
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-	std::cout << "ShrubberyCreationForm execute for " << this->getName() << " is called" << std::endl;
-	if (this->getSigned() == true)
+	std::cout << Colors::BRIGHT_BLUE << "ShrubberyCreationForm execute is called" << Colors::RESET << std::endl;
+	if (this->getSign() == true)
 	{
 		if (executor.getGrade() <= this->getGradeToExecute())
 		{
@@ -71,5 +78,4 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	}
 	else
 		throw AForm::FormNotSignedException();
-
 }

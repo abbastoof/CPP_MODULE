@@ -16,52 +16,107 @@
 #include "../inc/RobotomyRequestForm.hpp"
 #include "../inc/ShrubberyCreationForm.hpp"
 #include "../inc/Intern.hpp"
+#include "../inc/Colors.hpp"
 
 int main()
 {
-	//Low grade ShrubberyCreationForm
-	std::cout << "First test" << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "First test Low grade ShrubberyCreationForm" << Colors::RESET << std::endl;
 	try
 	{
-		Intern jimmy;
-		std::shared_ptr<AForm> ptr = jimmy.makeForm("test", "test2");
+		Bureaucrat low("Low", 150);
+		std::cout << low;
+		ShrubberyCreationForm form("home");
+		std::cout << form;
+		low.signForm(form);
+		low.executeForm(form);
 	}
-	catch(const std::exception& e)
+	catch (std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
 	}
 
-	std::cout << "2nd test" << std::endl;
-	//Successfull sign and execute ShrubberyCreationForm
+	std::cout << "\n" << Colors::BG_BLUE << "Second test High grade ShrubberyCreationForm" << Colors::RESET << std::endl;
 	try
 	{
-
+		Bureaucrat high("High", 1);
+		std::cout << high;
+		ShrubberyCreationForm form("home");
+		std::cout << form;
+		high.signForm(form);
+		high.executeForm(form);
 	}
-	catch(const std::exception& e)
+	catch (std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
 	}
 
-	std::cout << "3rd test" << std::endl;
-	//Low grade Presidentialpardonform
+	std::cout << "\n" << Colors::BG_BLUE << "Third test RobotomyRequestForm" << Colors::RESET << std::endl;
 	try
 	{
-
+		Bureaucrat high("High", 1);
+		std::cout << high;
+		RobotomyRequestForm form("home");
+		std::cout << form;
+		high.signForm(form);
+		high.executeForm(form);
 	}
-	catch(const std::exception &e)
+	catch (std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
 	}
 
-	std::cout << "4th test" << std::endl;
+	std::cout << "\n" << Colors::BG_BLUE << "Fourth test PresidentialPardonForm" << Colors::RESET << std::endl;
 	try
 	{
-
+		Bureaucrat high("High", 1);
+		std::cout << high;
+		PresidentialPardonForm form("home");
+		std::cout << form;
+		high.signForm(form);
+		high.executeForm(form);
 	}
-	catch(const std::exception &e)
+	catch (std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
 	}
 
-	return 0;
+	std::cout << "\n" << Colors::BG_BLUE << "Fifth test Intern" << Colors::RESET << std::endl;
+
+	try
+	{
+		Intern someRandomIntern;
+		std::shared_ptr<AForm> rrf;
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		std::cout << *rrf;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
+	}
+
+	try
+	{
+		Intern someRandomIntern;
+		std::shared_ptr<AForm> ppf;
+		ppf = someRandomIntern.makeForm("presidential pardon", "Bender");
+		std::cout << *ppf;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
+	}
+
+	try
+	{
+		Intern someRandomIntern;
+		std::shared_ptr<AForm> scf;
+		scf = someRandomIntern.makeForm("shrubbery creation", "Bender");
+		std::cout << *scf;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << Colors::RED << e.what() << Colors::RESET << std::endl;
+	}
+
+	return (0);
 }

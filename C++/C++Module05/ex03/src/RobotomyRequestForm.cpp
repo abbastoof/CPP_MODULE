@@ -11,38 +11,34 @@
 /* ************************************************************************** */
 
 #include "RobotomyRequestForm.hpp"
-
+#include <ctime>
+#include "../inc/Colors.hpp"
 
 // Default constructor
-
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), _target("default")
 {
-	std::cout << "RobotomyRequestForm default constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
-
 RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
 {
-	std::cout << "RobotomyRequestForm parameter constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm parameter constructor is called" << Colors::RESET << std::endl;
 }
 
 // Copy constructor
-
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &rhs) : AForm(rhs), _target(rhs._target)
 {
-	std::cout << "RobotomyRequestForm copy constructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::GREEN << "RobotomyRequestForm copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
-
 RobotomyRequestForm::~RobotomyRequestForm()
 {
-	std::cout << "RobotomyRequestForm destructor for " << this->getName() << " is called" << std::endl;
+	std::cout << Colors::RED << "RobotomyRequestForm destructor is called" << Colors::RESET << std::endl;
 }
 
-// Operator overloads
-
+// Assignment operator
 RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &rhs)
 {
 	if (this != &rhs)
@@ -52,16 +48,16 @@ RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &r
 	return (*this);
 }
 
-// member functions
-
+// Member functions
 void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	std::cout << "RobotomyRequestForm execute for " << this->getName() << " is called" << std::endl;
-	if (this->getSigned() == true)
+	std::cout << Colors::BRIGHT_BLUE << "RobotomyRequestForm execute is called" << Colors::RESET << std::endl;
+	if (this->getSign() == true)
 	{
 		if (executor.getGrade() <= this->getGradeToExecute())
 		{
 			std::cout << "Drilling noises" << std::endl;
+			srand(time(0));
 			if (rand() % 2 == 0)
 				std::cout << this->_target << " has been robotomized successfully" << std::endl;
 			else
