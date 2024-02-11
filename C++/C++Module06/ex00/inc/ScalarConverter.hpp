@@ -7,6 +7,7 @@
 #include <limits>
 #include <cmath>
 #include <stdexcept>
+#include <regex>
 
 typedef enum TYPE
 {

@@ -39,81 +39,63 @@ void ScalarConverter::convert(const std::string &literal)
 	}
 }
 
-// TYPE ScalarConverter::getType(const std::string& scalar)
-// {
-//     if (scalar == "nan") return NAN_VALUE;
-//     if (scalar == "inf" || scalar == "+inf" || scalar == "inff" || scalar == "+inff") return INFPOS;
-//     if (scalar == "-inf" || scalar == "-inff") return INFNEG;
-
-//     if (scalar.size() == 1 && std::isprint(scalar[0])) return CHAR;
-//     try {
-//         if (isdigit(scalar[0]) || (scalar[0] == '-' && isdigit(scalar[1])))
-// 		{
-// 			if (scalar.find('.') != std::string::npos || ((scalar.end()[-1] == 'f') && (isdigit(scalar.end()[-2]))))
-// 			{
-// 				std::stof(scalar);
-// 					return FLOAT;
-// 			}
-// 			else if (scalar.find('.') != std::string::npos && isdigit(scalar.end()[-1]))
-// 			{
-// 				std::stod(scalar);
-// 				return DOUBLE;
-// 			}
-// 			else
-// 			{
-// 				std::stoi(scalar);
-// 				return INT;
-// 			}
-// 		}
-//     }
-// 	catch (...) {}
-//     return NONE;
-// }
-
 TYPE ScalarConverter::getType(const std::string &scalar)
 {
-	if (scalar == "nan")
-		return NAN_VALUE;
-	if (scalar == "inf" || scalar == "+inf" || scalar == "inff" || scalar == "+inff")
-		return INFPOS;
-	if (scalar == "-inf" || scalar == "-inff")
-		return INFNEG;
-
-	if (scalar.size() == 1 && std::isprint(scalar[0]) && !std::isdigit(scalar[0]))
-		return CHAR;
-
-	bool hasDot = false;
-	bool hasF = false;
-	bool hasDigitAfterDot = false;
-	bool hasDigit = false;
-	for (size_t i = 0; i < scalar.size(); ++i)
-	{
-		if (scalar[i] == '.' && !hasDot && i != 0 && i != scalar.size() - 1)
-		{
-			hasDot = true;
-			if (i + 1 < scalar.size() && std::isdigit(scalar[i + 1]))
-				hasDigitAfterDot = true;
-		}
-		else if (scalar[i] == 'f' && !hasF && i == scalar.size() - 1 && hasDot && hasDigitAfterDot)
-			hasF = true;
-		else if (std::isdigit(scalar[i]))
-			hasDigit = true;
-		else if (!(i == 0 && scalar[i] == '-' && scalar.size() > 1))
-			return NONE;
-	}
-
-	if (hasDot && hasDigitAfterDot)
-	{
-		if (hasF)
-			return FLOAT;
-		return DOUBLE;
-	}
-
-	if (hasDigit && !hasDot && !hasF)
-		return INT;
-
+	if (std::regex_match(scalar, std::regex("^nan$"))) {return NAN_VALUE;}
+	if (std::regex_match(scalar, std::regex("^(\\+)?inf(f)?$"))) {return INFPOS;}
+	if (std::regex_match(scalar, std::regex("^-inf(f)?$"))) {return INFNEG;}
+	if (std::regex_match(scalar, std::regex("^[^0-9]?$")) && scalar.size() == 1) { return CHAR;}
+	if (std::regex_match(scalar, std::regex("^-?\\d+\\.\\d+f$"))) {return FLOAT;}
+	if (std::regex_match(scalar, std::regex("^-?\\d*\\.\\d+$"))) {return DOUBLE;}
+	if (std::regex_match(scalar, std::regex("^-?\\d+$"))) {return INT;}
 	return NONE;
 }
+
+
+// TYPE ScalarConverter::getType(const std::string &scalar)
+// {
+// 	if (scalar == "nan")
+// 		return NAN_VALUE;
+// 	if (scalar == "inf" || scalar == "+inf" || scalar == "inff" || scalar == "+inff")
+// 		return INFPOS;
+// 	if (scalar == "-inf" || scalar == "-inff")
+// 		return INFNEG;
+
+// 	if (scalar.size() == 1 && std::isprint(scalar[0]) && !std::isdigit(scalar[0]))
+// 		return CHAR;
+
+// 	bool hasDot = false;
+// 	bool hasF = false;
+// 	bool hasDigitAfterDot = false;
+// 	bool hasDigit = false;
+// 	for (size_t i = 0; i < scalar.size(); ++i)
+// 	{
+// 		if (scalar[i] == '.' && !hasDot && i != 0 && i != scalar.size() - 1) // if it has a dot and it's not the first or last character
+// 		{
+// 			hasDot = true;
+// 			if (i + 1 < scalar.size() && std::isdigit(scalar[i + 1])) // if there is a digit after the dot and it's not the last character
+// 				hasDigitAfterDot = true;
+// 		}
+// 		else if (scalar[i] == 'f' && !hasF && i == scalar.size() - 1 && hasDot && hasDigitAfterDot)
+// 			hasF = true;
+// 		else if (std::isdigit(scalar[i]))
+// 			hasDigit = true;
+// 		else if (!(i == 0 && scalar[i] == '-' && scalar.size() > 1))
+// 			return NONE;
+// 	}
+
+// 	if (hasDot && hasDigitAfterDot)
+// 	{
+// 		if (hasF)
+// 			return FLOAT;
+// 		return DOUBLE;
+// 	}
+
+// 	if (hasDigit && !hasDot && !hasF)
+// 		return INT;
+
+// 	return NONE;
+// }
 
 void ScalarConverter::convertToChar(const std::string scalar)
 {
