@@ -28,12 +28,12 @@ Bureaucrat::~Bureaucrat()
 // Parameter constructor
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
+	std::cout << "Bureaucrat parameter constructor is called" << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
 	this->_grade = grade;
-	std::cout << "Bureaucrat parameter constructor is called" << std::endl;
 }
 
 // Copy constructor
@@ -45,7 +45,6 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy.
 // Operator overloads
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-	// check for self-assignment, self-assignment can lead to problems and is often inefficient
 	if (this != &other)
 	{
 		this->_grade = other._grade;

@@ -42,7 +42,6 @@ void test2()
 		RobotomyRequestForm robotomyForm("Bender");
 		midGradeBureaucrat.signForm(robotomyForm);
 		midGradeBureaucrat.executeForm(robotomyForm);
-		//why Bender robotomization failed every time? :( because of rand() % 2 == 0 in RobotomyRequestForm.cpp line 52 , to fix this, we can use srand(time(0)) in main.cpp before calling executeForm function to get different result every time or in RobotomyRequestForm.cpp line 52, we can use rand() % 2 == 1 to get different result every time
 	}
 	catch (std::exception &e)
 	{
