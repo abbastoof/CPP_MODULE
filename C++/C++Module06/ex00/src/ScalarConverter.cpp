@@ -1,181 +1,127 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*   test.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 12:57:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/11 14:00:12 by atoof            ###   ########.fr       */
+/*   Created: 2024/02/11 13:34:29 by atoof             #+#    #+#             */
+/*   Updated: 2024/02/11 18:42:37 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ScalarConverter.hpp"
 
-ScalarConverter::ScalarConverter()
+void ScalarConverter::convert(const std::string &literal)
 {
-}
-
-ScalarConverter::ScalarConverter(ScalarConverter const &src)
-{
-	*this = src;
-}
-
-ScalarConverter &ScalarConverter::operator=(ScalarConverter const &src)
-{
-	if (this != &src)
+    TYPE type = getType(literal);
+    switch (type)
 	{
-		*this = src;
-	}
-	return *this;
+        case CHAR: convertToChar(literal); break;
+        case INT: convertToInt(literal); break;
+        case FLOAT: convertToFloat(literal); break;
+        case DOUBLE: convertToDouble(literal); break;
+        case NAN_VALUE: case INFPOS: case INFNEG: handleSpecialValues(type); break;
+        default: std::cerr << "Error: Unsupported or invalid type/value" << std::endl;
+    }
 }
 
-ScalarConverter::~ScalarConverter()
+TYPE ScalarConverter::getType(const std::string& scalar)
 {
-}
+    if (scalar == "nan") return NAN_VALUE;
+    if (scalar == "inf" || scalar == "+inf" || scalar == "inff" || scalar == "+inff") return INFPOS;
+    if (scalar == "-inf" || scalar == "-inff") return INFNEG;
 
-void ScalarConverter::convert(std::string const &literal)
-{
-	TYPE type = getType(literal);
-	printType(type);
-	switch (type)
-	{
-	case CHAR:
-		convertToChar(literal);
-		break;
-	case INT:
-		convertToInt(literal);
-		break;
-	case FLOAT:
-		convertToFloat(literal);
-		break;
-	case DOUBLE:
-		convertToDouble(literal);
-		break;
-	case NAN_VALUE:
-		std::cout << "char: impossible" << std::endl
-				  << "int: impossible" << std::endl
-				  << "float: nanf" << std::endl
-				  << "double: nan" << std::endl;
-		break;
-	case INFPOS:
-		std::cout << "char: impossible" << std::endl
-				  << "int: impossible" << std::endl
-				  << "float: inff" << std::endl
-				  << "double: inf" << std::endl;
-		break;
-	case INFNEG:
-		std::cout << "char: impossible" << std::endl
-				  << "int: impossible" << std::endl
-				  << "float: -inff" << std::endl
-				  << "double: -inf" << std::endl;
-		break;
-	default:
-		break;
-	}
-}
-
-TYPE ScalarConverter::getType(const std::string scalar)
-{
-	if (scalar.length() == 1 && !isdigit(scalar[0]))
-		return CHAR;
-	try
-	{
-		if (scalar == "nan" || scalar == "nanf")
-			return NAN_VALUE;
-		if (scalar == "inf" || scalar == "inff")
-			return INFPOS;
-		if (scalar == "-inf" || scalar == "-inff") 
-			return INFNEG;
-		std::stod(scalar);
-	}
-	catch (std::exception &e)
-	{
-		return NONE;
-	}
-	if (scalar.find('.') != std::string::npos && scalar.find('f') != std::string::npos)
-		return FLOAT;
-	if (scalar.find('.') != std::string::npos)
-		return DOUBLE;
-	return INT;
+    if (scalar.size() == 1 && std::isprint(scalar[0])) return CHAR;
+    try {
+        std::size_t pos;
+        if (scalar.find('.') != std::string::npos || scalar.find('f') != std::string::npos)
+		{
+            std::stof(scalar, &pos);
+            if (pos == scalar.length()) return FLOAT;
+            std::stod(scalar, &pos);
+            if (pos == scalar.length()) return DOUBLE;
+        } else {
+            std::stoi(scalar, &pos);
+            if (pos == scalar.length()) return INT;
+        }
+    }
+	catch (...) {}
+    return NONE;
 }
 
 void ScalarConverter::convertToChar(const std::string scalar)
 {
-	char c = 0;
-	try
-	{
-		c = std::stoi(scalar);
-		if (isprint(c))
-			std::cout << "char: '" << c << "'" << std::endl;
-		else
-			std::cout << "char: Non displayable" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "char: impossible" << std::endl;
-	}
+	char c = scalar[0];
+	std::cout << "char: '" << c << "'" << std::endl;
+	std::cout << "int: " << static_cast<int>(c) << std::endl;
+	std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
+	std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
 }
 
 void ScalarConverter::convertToInt(const std::string scalar)
 {
-	int i = 0;
-	try
-	{
-		i = std::stoi(scalar);
-		std::cout << "int: " << i << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "int: impossible" << std::endl;
-	}
+	int i = std::stoi(scalar);
+	std::cout << "char: ";
+	if (std::isprint(i))
+		std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
+	else
+		std::cout << "Non displayable" << std::endl;
+	std::cout << "int: " << i << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(i) << std::endl;
 }
 
 void ScalarConverter::convertToFloat(const std::string scalar)
 {
-	float f = 0;
-	try
-	{
-		f = std::stof(scalar);
-		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "float: impossible" << std::endl;
-	}
+    try {
+        float f = std::stod(scalar);
+        std::cout << "char: ";
+        if (std::isprint(static_cast<int>(f)))
+            std::cout << "'" << static_cast<char>(f) << "'" << std::endl;
+        else
+            std::cout << "Non displayable" << std::endl;
+        std::cout << "int: ";
+        if (f >= std::numeric_limits<int>::min() && f <= std::numeric_limits<int>::max())
+            std::cout << static_cast<int>(f) << std::endl;
+        else
+            std::cout << "impossible" << std::endl;
+        std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(f) << std::endl;
+    } catch (const std::invalid_argument&) {
+        std::cerr << "Error: Invalid argument for conversion to float" << std::endl;
+    }
 }
 
 void ScalarConverter::convertToDouble(const std::string scalar)
 {
-	double d = 0;
-	try
-	{
-		d = std::stod(scalar);
-		std::cout << "double: " << std::fixed << std::setprecision(1) << d << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "double: impossible" << std::endl;
+	try {
+		double d = std::stod(scalar);
+		std::cout << "char: ";
+		if (std::isprint(static_cast<int>(d)))
+			std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
+		std::cout << "int: ";
+		if (d >= std::numeric_limits<int>::min() && d <= std::numeric_limits<int>::max())
+			std::cout << static_cast<int>(d) << std::endl;
+		else
+			std::cout << "impossible" << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+		std::cout << "double: " << d << std::endl;
+	} catch (const std::invalid_argument&) {
+		std::cerr << "Error: Invalid argument for conversion to double" << std::endl;
 	}
 }
 
-void ScalarConverter::printType(const TYPE type)
+void ScalarConverter::handleSpecialValues(TYPE type)
 {
-	switch (type)
+    std::cout << "char: impossible\nint: impossible\n";
+    switch (type)
 	{
-	case CHAR:
-		std::cout << "char: ";
-		break;
-	case INT:
-		std::cout << "int: ";
-		break;
-	case FLOAT:
-		std::cout << "float: ";
-		break;
-	case DOUBLE:
-		std::cout << "double: ";
-		break;
-	default:
-		break;
-	}
+        case NAN_VALUE: std::cout << "float: nanf\ndouble: nan" << std::endl; break;
+        case INFPOS: std::cout << "float: inff\ndouble: inf" << std::endl; break;
+        case INFNEG: std::cout << "float: -inff\ndouble: -inf" << std::endl; break;
+        default: std::cerr << "Error: Unknown special value type" << std::endl;
+    }
 }

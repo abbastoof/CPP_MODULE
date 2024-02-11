@@ -1,5 +1,5 @@
 NAME = convert
-SRCS = main.cpp test.cpp
+SRCS = main.cpp ScalarConverter.cpp
 OBJS = $(SRCS:.cpp=.o)
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
