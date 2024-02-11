@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.cpp                                           :+:      :+:    :+:   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 13:34:29 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/11 18:42:37 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/11 19:00:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,17 @@ TYPE ScalarConverter::getType(const std::string& scalar)
 
     if (scalar.size() == 1 && std::isprint(scalar[0])) return CHAR;
     try {
-        std::size_t pos;
         if (scalar.find('.') != std::string::npos || scalar.find('f') != std::string::npos)
 		{
-            std::stof(scalar, &pos);
-            if (pos == scalar.length()) return FLOAT;
-            std::stod(scalar, &pos);
-            if (pos == scalar.length()) return DOUBLE;
-        } else {
-            std::stoi(scalar, &pos);
-            if (pos == scalar.length()) return INT;
+            std::stof(scalar);
+            	return FLOAT;
+            std::stod(scalar);
+            	return DOUBLE;
+        }
+		else
+		{
+            std::stoi(scalar);
+            return INT;
         }
     }
 	catch (...) {}
