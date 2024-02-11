@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/12 00:36:11 by atoof             #+#    #+#              #
-#    Updated: 2024/02/12 00:36:11 by atoof            ###   ########.fr        #
+#    Created: 2024/02/12 00:35:52 by atoof             #+#    #+#              #
+#    Updated: 2024/02/12 00:35:52 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
-SRCS = main.cpp ScalarConverter.cpp
+NAME = Base
+SRCS = main.cpp Base.cpp
 OBJS = $(SRCS:.cpp=.o)
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
