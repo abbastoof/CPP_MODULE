@@ -5,16 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 14:47:18 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 15:34:54 by atoof            ###   ########.fr       */
+/*   Created: 2024/02/12 15:37:48 by atoof             #+#    #+#             */
+/*   Updated: 2024/02/12 15:39:42 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/whatever.hpp"
 
-int main(void)
+int main( void )
 {
-    std::cout << "Enter two numbers:\n";
+	/* My OWN TESTS
+	std::cout << "Enter two numbers:\n";
 
     std::string input;
     int x, y;
@@ -47,4 +48,18 @@ int main(void)
     std::cout << "s1: " << s1 << "\n";
     std::cout << "s2: " << s2 << "\n";
     return 0;
+	*/
+int a = 2;
+int b = 3;
+::swap( a, b );
+std::cout << "a = " << a << ", b = " << b << std::endl;
+std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
+std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
+std::string c = "chaine1";
+std::string d = "chaine2";
+::swap(c, d);
+std::cout << "c = " << c << ", d = " << d << std::endl;
+std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
+std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
+return 0;
 }
