@@ -6,29 +6,30 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 11:48:48 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/01 12:57:27 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/12 10:16:50 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Bureaucrat.hpp"
 #include "../inc/Form.hpp"
+#include "../inc/Colors.hpp"
 
 // Default constructor
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
-	std::cout << "Bureaucrat default constructor is called" << std::endl;
+	std::cout << Colors::YELLOW <<  "Bureaucrat default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat destructor is called" << std::endl;
+	std::cout << Colors::RED << "Bureaucrat destructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
-	std::cout << "Bureaucrat parameter constructor is called" << std::endl;
+	std::cout << Colors::YELLOW << "Bureaucrat parameter constructor is called" << Colors::RESET << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > 150)
@@ -39,7 +40,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 // Copy constructor
 Bureaucrat::Bureaucrat(const Bureaucrat &copy) : _name(copy._name), _grade(copy._grade)
 {
-	std::cout << "Bureaucrat copy constructor is called" << std::endl;
+	std::cout << Colors::YELLOW << "Bureaucrat copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads

@@ -6,39 +6,40 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 23:35:59 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/06 13:21:33 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/12 10:12:57 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Form.hpp"
 #include "../inc/Bureaucrat.hpp"
+#include "../inc/Colors.hpp"
 
 // Default constructor
 Form::Form() : _name("Default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
 {
-	std::cout << "Form default constructor is called" << std::endl;
+	std::cout << Colors::YELLOW << "Form default constructor is called" << Colors::RESET << std::endl;
 }
 
 // Destructor
 Form::~Form()
 {
-	std::cout << "Form destructor is called" << std::endl;
+	std::cout << Colors::RED << "Form destructor is called" << Colors::RESET << std::endl;
 }
 
 // Parameter constructor
 Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
+	std::cout << Colors::YELLOW << "Form parameter constructor is called" << Colors::RESET << std::endl;
 	if (gradeToSign < 1 || gradeToExecute < 1)
 		throw Form::GradeTooHighException();
 	else if (gradeToSign > 150 || gradeToExecute > 150)
 		throw Form::GradeTooLowException();
-	std::cout << "Form parameter constructor is called" << std::endl;
 }
 
 // Copy constructor
 Form::Form(const Form &rhs) : _name(rhs._name), _signed(rhs._signed), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute)
 {
-	std::cout << "Form copy constructor is called" << std::endl;
+	std::cout << Colors::YELLOW <<  "Form copy constructor is called" << Colors::RESET << std::endl;
 }
 
 // Operator overloads
