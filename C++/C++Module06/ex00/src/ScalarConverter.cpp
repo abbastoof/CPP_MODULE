@@ -108,38 +108,56 @@ void ScalarConverter::convertToChar(const std::string scalar)
 
 void ScalarConverter::convertToInt(const std::string scalar)
 {
-	int i = std::stoi(scalar);
-	std::cout << "char: ";
-	if (std::isprint(i))
-		std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
-	else
-		std::cout << "Non displayable" << std::endl;
-	std::cout << "int: " << i << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
-	std::cout << "double: " << static_cast<double>(i) << std::endl;
+	try
+	{
+		int i = std::stoi(scalar);
+		std::cout << "char: ";
+		if (std::isprint(static_cast<unsigned char>(i)))
+			std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
+
+		std::cout << "int: " << i << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(i) << "f" << std::endl;
+		std::cout << "double: " << static_cast<double>(i) << std::endl;
+	}
+	catch (const std::invalid_argument &)
+	{
+		std::cerr << "Error: Invalid argument for conversion to int" << std::endl;
+	}
+	catch (const std::out_of_range &)
+	{
+		std::cerr << "Error: Value out of range for conversion to int" << std::endl;
+	}
 }
 
 void ScalarConverter::convertToFloat(const std::string scalar)
 {
 	try
 	{
-		float f = std::stod(scalar);
+		float f = std::stof(scalar);
 		std::cout << "char: ";
-		if (std::isprint(static_cast<int>(f)))
+		if (std::isprint(static_cast<unsigned char>(f)))
 			std::cout << "'" << static_cast<char>(f) << "'" << std::endl;
 		else
 			std::cout << "Non displayable" << std::endl;
+
 		std::cout << "int: ";
 		if (f >= std::numeric_limits<int>::min() && f <= std::numeric_limits<int>::max())
 			std::cout << static_cast<int>(f) << std::endl;
 		else
 			std::cout << "impossible" << std::endl;
+
 		std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
 		std::cout << "double: " << static_cast<double>(f) << std::endl;
 	}
-	catch (const std::invalid_argument &)
+	catch (const std::invalid_argument&)
 	{
 		std::cerr << "Error: Invalid argument for conversion to float" << std::endl;
+	}
+	catch (const std::out_of_range&)
+	{
+		std::cerr << "Error: Value out of range for conversion to float" << std::endl;
 	}
 }
 
@@ -149,15 +167,17 @@ void ScalarConverter::convertToDouble(const std::string scalar)
 	{
 		double d = std::stod(scalar);
 		std::cout << "char: ";
-		if (std::isprint(static_cast<int>(d)))
-			std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
+		if (std::isprint(static_cast<unsigned char>(std::lround(d))) && d >= 0 && d < 256)
+			std::cout << "'" << static_cast<char>(std::lround(d)) << "'" << std::endl;
 		else
 			std::cout << "Non displayable" << std::endl;
+
 		std::cout << "int: ";
-		if (d >= std::numeric_limits<int>::min() && d <= std::numeric_limits<int>::max())
-			std::cout << static_cast<int>(d) << std::endl;
+		if (d >= std::numeric_limits<int>::lowest() && d < std::numeric_limits<int>::max())
+			std::cout << static_cast<int>(std::lround(d)) << std::endl;
 		else
 			std::cout << "impossible" << std::endl;
+
 		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
 		std::cout << "double: " << d << std::endl;
 	}
@@ -165,7 +185,12 @@ void ScalarConverter::convertToDouble(const std::string scalar)
 	{
 		std::cerr << "Error: Invalid argument for conversion to double" << std::endl;
 	}
+	catch (const std::out_of_range &)
+	{
+		std::cerr << "Error: Value out of range for conversion to double" << std::endl;
+	}
 }
+
 
 void ScalarConverter::handleSpecialValues(TYPE type)
 {
