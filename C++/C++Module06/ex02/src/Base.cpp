@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 00:40:10 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 00:40:10 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/12 09:46:45 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void identify(Base* p)
 	else if (dynamic_cast<C*>(p))
 		std::cout << "C" << std::endl;
 }
-
+/*
+	In this function, we are using dynamic_cast to check if the pointer is pointing to an object of a specific class.
+	If the pointer is pointing to an object of a specific class, dynamic_cast returns a pointer to the object of that class.
+*/
 void identify(Base& p)
 {
 	try

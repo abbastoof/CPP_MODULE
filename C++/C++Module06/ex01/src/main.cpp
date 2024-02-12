@@ -6,11 +6,11 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:44:43 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/11 23:44:43 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/12 09:54:01 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include "../inc/Serializer.hpp"
 
 int main()
 {

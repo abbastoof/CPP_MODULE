@@ -6,12 +6,12 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 01:00:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 01:00:28 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/12 09:51:45 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "Base.hpp"
+#include "../inc/Base.hpp"
 
 int main()
 {
