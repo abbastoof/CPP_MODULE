@@ -45,9 +45,9 @@ TYPE ScalarConverter::getType(const std::string &scalar)
 	if (std::regex_match(scalar, std::regex("^(\\+)?inf(f)?$"))) {return INFPOS;}
 	if (std::regex_match(scalar, std::regex("^-inf(f)?$"))) {return INFNEG;}
 	if (std::regex_match(scalar, std::regex("^[^0-9]?$")) && scalar.size() == 1) { return CHAR;}
-	if (std::regex_match(scalar, std::regex("^-?\\d+\\.\\d+f$"))) {return FLOAT;}
-	if (std::regex_match(scalar, std::regex("^-?\\d*\\.\\d+$"))) {return DOUBLE;}
-	if (std::regex_match(scalar, std::regex("^-?\\d+$"))) {return INT;}
+	if (std::regex_match(scalar, std::regex("^[+-]?\\d+\\.\\d+f$"))) {return FLOAT;}
+	if (std::regex_match(scalar, std::regex("^[+-]?\\d*\\.\\d+$"))) {return DOUBLE;}
+	if (std::regex_match(scalar, std::regex("^[+-]?\\d+$"))) {return INT;}
 	return NONE;
 }
 
