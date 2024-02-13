@@ -6,11 +6,11 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:02:21 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 20:15:26 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/13 20:34:36 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/easyfind.hpp"
+#include "../inc/easyfind.tpp"
 
 int main()
 {
