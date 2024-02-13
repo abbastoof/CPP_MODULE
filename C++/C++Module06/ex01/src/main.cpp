@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:44:43 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 15:37:21 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/13 15:43:54 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main()
 		std::cout << "Serialized: " << "0x" << std::hex << raw << std::dec << std::endl;
 		Data *ptr = Serializer::deserialize(raw);
 		std::cout << "Deserialized: " << ptr->s1 << " " << ptr->n << " " << ptr->s2 << std::endl;
-		delete ptr;
 		std::cout << "------------TEST 2------------" << std::endl;
 		Data data2;
 		data2.s1 = "Goodbye";
@@ -35,6 +34,5 @@ int main()
 		std::cout << "Serialized: " << "0x" << std::hex << raw2 << std::dec << std::endl;
 		Data *ptr2 = Serializer::deserialize(raw2);
 		std::cout << "Deserialized: " << ptr2->s1 << " " << ptr2->n << " " << ptr2->s2 << std::endl;
-		delete ptr2;
 		return 0;
 }

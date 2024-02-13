@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:39:40 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/11 23:39:40 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/13 15:41:16 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ uintptr_t Serializer::serialize(Data* ptr)
 	return reinterpret_cast<uintptr_t>(ptr);
 }
 
-Serializer::Data *Serializer::deserialize(uintptr_t raw)
+Data *Serializer::deserialize(uintptr_t raw)
 {
 	return reinterpret_cast<Data *>(raw);
 }
