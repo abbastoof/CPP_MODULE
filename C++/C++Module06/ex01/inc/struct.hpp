@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   struct.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 23:40:17 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 15:35:32 by atoof            ###   ########.fr       */
+/*   Created: 2024/02/13 15:33:02 by atoof             #+#    #+#             */
+/*   Updated: 2024/02/13 15:36:30 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#ifndef STRUCT_HPP
+# define STRUCT_HPP
 
-#include <iostream>
 #include <string>
-#include <iomanip>
-#include <limits>
-#include <cmath>
-#include "struct.hpp"
 
-class Serializer
+typedef struct sData
 {
-public:
-
-	static uintptr_t serialize(Data* ptr);
-	static Data *deserialize(uintptr_t raw);
-private:
-	Serializer(void);
-	Serializer(Serializer const &src);
-	Serializer &operator=(Serializer const &rhs);
-	~Serializer();
-};
+	std::string s1;
+	int n;
+	std::string s2;
+} Data;
 
 #endif
