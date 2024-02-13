@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:34 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 16:13:01 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:05:47 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void iter(ArrayType *arr, size_t len, Function func)
 	{
 		func(arr[i]);
 	}
+}
+
+template <typename ArrayType>
+void print(ArrayType const &arr)
+{
+	std::cout << arr << std::endl;
 }
 
 #endif
