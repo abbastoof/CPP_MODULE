@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.tpp                                       :+:      :+:    :+:   */
+/*   easyfind.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:05:06 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 20:32:39 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/14 13:52:17 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ Note2* (You don’t have to handle associative containers.) => done
 # include <list>
 
 template <typename T>
-typename T::iterator easyfind(T &container, int value)\
+typename T::iterator easyfind(T &container, int value)
 {
-	// typename is used to tell the compiler that the member is a type, not a variable.
 	typename T::iterator it = container.begin();
 	typename T::iterator ite = container.end();
 
@@ -51,25 +50,5 @@ typename T::iterator easyfind(T &container, int value)\
 	}
 	throw std::out_of_range("Value not found in container.");
 }
-
-// Overload for float
-bool easyfind(float& container, float value) {
-    return container == value;
-}
-
-// Overload for double
-bool easyfind(double& container, double value) {
-    return container == value;
-}
-
-// Template specialization for std::string
-template <>
-std::string::iterator easyfind(std::string& container, int value)
-{
-    // Assuming the value represents a valid ASCII character
-    char charToFind = static_cast<char>(value);
-    return std::find(container.begin(), container.end(), charToFind);
-}
-
 
 #endif

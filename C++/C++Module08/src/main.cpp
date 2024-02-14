@@ -6,104 +6,65 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:02:21 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 20:34:36 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/14 13:28:09 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/easyfind.tpp"
+#include "../inc/easyfind.hpp"
+#include "../inc/color.hpp"
+#include <vector>
+#include <list>
+#include <iostream>
 
 int main()
 {
-/*	The std::list range constructor accepts two iterators as arguments, 
-	which define a range of elements (in this case, pointers marking the beginning and the end of a C-style array).
-	The constructor initializes the list with the elements within the specified range.
-*/
+    // Test with a standard list
+    std::list<int> myList = {1, -2, 3, 4, 5, -6};
+    std::list<int>::iterator itList = easyfind(myList, -2);
+    std::cout << setColor(GREEN) << "Found -2 in list at position: " << std::distance(myList.begin(), itList) << setColor(RESET) << std::endl;
 
-	std::cout << "---- TEST LIST ----" << std::endl;
-	std::cout << "Initializing int list { 1, -2, 3, 4, 5 }..." << std::endl;
-	int myInts[5] = { 1, -2, 3, 4, 5 };
-	std::list<int> ints(myInts, myInts + sizeof(myInts) / sizeof(int)); // the iterator constructor can also be used to construct from arrays
-
-	std::cout << "Finding 1 from the list..." << std::endl;
-	std::list<int>::const_iterator it = ::easyfind(ints, 1);
-	if (*it != 1)
-		std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
-	else
-		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-	std::cout << "--------------------" << std::endl;
-	std::cout << "Finding 6 from the list..." << std::endl;
-	try
-	{
-		it = ::easyfind(ints, 6);
-		if (*it == 6)
-			std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
-	}
-		
-	std::cout << "--------------------" << std::endl;
-	std::cout << "Using template with wrong type..." << std::endl;
-	try
-	{
-		it = ::easyfind(ints, 6.0);
-		std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
-	}
-
-	std::cout << "--------------------" << std::endl;
-	
-	std::cout << "---- TEST VECTOR ----" << std::endl;
-	std::cout << "Initializing int vector { 1, 2, 3, 4, 5 }..." << std::endl;
-	std::vector<int> vec(myInts, myInts + sizeof(myInts) / sizeof(int));
-	std::cout << "Finding 1 from the vector..." << std::endl;
-	std::vector<int>::const_iterator it2 = ::easyfind(vec, 1);
-	if (*it2 != 1)
-		std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
-	else
-		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-	std::cout << "--------------------" << std::endl;
-	std::cout << "Finding 6 from the vector..." << std::endl;
-	try
-	{
-		it2 = ::easyfind(vec, 6);
-		if (*it2 == 6)
-			std::cout << "\033[31mTEST FAIL\033[0m" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "\033[32mTEST OKAY: \033[33m" << e.what() << "\033[0m" << std::endl;
-	}
-	std::cout << "--------------------" << std::endl;
-	// Example with vector
-    std::vector<int> vec2 = {1, 2, 3, 4, 5};
-    auto it_vec = easyfind(vec2, 3);
-    if (it_vec != vec2.end()) {
-        std::cout << "Found value in vector: " << *it_vec << std::endl;
+    // Test with an empty vector
+    std::vector<int> emptyVec;
+    try {
+        easyfind(emptyVec, 1);
+        std::cout << setColor(RED) << "Found 1 in empty vector, which should not happen." << setColor(RESET) << std::endl;
+    } catch (std::exception &e) {
+        std::cout << setColor(YELLOW) << "Correctly caught error for empty vector: " << e.what() << setColor(RESET) << std::endl;
     }
 
-    // Example with string
-    std::string str = "Hello";
-	std::cout << "Finding 'e' from \"Hello\" string..." << std::endl;
-    auto it_str = easyfind(str, 'e');
-    if (it_str != str.end()) {
-        std::cout << "Found character in string: " << *it_str << std::endl;
+    // Test with multiple occurrences
+    std::vector<int> multiVec = {7, 1, 7, 3, 7};
+    std::vector<int>::iterator itMulti = easyfind(multiVec, 7);
+    std::cout << setColor(GREEN) << "Found 7 in vector with multiple occurrences at position: " << std::distance(multiVec.begin(), itMulti) << setColor(RESET) << std::endl;
+
+    // Test with first and last elements
+    std::vector<int> edgeVec = {9, 2, 3, 4, 8};
+    std::vector<int>::iterator itFirst = easyfind(edgeVec, 9);
+    std::cout << setColor(GREEN) << "Found first element 9 at position: " << std::distance(edgeVec.begin(), itFirst) << setColor(RESET) << std::endl;
+    std::vector<int>::iterator itLast = easyfind(edgeVec, 8);
+    std::cout << setColor(GREEN) << "Found last element 8 at position: " << std::distance(edgeVec.begin(), itLast) << setColor(RESET) << std::endl;
+
+    // Test with a large vector
+    std::vector<int> largeVec(100000, 1);
+    largeVec[50000] = 2;
+    std::vector<int>::iterator itLarge = easyfind(largeVec, 2);
+    std::cout << setColor(GREEN) << "Found 2 in large vector at position: " << std::distance(largeVec.begin(), itLarge) << setColor(RESET) << std::endl;
+
+    // Test for non-existent values near container bounds
+    std::vector<int> boundVec = {0, 1, 2, 3, 4};
+    try {
+        easyfind(boundVec, -1);
+        std::cout << setColor(RED) << "Incorrectly found -1 in boundVec." << setColor(RESET) << std::endl;
+    } catch (std::exception &e) {
+        std::cout << setColor(YELLOW) << "Correctly did not find -1: " << e.what() << setColor(RESET) << std::endl;
     }
 
-    // Example with float
-    float fValue = 3.14f;
-    if (easyfind(fValue, 3.14f)) {
-        std::cout << "Found value in float: " << fValue << std::endl;
+    try {
+        easyfind(boundVec, 5); // Test for a value just above the upper bound
+        std::cout << setColor(RED) << "Incorrectly found 5 in boundVec." << setColor(RESET) << std::endl;
+    } catch (std::exception &e) {
+        std::cout << setColor(YELLOW) << "Correctly did not find 5: " << e.what() << setColor(RESET) << std::endl;
     }
 
-    // Example with double
-    double dValue = 6.28;
-    if (easyfind(dValue, 6.28)) {
-        std::cout << "Found value in double: " << dValue << std::endl;
-    }
-	return 0;
+    return 0;
 }
