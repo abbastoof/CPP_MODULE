@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:02:21 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/15 19:53:49 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/15 20:00:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 #include <vector>
 
 template <typename Container>
-void testFind(Container& container, int value, const std::string& testName)
+void testFind(Container const & container, int value, const std::string& testName)
 {
     try
 	{
-        typename Container::iterator it = easyfind(container, value);
+        typename Container::const_iterator it = easyfind(container, value);
         std::cout << setColor(GREEN) << "Test " << testName << ": Found " << value << " at position: " 
                   << std::distance(container.begin(), it) << setColor(RESET) << std::endl;
     }
