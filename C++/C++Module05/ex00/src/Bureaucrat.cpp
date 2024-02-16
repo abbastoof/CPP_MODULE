@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 11:48:48 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/01 12:57:27 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 19:12:18 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void Bureaucrat::decrementGrade()
 
 // exceptions
 
-const char *Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const noexcept
 {
 	return ("Grade is too high!");
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const noexcept
 {
 	return ("Grade is too low!");
 }
