@@ -6,11 +6,17 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:49:38 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/15 20:21:20 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 15:14:01 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MutantStack.hpp"
+
+/*
+ Resources:
+	https://cplusplus.com/reference/vector/vector/rbegin/
+	https://cplusplus.com/reference/vector/vector/begin/
+*/
 
 template <typename T, typename Container>
 MutantStack<T, Container>::MutantStack() {}
@@ -22,59 +28,59 @@ MutantStack<T, Container>::MutantStack(const MutantStack& src) : std::stack<T, C
 }
 
 template <typename T, typename Container>
-MutantStack<T>& MutantStack<T>::operator=(const MutantStack& other)
+MutantStack<T, Container>& MutantStack<T, Container>::operator=(const MutantStack& other)
 {
-    std::stack<T>::operator=(other);
+    std::stack<T, Container>::operator=(other);
     return *this;
 }
 
 template <typename T, typename Container>
-MutantStack<T>::~MutantStack() {}
+MutantStack<T, Container>::~MutantStack() {}
 
 template <typename T, typename Container>
-typename MutantStack<T>::iterator MutantStack<T>::begin()
+typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
 {
-    return std::stack<T>::c.begin();
+	return std::stack<T, Container>::c.begin();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::iterator MutantStack<T>::end()
+typename MutantStack<T, Container>::iterator MutantStack<T, Container>::end()
 {
-    return std::stack<T>::c.end();
+	return std::stack<T, Container>::c.end();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
+typename MutantStack<T, Container>::const_iterator MutantStack<T, Container>::begin() const
 {
-    return std::stack<T>::c.begin();
+	return std::stack<T, Container>::c.begin();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::const_iterator MutantStack<T>::end() const
+typename MutantStack<T, Container>::const_iterator MutantStack<T, Container>::end() const
 {
-    return std::stack<T>::c.end();
+	return std::stack<T, Container>::c.end();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::reverse_iterator MutantStack<T>::rbegin()
+typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::rbegin()
 {
-	return std::stack<T>::c.rbegin();
+	return std::stack<T, Container>::c.rbegin();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::reverse_iterator MutantStack<T>::rend()
+typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::rend()
 {
-	return std::stack<T>::c.rend();
+	return std::stack<T, Container>::c.rend();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::const_reverse_iterator MutantStack<T>::crbegin() const
+typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Container>::crbegin() const
 {
-	return std::stack<T>::c.crbegin();
+	return std::stack<T, Container>::c.crbegin();
 }
 
 template <typename T, typename Container>
-typename MutantStack<T>::const_reverse_iterator MutantStack<T>::crend() const
+typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Container>::crend() const
 {
-	return std::stack<T>::c.crend();
+	return std::stack<T, Container>::c.crend();
 }

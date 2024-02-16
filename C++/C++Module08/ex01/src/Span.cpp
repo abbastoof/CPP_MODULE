@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:13:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 13:38:53 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 16:35:56 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ Span &Span::operator=(Span const &rhs)
 Span::~Span()
 {
 }
-
 
 // Shortest span is the difference between the two closest numbers in the vector for example: 1 2 3 4 5 6 7 8 9 10
 // The shortest span is 1, because the difference between 10 and 9 is 1

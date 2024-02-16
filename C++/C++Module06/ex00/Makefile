@@ -6,33 +6,35 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 00:36:11 by atoof             #+#    #+#              #
-#    Updated: 2024/02/12 00:36:11 by atoof            ###   ########.fr        #
+#    Updated: 2024/02/16 18:42:13 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = convert
 SRCS = main.cpp ScalarConverter.cpp
 OBJS = $(SRCS:.cpp=.o)
-SRC_DIR = ./src/
-OBJ_DIR = ./obj/
-INC_DIR = ./inc/
+SRC_DIR = src/
+OBJ_DIR = obj/
+INC_DIR = inc/
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++14
-RM = rm -f
+RM = rm -rf
 
-all: $(NAME)
+vpath %.cpp $(SRC_DIR)
+
+all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(addprefix $(OBJ_DIR), $(OBJS))
 	$(CC) $(CFLAGS) -I $(INC_DIR) $^ -o $@
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.cpp
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 clean:
-	$(RM) $(addprefix $(OBJ_DIR), $(OBJS))
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

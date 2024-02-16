@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:43:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/15 20:17:35 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 17:55:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,69 @@
 #include <stack>
 #include <deque>
 #include <iostream>
+#include <exception>
 
 template <typename T, typename Container = std::deque<T>>
 class MutantStack : public std::stack<T, Container>
 {
-public:
+	public:
+		class emptyStackException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: stack is empty";
+			}
+		};
+		class fullStackException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: stack is full";
+			}
+		};
+		class outOfRangeException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: out of range";
+			}
+		};
+		class invalidIndexException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: invalid index";
+			}
+		};
+		class invalidValueException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: invalid value";
+			}
+		};
+		class invalidSizeException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: invalid size";
+			}
+		};
+		class NotCopyableException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: not copyable";
+			}
+		};
+		class NotAssignableException : public std::exception
+		{
+			virtual const char* what() const noexcept
+			{
+				return "MutantStack exception: not assignable";
+			}
+		};
+	
     // Alias for iterator types
     typedef typename std::deque<T>::iterator iterator;
     typedef typename std::deque<T>::const_iterator const_iterator;
@@ -30,7 +88,7 @@ public:
     // Constructors, destructor, and assignment operator
     MutantStack();
     MutantStack(const MutantStack& other);
-    MutantStack& operator=(const MutantStack& other);
+	MutantStack& operator=(const MutantStack& other);
     virtual ~MutantStack();
 
     // Iterator functions

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:38 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 10:17:11 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 18:13:59 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int main()
 	std::cout << std::boolalpha;
 	size = sizeof(array6) / sizeof(bool);
 	iter<bool>(array6, size, print<bool>);
-	std::noboolalpha;
+	std::cout << std::noboolalpha;
 	return 0;
 }

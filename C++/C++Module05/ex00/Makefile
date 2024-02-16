@@ -1,26 +1,28 @@
 NAME = Bureaucrat
 SRCS = main.cpp Bureaucrat.cpp
 OBJS = $(SRCS:.cpp=.o)
-SRC_DIR = ./src/
-OBJ_DIR = ./obj/
-INC_DIR = ./inc/
+SRC_DIR = src/
+OBJ_DIR = obj/
+INC_DIR = inc/
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++14
-RM = rm -f
+RM = rm -rf
 
-all: $(NAME)
+vpath %.cpp $(SRC_DIR)
+
+all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(addprefix $(OBJ_DIR), $(OBJS))
 	$(CC) $(CFLAGS) -I $(INC_DIR) $^ -o $@
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.cpp
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 clean:
-	$(RM) $(addprefix $(OBJ_DIR), $(OBJS))
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
