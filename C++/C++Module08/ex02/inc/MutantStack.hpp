@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:43:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/15 18:17:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/15 20:17:35 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <deque>
 #include <iostream>
 
-template <typename T>
-class MutantStack : public std::stack<T>
+template <typename T, typename Container = std::deque<T>>
+class MutantStack : public std::stack<T, Container>
 {
 public:
     // Alias for iterator types

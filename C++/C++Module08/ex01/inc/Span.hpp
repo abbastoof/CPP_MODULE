@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/14 17:37:14 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 13:29:44 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,7 @@
 	5. Of course, you will write your own tests and they will be way more thorough than the ones below. Test your Span at least with a minimum of 10 000 numbers. More would be even better. 
 
 
-int main()
-{
-Span sp = Span(5);
-sp.addNumber(6);
-sp.addNumber(3);
-sp.addNumber(17);
-sp.addNumber(9);
-sp.addNumber(11);
-std::cout << sp.shortestSpan() << std::endl;
-std::cout << sp.longestSpan() << std::endl;
-return 0;
-}
-Should output:
-$> ./ex01
-2
-14
-$>
-Last but not least, it would be wonderful to fill your Span using a range of iterators.
-Making thousands calls to addNumber() is so annoying. Implement a member function
-to add many numbers to your Span in one call.
-If you don’t have a clue, study the Containers. Some member
-functions take a range of iterators in order to add a sequence of
-elements to the container.
-
+	https://www.cplusplus.com/reference/vector/vector/
 */
 
 #ifndef SPAN_HPP
@@ -54,21 +31,40 @@ elements to the container.
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <exception>
+#include <limits>
 
 class Span
 {
 private:
 	unsigned int _n;
-	std::vector<unsigned int> _vec;
+	std::vector<int> _vec;
 public:
-	Span(unsigned int n);
+	class FullSpanException : public std::exception
+	{
+		public:
+			virtual const char *what() const noexcept
+			{
+				return "Span is full";
+			}
+	};
+	class NotEnoughElementsException : public std::exception
+	{
+		public:
+			virtual const char *what() const noexcept
+			{
+				return "Not enough elements to find a span";
+			}
+	};
+	Span(int n);
 	~Span();
 	Span(const Span &rhs); // copy constructor
 	Span &operator=(const Span &rhs); // assignment operator
-	unsigned int shortestSpan(); // find the shortest span between all the numbers stored
-	unsigned int longestSpan(); // find the longest span between all the numbers stored
-	void addNumber(int number); // add a single number to the Span
-	void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end); // add a range of numbers to the Span
+	int shortestSpan(); // find the shortest span between all the numbers stored
+	int longestSpan(); // find the longest span between all the numbers stored
+	void addNumber(int number); // Add a single number to the Span
+    void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end); // Add a range of numbers to the Span
+	void printVec() const;
 };
 
 #endif

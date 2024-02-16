@@ -6,13 +6,13 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:13:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/14 17:37:43 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/16 13:38:53 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Span.hpp"
 
-Span::Span(unsigned int n) : _n(n)
+Span::Span(int n) : _n(n)
 {
 }
 
@@ -39,19 +39,24 @@ Span::~Span()
 // Shortest span is the difference between the two closest numbers in the vector for example: 1 2 3 4 5 6 7 8 9 10
 // The shortest span is 1, because the difference between 10 and 9 is 1
 
-unsigned int Span::shortestSpan()
+int Span::shortestSpan()
 {
-	if (_vec.size() <= 1)
-		throw std::exception(); // if the vector is empty or has only one element, there is no span
-	std::vector<unsigned int> sorted = _vec;
-	std::sort(sorted.begin(), sorted.end());
-	unsigned int shortest = UINT_MAX;
-	for (unsigned int i = 0; i < sorted.size() - 1; i++)
-	{
-		if (sorted[i + 1] - sorted[i] < shortest)
-			shortest = sorted[i + 1] - sorted[i];
+	if (_vec.size() <= 1) {
+		throw NotEnoughElementsException();
 	}
-	return shortest;
+
+	std::vector<int> sortedVec(_vec);
+	std::sort(sortedVec.begin(), sortedVec.end());
+
+	int minSpan = std::numeric_limits<int>::max();
+	
+	for (size_t i = 0; i < sortedVec.size() - 1; ++i)
+	{
+		int currentSpan = sortedVec[i + 1] - sortedVec[i];
+		minSpan = std::min(minSpan, currentSpan);
+	}
+
+	return minSpan;
 }
 
 /*
@@ -59,21 +64,27 @@ unsigned int Span::shortestSpan()
 	template <class RandomAccessIterator>void sort (RandomAccessIterator first, RandomAccessIterator last);
 */
 
-unsigned int Span::longestSpan()
+// Longest Span Calculation
+int Span::longestSpan()
 {
 	if (_vec.size() <= 1)
-		throw std::exception();
-	std::vector<unsigned int> sorted = _vec;
-	std::sort(sorted.begin(), sorted.end());
-	return sorted.back() - sorted.front();
+	{
+		throw NotEnoughElementsException();
+	}
+	std::vector<int> sortedVec(_vec);
+	std::sort(sortedVec.begin(), sortedVec.end());
+	return sortedVec.back() - sortedVec.front();
 }
 
 
+// Add a Single Number
 void Span::addNumber(int number)
 {
-	if (_vec.size() == _n) // if the vector is full, n acts as the max size
-		throw std::exception();
-	_vec.push_back(number);
+    if (_vec.size() >= _n)
+	{
+        throw FullSpanException();
+    }
+    _vec.push_back(number);
 }
 
 /*	
@@ -83,7 +94,9 @@ void Span::addNumber(int number)
 
 void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
-	if (_vec.size() + std::distance(begin, end) > _n)
-		throw std::exception();
-	_vec.insert(_vec.end(), begin, end);
+    if (_vec.size() + std::distance(begin, end) > _n)
+	{
+		throw FullSpanException();
+    }
+    _vec.insert(_vec.end(), begin, end);
 }
