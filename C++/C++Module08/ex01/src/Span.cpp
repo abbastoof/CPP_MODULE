@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:13:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 16:35:56 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/19 16:59:35 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,32 @@ void Span::addNumber(int number)
 	template <class InputIterator>iterator insert (const_iterator position, InputIterator first, InputIterator last);
 */
 
-void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+void Span::addNumber(std::vector<int>::const_iterator position, std::vector<int>::const_iterator first, std::vector<int>::const_iterator last)
 {
-    if (_vec.size() + std::distance(begin, end) > _n)
+	if (_vec.size() + std::distance(first, last) > _n)
 	{
 		throw FullSpanException();
-    }
-    _vec.insert(_vec.end(), begin, end);
+	}
+	_vec.insert(position, first, last);
+	std::cout << "Added " << std::distance(first, last) << " elements to the vector" << std::endl;
+}
+
+void Span::printVec() const
+{
+	std::cout << "Span contents: ";
+	for (size_t i = 0; i < _vec.size(); ++i)
+	{
+		std::cout << _vec[i] << (i < _vec.size() - 1 ? ", " : "");
+	}
+	std::cout << std::endl;
+}
+
+std::vector<int>::iterator Span::begin()
+{
+	return _vec.begin();
+}
+
+std::vector<int>::iterator Span::end()
+{
+	return _vec.end();
 }

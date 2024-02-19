@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 17:56:09 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/19 16:51:08 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ class Span
 		int shortestSpan(); // find the shortest span between all the numbers stored
 		int longestSpan(); // find the longest span between all the numbers stored
 		void addNumber(int number); // Add a single number to the Span
-		void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end); // Add a range of numbers to the Span
+		void addNumber(std::vector<int>::const_iterator position, std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
 		void printVec() const;
+		//getters
+		std::vector<int>::iterator begin();
+		std::vector<int>::iterator end();
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:13 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 18:02:06 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/19 16:56:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,13 @@
 // 	return 0;
 // }
 
-void Span::printVec() const
-{
-    std::cout << "Span contents: ";
-    for (size_t i = 0; i < _vec.size(); ++i)
-	{
-        std::cout << _vec[i] << (i < _vec.size() - 1 ? ", " : "");
-    }
-    std::cout << std::endl;
-}
-
 int main()
 {
 	try
 	{
-		Span sp = Span(5);
-		sp.addNumber(6);
-		sp.addNumber(-3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
-		sp.addNumber(17);
+		Span sp = {5};
+		std::vector<int> vec = {1, 2, 3, 4, 5};
+        sp.addNumber(sp.begin(), vec.begin(), vec.end());
 		std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
 		std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 		sp.printVec();
@@ -57,14 +43,8 @@ int main()
 	try
 	{
 		Span sp = Span(5);
-		std::vector<int> newInts;
-		newInts.push_back(1);
-		newInts.push_back(2);
-		newInts.push_back(3);
-		newInts.push_back(4);
-		newInts.push_back(5);
-		// newInts.push_back(6);
-		sp.addNumber(newInts.begin(), newInts.end());
+		std::vector<int> vec = {1, 2, 3, 4, 5, 6};
+		sp.addNumber(vec.begin(), vec.begin(), vec.end());
 		std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
 		std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 		sp.printVec();
