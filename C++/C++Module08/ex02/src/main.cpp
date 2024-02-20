@@ -6,27 +6,52 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:43:03 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 18:02:25 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:27:52 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/MutantStack.hpp"
+#include <list>
 
 // int main()
 // {
-// 	MutantStack<int> mstack;
-// 	mstack.push(5);
-// 	mstack.push(17);
-// 	std::cout << mstack.top() << std::endl;
-// 	mstack.pop();
+	// MutantStack<int> mstack;
+	// mstack.push(5);
+	// mstack.push(17);
+	// std::cout << mstack.top() << std::endl;
+	// mstack.pop();
+	// std::cout << mstack.size() << std::endl;
+	// mstack.push(3);
+	// mstack.push(5);
+	// mstack.push(737);
+	// //[...]
+	// mstack.push(0);
+	// MutantStack<int>::iterator it = mstack.begin();
+	// MutantStack<int>::iterator ite = mstack.end();
+	// ++it;
+	// --it;
+	// while (it != ite)
+	// {
+	// std::cout << *it << std::endl;
+	// ++it;
+	// }
+	// std::stack<int> s(mstack);
+	// std::cout << s.size() << std::endl;
+
+	//================================================================================================
+
+// 	std::list<int> mstack;
+// 	mstack.push_back(5);
+// 	mstack.push_back(17);
+// 	// std::cout << mstack.top() << std::endl;
+// 	// mstack.pop();
 // 	std::cout << mstack.size() << std::endl;
-// 	mstack.push(3);
-// 	mstack.push(5);
-// 	mstack.push(737);
-// 	//[...]
-// 	mstack.push(0);
-// 	MutantStack<int>::iterator it = mstack.begin();
-// 	MutantStack<int>::iterator ite = mstack.end();
+// 	mstack.push_back(3);
+// 	mstack.push_back(5);
+// 	mstack.push_back(737);
+// 	mstack.push_back(0);
+// 	std::list<int>::iterator it = mstack.begin();
+// 	std::list<int>::iterator ite = mstack.end();
 // 	++it;
 // 	--it;
 // 	while (it != ite)
@@ -34,10 +59,11 @@
 // 	std::cout << *it << std::endl;
 // 	++it;
 // 	}
-// 	std::stack<int> s(mstack);
-// 	std::cout << s.size() << std::endl;
+// 	// std::stack<int> s(mstack);
+// 	// std::cout << s.size() << std::endl;
 // 	return 0;
 // }
+
 void test_iterator(MutantStack<int> &mstack)
 {
 	
@@ -113,43 +139,6 @@ void test_const_reverse_iterator(MutantStack<int> &mstack)
 	std::cout << mstack.size() << std::endl;
 }
 
-void test_exceptions(MutantStack<int> &mstack)
-{
-	std::cout << "Testing exceptions" << std::endl;
-	try
-	{
-		mstack.pop();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		mstack.pop();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		mstack.pop();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		mstack.pop();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-}
-
 int main()
 {
 	MutantStack<int> mstack;
@@ -157,6 +146,5 @@ int main()
 	test_reverse_iterator(mstack);
 	test_const_iterator(mstack);
 	test_const_reverse_iterator(mstack);
-	test_exceptions(mstack);
 	return 0;
 }

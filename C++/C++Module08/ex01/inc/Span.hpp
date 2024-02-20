@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/19 16:51:08 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/19 17:57:59 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ class Span
 					return "Not enough elements to find a span";
 				}
 		};
+		class SpanInvalidPositionException : public std::exception
+		{
+			public:
+				virtual const char *what() const noexcept
+				{
+					return "Invalid position";
+				}
+		};
 		Span(int n);
 		~Span();
 		Span(const Span &rhs); // copy constructor
@@ -64,10 +72,12 @@ class Span
 		int longestSpan(); // find the longest span between all the numbers stored
 		void addNumber(int number); // Add a single number to the Span
 		void addNumber(std::vector<int>::const_iterator position, std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
-		void printVec() const;
+		void addNumber(unsigned int n, std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
+		void printVec() const;		
 		//getters
-		std::vector<int>::iterator begin();
-		std::vector<int>::iterator end();
+		std::vector<int>::const_iterator begin();
+		std::vector<int>::const_iterator end();
+		std::vector<int>::const_iterator pos(unsigned int position);
 };
 
 #endif

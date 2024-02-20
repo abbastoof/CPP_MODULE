@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:13:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/19 16:59:35 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/19 18:53:55 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void Span::addNumber(std::vector<int>::const_iterator position, std::vector<int>
 		throw FullSpanException();
 	}
 	_vec.insert(position, first, last);
-	std::cout << "Added " << std::distance(first, last) << " elements to the vector" << std::endl;
+	std::cout << "Added " << std::distance(first, last) << " numbers to the span" << std::endl;
 }
 
 void Span::printVec() const
@@ -111,12 +111,22 @@ void Span::printVec() const
 	std::cout << std::endl;
 }
 
-std::vector<int>::iterator Span::begin()
+std::vector<int>::const_iterator Span::begin()
 {
 	return _vec.begin();
 }
 
-std::vector<int>::iterator Span::end()
+std::vector<int>::const_iterator Span::end()
 {
 	return _vec.end();
+}
+
+std::vector<int>::const_iterator Span::pos(unsigned int position)
+{
+	if (_vec.begin() + position <= _vec.end())
+	{
+		return _vec.begin() + position;
+	}
+	else
+		throw std::out_of_range("Position is out of range");
 }

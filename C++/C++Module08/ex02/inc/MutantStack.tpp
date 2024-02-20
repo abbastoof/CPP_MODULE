@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:49:38 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 15:14:01 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:17:01 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@ MutantStack<T, Container>::MutantStack(const MutantStack& src) : std::stack<T, C
 template <typename T, typename Container>
 MutantStack<T, Container>& MutantStack<T, Container>::operator=(const MutantStack& other)
 {
-    std::stack<T, Container>::operator=(other);
+	if (this != &other)
+	{
+		while (this->size() > 0)
+			this->pop();
+    	std::stack<T, Container>::operator=(other);
+	}
     return *this;
 }
 
 template <typename T, typename Container>
-MutantStack<T, Container>::~MutantStack() {}
+MutantStack<T, Container>::~MutantStack()
+{
+	if (this->size() > 0)
+		this->c.clear();
+}
 
 template <typename T, typename Container>
 typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
