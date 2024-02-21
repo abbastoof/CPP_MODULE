@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/20 17:15:54 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:22:46 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,10 @@
 #include <iterator>
 #include <fstream>
 #include <sstream>
-#include <iomanip>
-#include <cmath>
-#include <exception>
 #include <stdexcept>
-#include <cctype>
-#include <locale>
-#include <functional>
-#include <numeric>
-#include <list>
-#include <stack>
+#include <exception>
+#include <regex>
+#include <ciso646>
 
 class BitcoinExchange
 {
@@ -42,23 +36,28 @@ public:
 
 	void readData(const std::string &filename);
 	void printData() const;
+	void checkData() const;
+	void checkDate(const std::string &date) const;
+	void checkPrice(const std::string &price) const;
+	
+	class InvalidDate : public std::exception
+	{
+		virtual const char *what() const throw()
+		{
+			return "Invalid date format";
+		}
+	};
+	class InvalidPrice : public std::exception
+	{
+		virtual const char *what() const throw()
+		{
+			return "Invalid price format";
+		}
+	};
 	
 private:
 	std::map<std::string, std::string> _data;
+	std::map<std::string, std::string> _file;
 };
 
 #endif
-
-
-
-	// void printData(const std::string &filename) const;
-	// void printData(const std::string &filename, const std::string &currency) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount, const std::string &type) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount, const std::string &type, const std::string &tid) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount, const std::string &type, const std::string &tid, const std::string &price_currency) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount, const std::string &type, const std::string &tid, const std::string &price_currency, const std::string &item) const;
-	// void printData(const std::string &filename, const std::string &currency, const std::string &date, const std::string &time, const std::string &price, const std::string &amount, const std::string &type, const std::string &tid, const std::string &price_currency, const std::string &item, const std::string &trade_id) const;
