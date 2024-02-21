@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/21 17:22:06 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:43:28 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,24 @@ void BitcoinExchange::checkDate(const std::string &date) const
     {
         throw InvalidDate();
     }
+
+    int year = std::stoi(date.substr(0, 4));
+
+    size_t firstDash = date.find('-');
+    size_t secondDash = date.find('-', firstDash + 1);
+
+    int month = std::stoi(date.substr(firstDash + 1, secondDash - firstDash - 1));
+    int day = std::stoi(date.substr(secondDash + 1));
+
+    if (year < 2009 || year > 2024 || month < 1 || month > 12 || day < 1)
+    {
+        throw InvalidDate();
+    }
+
+    if (!isValidDay(year, month, day))
+    {
+        throw InvalidDate();
+    }
 }
 
 void BitcoinExchange::checkPrice(const std::string &price) const
@@ -94,8 +112,24 @@ void BitcoinExchange::checkPrice(const std::string &price) const
 	}
 }
 
-// iteratotr
-// for (std::map<std::string, std::string>::iterator it = _data.begin(); it != _data.end(); ++it)
-// {
-// 	std::cout << it->first << " " << it->second << std::endl;
-// }
+bool BitcoinExchange::isLeapYear(int year) const
+{
+	return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+}
+
+bool BitcoinExchange::isValidDay(int year, int month, int day) const
+{
+	if (month == 2)
+	{
+		if (isLeapYear(year))
+		{
+			return day <= 29;
+		}
+		return day <= 28;
+	}
+	if (month == 4 || month == 6 || month == 9 || month == 11) // April, June, September, November
+	{
+		return day <= 30;
+	}
+	return day <= 31;
+}

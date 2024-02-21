@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/21 17:22:46 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:34:21 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #include <stdexcept>
 #include <exception>
 #include <regex>
-#include <ciso646>
 
 class BitcoinExchange
 {
@@ -39,6 +38,8 @@ public:
 	void checkData() const;
 	void checkDate(const std::string &date) const;
 	void checkPrice(const std::string &price) const;
+	bool isLeapYear(int year) const;
+	bool isValidDay(int year, int month, int day) const;
 	
 	class InvalidDate : public std::exception
 	{
