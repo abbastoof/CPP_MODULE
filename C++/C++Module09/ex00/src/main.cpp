@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:26:09 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/21 17:46:12 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/22 18:45:30 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,22 @@
 
 int main(int argc, char **argv)
 {
-	BitcoinExchange exchange;
+	if (argc != 2)
+	{
+		std::cerr << "Usage: ./btc filename" << std::endl;
+		return 1;
+	}
 	try
 	{
+		BitcoinExchange exchange;
 		exchange.readData("data.csv");
+		exchange.readFile(argv);
 		// exchange.printData();
+		exchange.printFile();
 	}
 	catch (std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	(void)argc;
-	(void)argv;
-	// read file from command line
-	// if (argc == 2)
-	// {
-	// 	try
-	// 	{
-			
-	// 	}
-	// 	catch(const std::exception& e)
-	// 	{
-	// 		std::cerr << e.what() << '\n';
-	// 	}
 	return 0;
 }
