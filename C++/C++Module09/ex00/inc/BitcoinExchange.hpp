@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/22 18:45:23 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/23 12:22:16 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <exception>
 #include <regex>
 #include <chrono>
+#include <memory>
 
 class BitcoinExchange
 {
@@ -36,19 +37,25 @@ public:
 	~BitcoinExchange();
 
 	void readData(const std::string &filename);
-	void readFile(char **argv);
 	void printData() const;
-	void printFile() const;
-	void checkDatabase() const;
-	void checkFile() const;
-	bool checkDate(const std::string &date) const;
-	bool checkPrice(const std::string &price, bool isFromFile) const;
+	bool checkDate(const std::string &date, int line) const;
+	bool checkPrice(const std::string &price, int line, bool isFromFile) const;
 	bool isLeapYear(int year) const;
 	bool isValidDay(int year, int month, int day) const;
+	int checkFileLines(const char *filename);
+	void printFileData() const;
 
+	typedef struct s_fileData
+	{
+		std::string date;
+		std::string price;
+		std::shared_ptr<s_fileData> next;
+	} t_fileData;
+
+	
 private:
 	std::map<std::string, std::string> _data;
-	std::map<std::string, std::string> _file;
+	std::shared_ptr<t_fileData> _fileData;
 };
 
 #endif

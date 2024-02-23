@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/22 18:47:27 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/23 12:22:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,62 +44,23 @@ void BitcoinExchange::readData(const std::string &filename)
 	std::stringstream ss;
 	ss << file.rdbuf();
 	std::string key, value;
-	int line = 0;
-	while (getline(ss, key, '|'))
+	int line = 1;
+	while (!ss.eof())
 	{
-		getline(ss, value, '\n');
-		if (line == 0 && key == "date " && value == " value")
+		std::getline(ss, key, ',');
+		std::getline(ss, value, '\n');
+		if (line == 1 && key == "date" && value == "exchange_rate")
 		{
 			++line;
 			continue;
 		}
-		_data.insert(std::pair<std::string, std::string>(key, value));
-		++line;
+		if (checkDate(key, line) && checkPrice(value, line, false))
+		{
+			_data.insert(std::pair<std::string, std::string>(key, value));
+			++line;
+		}
 	}
 	file.close();
-	// checkDatabase();
-}
-
-void BitcoinExchange::readFile(char **argv)
-{
-	int duplicateCount = 0;
-	int formatErrorCount = 0;
-	
-    std::ifstream file(argv[1]);
-    if (!file.is_open())
-    {
-        throw std::runtime_error("File not found");
-    }
-    std::string line, key, value;
-
-    std::getline(file, line); // Skip header
-
-    while (std::getline(file, line))
-    {
-        size_t delimiterPos = line.find('|');
-        if (delimiterPos != std::string::npos)
-        {
-            key = line.substr(0, delimiterPos);
-            value = line.substr(delimiterPos + 1);
-			if (_file.find(key) != _file.end())
-            {
-                // Mark the current entry as a duplicate by appending a count
-                key = "duplicate_" + std::to_string(++duplicateCount);
-                value = "duplicate";
-            }
-
-            // Insert the key-value pair into the map
-            _file[key] = value;
-        }
-        else
-        {
-            // If the line does not have the correct format, mark as a format error with a count
-            key = "Format_error_" + std::to_string(++formatErrorCount);
-            value = "Format_error";
-            _file[key] = value;
-        }
-    }
-    file.close();
 }
 
 void BitcoinExchange::printData() const
@@ -111,50 +72,11 @@ void BitcoinExchange::printData() const
 	}
 }
 
-void BitcoinExchange::printFile() const
-{
-	std::cout << "File:" << std::endl;
-	for (const auto &pair : _file)
-	{
-		std::cout << pair.first << " " << pair.second << std::endl;
-	}
-}
-
-void BitcoinExchange::checkDatabase() const
-{
-	std::map<std::string, std::string>::const_iterator it;
-	for (it = _data.begin(); it != _data.end(); ++it)
-	{
-		if (!checkDate(it->first) || !checkPrice(it->second, false))
-		{
-			throw std::runtime_error("Error: bad data in database");
-		}
-	}
-}
-
-void BitcoinExchange::checkFile() const
-{
-	std::map<std::string, std::string>::const_iterator it;
-	for (it = _file.begin(); it != _file.end(); ++it)
-	{
-		if (!checkDate(it->first) || !checkPrice(it->second, true))
-		{
-			std::cerr << "Error: bad data in file" << std::endl;
-			continue;
-		}
-		// check for duplicates
-		if (it->first.find("duplicate") != std::string::npos)
-		{
-			std::cerr << "Error: duplicate data in file" << std::endl;
-		}
-	}
-}
-
-bool BitcoinExchange::checkDate(const std::string &date) const
+bool BitcoinExchange::checkDate(const std::string &date, int line) const
 {
 	if (!std::regex_match(date, std::regex("^\\d{4}-(\\d{1,2})-(\\d{1,2})$")))
 	{
-		std::cerr << "Error: bad input date" << std::endl;
+		std::cerr << "Date is not in the correct format at line " << line << std::endl;
 		return false;
 	}
 
@@ -168,13 +90,13 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 
 	if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
 	{
-		std::cerr << "Error: bad input date " << std::endl;
+		std::cerr << "Date is out of range at line " << line << std::endl;
 		return false;
 	}
 
 	if (!isValidDay(year, month, day))
 	{
-		std::cerr << "Error: bad input date " << std::endl;
+		std::cerr << "invalid day at line " << line << std::endl;
 		return false;
 	}
 	std::chrono::system_clock::time_point today = std::chrono::system_clock::now();
@@ -192,7 +114,7 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 	return true;
 }
 
-bool BitcoinExchange::checkPrice(const std::string &price, bool isFromFile) const
+bool BitcoinExchange::checkPrice(const std::string &price, int line, bool isFromFile) const
 {
 	float priceValue = std::stof(price);
 
@@ -208,7 +130,7 @@ bool BitcoinExchange::checkPrice(const std::string &price, bool isFromFile) cons
 	{
 		if (priceValue < 0)
 		{
-			std::cerr << "Price should be positive" << std::endl;
+			std::cerr << "Price is negative at line " << line << std::endl;
 			return false;
 		}
 	}
@@ -235,4 +157,59 @@ bool BitcoinExchange::isValidDay(int year, int month, int day) const
 		return day <= 30;
 	}
 	return day <= 31;
+}
+
+int BitcoinExchange::checkFileLines(const char *filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open())
+        throw std::runtime_error("File not found");
+    std::string line;
+    std::shared_ptr<t_fileData> last = nullptr;
+
+    while (getline(file, line))
+    {
+        auto newNode = std::make_shared<t_fileData>();
+        newNode->next = nullptr;
+
+        if (line == "date | value")
+            continue;
+        size_t pipe = line.find(" | ");
+        if (pipe != std::string::npos)
+        {
+            newNode->date = line.substr(0, pipe);
+            newNode->price = line.substr(pipe + 3);
+
+            // if (!BitcoinExchange::isValidDay(newNode->date) || BitcoinExchange::isValidPrice(newNode->price))
+			// {
+            //     newNode->date = "Error";
+            //     newNode->price = "Error";
+            // }
+        }
+        else
+        {
+            newNode->date = "Error";
+            newNode->price = "Error";
+        }
+        if (last == nullptr)
+            _fileData = newNode;
+        else
+            last->next = newNode;
+        last = newNode;
+    }
+
+    file.close();
+    return 0;
+}
+
+
+void BitcoinExchange::printFileData() const
+{
+    auto current = _fileData;
+    std::cout << "File data:" << std::endl;
+    while (current != nullptr)
+    {
+        std::cout << current->date << " " << current->price << std::endl;
+        current = current->next;
+    }
 }
