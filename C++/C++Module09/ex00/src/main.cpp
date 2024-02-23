@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:26:09 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 11:38:50 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/23 17:41:51 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int main(int argc, char **argv)
 		std::cerr << "Usage: ./btc filename" << std::endl;
 		return 1;
 	}
-	// (void)argc;
-	// (void)argv;
+	(void)argc;
+	(void)argv;
 	try
 	{
 		BitcoinExchange exchange;
@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 		// exchange.printData();
 		exchange.checkFileLines(argv[1]);
 		// exchange.printFileData();
+		exchange.calculatePrice();
 	}
 	catch (std::exception &e)
 	{

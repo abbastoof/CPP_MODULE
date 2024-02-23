@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 12:22:16 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/23 16:14:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ public:
 
 	void readData(const std::string &filename);
 	void printData() const;
-	bool checkDate(const std::string &date, int line) const;
-	bool checkPrice(const std::string &price, int line, bool isFromFile) const;
+	bool checkDate(const std::string &date) const;
+	bool checkPrice(const std::string &price, bool isFromFile) const;
 	bool isLeapYear(int year) const;
 	bool isValidDay(int year, int month, int day) const;
 	int checkFileLines(const char *filename);
 	void printFileData() const;
+	void calculatePrice() const;
+	
 
 	typedef struct s_fileData
 	{
