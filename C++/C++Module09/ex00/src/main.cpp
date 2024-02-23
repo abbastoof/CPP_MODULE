@@ -19,15 +19,13 @@ int main(int argc, char **argv)
 		std::cerr << "Usage: ./btc filename" << std::endl;
 		return 1;
 	}
-	(void)argc;
-	(void)argv;
 	try
 	{
 		BitcoinExchange exchange;
 		exchange.readData("data.csv");
 		// exchange.printData();
-		exchange.checkFileLines(argv[1]);
 		// exchange.printFileData();
+		exchange.checkFileLines(argv[1]);
 		exchange.calculatePrice();
 	}
 	catch (std::exception &e)
