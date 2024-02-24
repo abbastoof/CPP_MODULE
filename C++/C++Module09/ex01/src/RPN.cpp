@@ -41,7 +41,7 @@ RPN<T> &RPN<T>::operator=(const RPN &other)
 template <typename T>
 T RPN<T>::evaluate(const std::string &expression)
 {
-	std::istringstream iss(expression);
+	std::istringstream iss(expression); // iss is an object of the istringstream class, which is used to read from a string buffer, iss()
 	std::string token;
 	std::stack<T> stack;
 
@@ -76,8 +76,10 @@ int RPN<T>::performOperation(char op, T a, T b)
 template <typename T>
 void RPN<T>::processToken(const std::string &token, std::stack<T> &stack)
 {
-	if (isdigit(token[0]))
+	if (isdigit(token[0]) && token.size() == 1)
 		stack.push(static_cast<T>(std::stoi(token)));
+	else if (isdigit(token[0]) && token.size() > 1)
+		throw std::runtime_error("Our calculator only supports single digit numbers.");
 	else if (token.size() == 1 && std::string("+-*/").find(token[0]) != std::string::npos)
 	{
 		if (stack.size() < 2)

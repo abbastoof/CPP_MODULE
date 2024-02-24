@@ -21,7 +21,8 @@
 #include <iostream>
 
 template<typename T>
-class RPN {
+class RPN
+{
 public:
 	RPN();
     RPN(const RPN& rhs);
