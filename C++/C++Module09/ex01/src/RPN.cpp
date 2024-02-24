@@ -91,3 +91,5 @@ void RPN<T>::processToken(const std::string &token, std::stack<T> &stack)
 	else
 		throw std::runtime_error("Invalid token.");
 }
+
+template class RPN<int>;
