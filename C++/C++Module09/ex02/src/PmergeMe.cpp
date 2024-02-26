@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 19:58:49 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:14:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,73 +64,79 @@ void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
 	}
 }
 
-void PmergeMe::mergePairs(const std::vector<std::vector<int>>& pairs, std::vector<int>& merged) {
-    std::vector<int> elements; // To hold the second elements for merging
-
-    // Extract the second elements of each pair for merging
-    for (const auto& pair : pairs)
-	 {
-        if (pair.size() > 1)// Ensure the pair has a second element
-            elements.push_back(pair[1]); // Add the second element to the elements vector
-    }
-
-    // Perform a standard merge sort on the extracted elements
-    mergeSort(elements, 0, elements.size() - 1, merged);
-}
-
-void PmergeMe::mergeSort(std::vector<int>& elements, int left, int right, std::vector<int>& merged) {
-    if (left >= right) return; // Base case
-
-    int mid = left + (right - left) / 2;
-    mergeSort(elements, left, mid, merged); // Sort the left half
-    mergeSort(elements, mid + 1, right, merged); // Sort the right half
-    merge(elements, left, mid, right, merged); // Merge the sorted halves
-}
-
-void PmergeMe::merge(std::vector<int>& elements, int left, int mid, int right, std::vector<int>& merged)
+void PmergeMe::mergePairs(const std::vector<std::vector<int>> &pairs, std::vector<int> &merged)
 {
-    int n1 = mid - left + 1; // Size of the left subarray
-    int n2 = right - mid; // Size of the right subarray
+	std::vector<int> elements; // To hold the second elements for merging
 
-    // Create temp arrays
-    std::vector<int> L(n1), R(n2);
-
-    // Copy data to temp arrays
-    for (int i = 0; i < n1; i++) L[i] = elements[left + i];
-    for (int j = 0; j < n2; j++) R[j] = elements[mid + 1 + j];
-
-    // Merge the temp arrays back into elements[left..right]
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2)
+	// Extract the second elements of each pair for merging
+	for (const auto &pair : pairs)
 	{
-        if (L[i] <= R[j])
-            elements[k] = L[i++];
-        else
-            elements[k] = R[j++];
-        k++;
-    }
+		if (pair.size() > 1)			 // Ensure the pair has a second element
+			elements.push_back(pair[1]); // Add the second element to the elements vector
+	}
 
-    // Copy the remaining elements of L[], if there are any
-    while (i < n1)
-        elements[k++] = L[i++];
-
-    // Copy the remaining elements of R[], if there are any
-    while (j < n2)
-        elements[k++] = R[j++];
-
-    merged = elements; // Update merged with the sorted elements
+	// Perform a standard merge sort on the extracted elements
+	mergeSort(elements, 0, elements.size() - 1, merged);
 }
 
-void PmergeMe::insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs) {
-    for (const auto &pair : pairs)
+void PmergeMe::mergeSort(std::vector<int> &elements, int left, int right, std::vector<int> &merged)
+{
+	if (left >= right)
+		return; // Base case
+
+	int mid = left + (right - left) / 2;
+	mergeSort(elements, left, mid, merged);		 // Sort the left half
+	mergeSort(elements, mid + 1, right, merged); // Sort the right half
+	merge(elements, left, mid, right, merged);	 // Merge the sorted halves
+}
+
+void PmergeMe::merge(std::vector<int> &elements, int left, int mid, int right, std::vector<int> &merged)
+{
+	int n1 = mid - left + 1; // Size of the left subarray
+	int n2 = right - mid;	 // Size of the right subarray
+
+	// Create temp arrays
+	std::vector<int> L(n1), R(n2);
+
+	// Copy data to temp arrays
+	for (int i = 0; i < n1; i++)
+		L[i] = elements[left + i];
+	for (int j = 0; j < n2; j++)
+		R[j] = elements[mid + 1 + j];
+
+	// Merge the temp arrays back into elements[left..right]
+	int i = 0, j = 0, k = left;
+	while (i < n1 && j < n2)
 	{
-        if (pair.size() > 1)
+		if (L[i] <= R[j])
+			elements[k] = L[i++];
+		else
+			elements[k] = R[j++];
+		k++;
+	}
+
+	// Copy the remaining elements of L[], if there are any
+	while (i < n1)
+		elements[k++] = L[i++];
+
+	// Copy the remaining elements of R[], if there are any
+	while (j < n2)
+		elements[k++] = R[j++];
+
+	merged = elements; // Update merged with the sorted elements
+}
+
+void PmergeMe::insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs)
+{
+	for (const auto &pair : pairs)
+	{
+		if (pair.size() > 1)
 		{
-            int elementToInsert = pair[0]; // Get the first element of the pair because second element is already in the sorted list.
-            auto it = std::lower_bound(sorted.begin(), sorted.end(), elementToInsert);
-            sorted.insert(it, elementToInsert);  // Insert element at the correct position.
-        }
-    }
+			int elementToInsert = pair[0]; // Get the first element of the pair because second element is already in the sorted list.
+			auto it = std::lower_bound(sorted.begin(), sorted.end(), elementToInsert);
+			sorted.insert(it, elementToInsert); // Insert element at the correct position.
+		}
+	}
 }
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 20:02:32 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/26 20:05:08 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int main(int argc, char* argv[])
 			std::cerr << "Invalid input: " << argv[i] << ". Please enter only positive integers." << std::endl;
 			return 1;
 		}
-        if (iss >> num) { // Check if the input is a valid integer
+        if (iss >> num) // if the conversion to int is successful
             numbers.push_back(num);
-        } else {
+        else
+		{
             std::cerr << "Invalid input: " << argv[i] << ". Please enter only integers." << std::endl;
             return 1;
         }
@@ -48,7 +49,6 @@ int main(int argc, char* argv[])
 
     sorter.sortVector(numbers);
 
-    // Print the sorted sequence
     std::cout << "Sorted sequence: ";
     for (const int& num : numbers)
         std::cout << num << " ";
