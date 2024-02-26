@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:16 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 13:26:35 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/26 19:53:10 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@ class PmergeMe
 
 		void sortList(std::list<int> &lst);
 		void sortVector(std::vector<int> &vec);
+		std::vector<std::vector<int>> createPairs(const std::vector<int> &a);
+		void sortPairs(std::vector<std::vector<int>> &pairs);
+		void mergePairs(const std::vector<std::vector<int>>& pairs, std::vector<int>& merged);
+		void merge(std::vector<int>& elements, int left, int mid, int right, std::vector<int>& merged);
+		void mergeSort(std::vector<int>& elements, int left, int right, std::vector<int>& merged);
+		void insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs);
 	private:
-		static void fordjohnson(std::vector<int> &vec, int left, int right);
-		static void fordjohnson(std::list<int> &lst, int left, int right);
-		static void merge(std::vector<int> &vec, int left, int middle, int right);
-		static void merge(std::list<int> &lst, int left, int middle, int right);
+
+		void fordJohnson(std::vector<int> &vec);
 };
 
 #endif /* PMERGEME_HPP */
