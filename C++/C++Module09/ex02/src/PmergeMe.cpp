@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 14:11:30 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/26 16:58:05 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void PmergeMe::fordjohnson(std::list<int> &lst, int left, int right)
 void PmergeMe::merge(std::vector<int>& data, int left, int mid, int right)
 {
 	std::vector<int> tempHoldMerged(right - left + 1);
-	int left_index = left, right_index = mid + 1, temp_index = 0; // create indices for the left, right, and temporary vectors
+	int left_index = left, right_index = mid + 1, temp_index = 0;
 	while (left_index <= mid && right_index <= right)
 	{
 		if (data[left_index] < data[right_index])
@@ -72,15 +72,13 @@ void PmergeMe::merge(std::vector<int>& data, int left, int mid, int right)
 		else
 			tempHoldMerged[temp_index++] = data[right_index++];
 	}
-	// Copy the remaining elements of the left half, if there are any
+
 	while (left_index <= mid)
 		tempHoldMerged[temp_index++] = data[left_index++];
 
-	// Copy the remaining elements of the right half, if there are any
 	while (right_index <= right)
 		tempHoldMerged[temp_index++] = data[right_index++];
 
-	// Copy the merged elements back into the original array
 	for (int i = left; i <= right; ++i, ++temp_index)
 		data[i] = tempHoldMerged[temp_index];
 }
