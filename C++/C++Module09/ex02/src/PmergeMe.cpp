@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/27 14:02:49 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 14:05:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,14 @@ void PmergeMe::merge(std::vector<int> &elements, int left, int mid, int right, s
 
 void PmergeMe::insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs)
 {
-	for (const auto &pair : pairs)
-	{
-		for (int element : pair)
-		{
-			auto it = std::lower_bound(sorted.begin(), sorted.end(), element);
-			sorted.insert(it, element); // Insert element at the correct position.
-		}
-	}
+    for (const auto &pair : pairs)
+    {
+        for (int element : pair)
+        {
+            auto it = std::lower_bound(sorted.begin(), sorted.end(), element);
+            sorted.insert(it, element);
+        }
+    }
 }
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
