@@ -18,6 +18,7 @@
 # include <list>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 class PmergeMe
 {
@@ -40,6 +41,8 @@ class PmergeMe
 
 	private:
 		void fordJohnson(std::vector<int> &vec);
+		bool hasStraggler;
+		int straggler;
 };
 
 #endif /* PMERGEME_HPP */

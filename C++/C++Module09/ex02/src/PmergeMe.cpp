@@ -12,11 +12,11 @@
 
 #include "../inc/PmergeMe.hpp"
 
-PmergeMe::PmergeMe()
+PmergeMe::PmergeMe() : hasStraggler(false), straggler(0)
 {
 }
 
-PmergeMe::PmergeMe(const PmergeMe &rhs)
+PmergeMe::PmergeMe(const PmergeMe &rhs) : hasStraggler(false), straggler(0)
 {
 	*this = rhs;
 }
@@ -25,6 +25,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs)
 {
 	if (this != &rhs)
 	{
+		hasStraggler = rhs.hasStraggler;
+		straggler = rhs.straggler;
 	}
 	return *this;
 }
@@ -71,16 +73,22 @@ bool PmergeMe::isPairGreaterThan(const std::vector<int> &a, const std::vector<in
 
 void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 {
-    if (pairs.size() <= 1) return;
+	if (pairs.size() <= 1) return;
 
-    for (size_t current = 0; current < pairs.size() - 1; ++current)
-    {
-        for (size_t next = 0; next < pairs.size() - current - 1; ++next)
-        {
-            if (isPairGreaterThan(pairs[next], pairs[next + 1]))
-                std::swap(pairs[next], pairs[next + 1]);
-        }
-    }
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		for (size_t j = i + 1; j < pairs.size(); j++)
+		{
+			if (pairs[i][1] > pairs[j][1]) // If the larger value of the first pair is greater than the larger value of the second pair
+				std::swap(pairs[i], pairs[j]);
+		}
+	}
+
+	// printf("Sorted pairs by larger value: ");
+	// for (auto &pair : pairs)
+	// {
+	// 	printf("[%d, %d] ", pair[0], pair[1]);
+	// }
 }
 
 
@@ -178,9 +186,6 @@ int PmergeMe::jacobsthal(int n)
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
-	int straggler = 0;
-	bool hasStraggler = false;
-
 	if (vec.size() % 2 != 0)
 	{
 		hasStraggler = true;
@@ -201,7 +206,6 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 		largNumber.push_back(pair[1]); // Add the larger value of the pair to 'largNumber'
 		pend.push_back(pair[0]);	   // Add the smaller value to 'pend'
 	}
-
 	// Immediately, since we know the first element in ‘pend’ ( we call it: ‘p1’) is smaller than the first element in the ‘largNumber’ array (‘l1’), we insert it in the ‘0’ index of largNumber.
 
 	largNumber.insert(largNumber.begin(), pend[0]);
