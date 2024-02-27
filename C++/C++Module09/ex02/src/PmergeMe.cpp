@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/27 17:21:05 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 18:12:10 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
 	}
 }
 
-bool PmergeMe::comparePairsByLargerValue(const std::vector<int> &a, const std::vector<int> &b)
+bool PmergeMe::isPairGreaterThan(const std::vector<int> &a, const std::vector<int> &b)
 {
 	int maxA = *std::max_element(a.begin(), a.end());
 	int maxB = *std::max_element(b.begin(), b.end());
@@ -71,8 +71,18 @@ bool PmergeMe::comparePairsByLargerValue(const std::vector<int> &a, const std::v
 
 void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 {
-	std::sort(pairs.begin(), pairs.end(), comparePairsByLargerValue);
+    if (pairs.size() <= 1) return;
+
+    for (size_t current = 0; current < pairs.size() - 1; ++current)
+    {
+        for (size_t next = 0; next < pairs.size() - current - 1; ++next)
+        {
+            if (isPairGreaterThan(pairs[next], pairs[next + 1]))
+                std::swap(pairs[next], pairs[next + 1]);
+        }
+    }
 }
+
 
 // void PmergeMe::mergePairs(const std::vector<std::vector<int>> &pairs, std::vector<int> &merged)
 // {
@@ -150,8 +160,10 @@ void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 
 int PmergeMe::jacobsthal(int n)
 {
-	if (n == 0)	return 0;
-	if (n == 1)	return 1;
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return 1;
 
 	int j0 = 0, j1 = 1;
 	int jn;

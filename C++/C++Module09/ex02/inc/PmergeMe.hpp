@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:16 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/27 17:12:40 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 18:07:24 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class PmergeMe
 		// void mergeSort(std::vector<int>& elements, int left, int right, std::vector<int>& merged);
 		// void insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs);
 		void sortPairsByLargerValue(std::vector<std::vector<int>> &pairs);
-		bool comparePairsByLargerValue(const std::vector<int> &a, const std::vector<int> &b);
+		bool isPairGreaterThan(const std::vector<int> &a, const std::vector<int> &b);
 		int jacobsthal(int n);
 
 	private:
