@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 20:14:12 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 14:02:49 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,10 @@ void PmergeMe::insertElements(std::vector<int> &sorted, const std::vector<std::v
 {
 	for (const auto &pair : pairs)
 	{
-		if (pair.size() > 1)
+		for (int element : pair)
 		{
-			int elementToInsert = pair[0]; // Get the first element of the pair because second element is already in the sorted list.
-			auto it = std::lower_bound(sorted.begin(), sorted.end(), elementToInsert);
-			sorted.insert(it, elementToInsert); // Insert element at the correct position.
+			auto it = std::lower_bound(sorted.begin(), sorted.end(), element);
+			sorted.insert(it, element); // Insert element at the correct position.
 		}
 	}
 }
