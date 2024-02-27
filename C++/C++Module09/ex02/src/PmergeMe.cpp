@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 20:14:12 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:06:41 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ std::vector<std::vector<int>> PmergeMe::createPairs(const std::vector<int> &a)
 		pair.push_back(a[i]);
 		// Check if there's a next element to form a complete pair
 		if (i + 1 < a.size())
-			pair.push_back(a[i + 1]);
-		splitArray.push_back(pair);
+			pair.push_back(a[i + 1]); // Add the next element to the pair
+		splitArray.push_back(pair);  // else add the pair with only one element
 	}
 
 	return splitArray;
@@ -96,32 +96,32 @@ void PmergeMe::merge(std::vector<int> &elements, int left, int mid, int right, s
 	int n2 = right - mid;	 // Size of the right subarray
 
 	// Create temp arrays
-	std::vector<int> L(n1), R(n2);
+	std::vector<int> left_half(n1), right_lalf(n2);
 
 	// Copy data to temp arrays
 	for (int i = 0; i < n1; i++)
-		L[i] = elements[left + i];
+		left_half[i] = elements[left + i];
 	for (int j = 0; j < n2; j++)
-		R[j] = elements[mid + 1 + j];
+		right_lalf[j] = elements[mid + 1 + j];
 
 	// Merge the temp arrays back into elements[left..right]
 	int i = 0, j = 0, k = left;
 	while (i < n1 && j < n2)
 	{
-		if (L[i] <= R[j])
-			elements[k] = L[i++];
+		if (left_half[i] <= right_lalf[j])
+			elements[k] = left_half[i++];
 		else
-			elements[k] = R[j++];
+			elements[k] = right_lalf[j++];
 		k++;
 	}
 
-	// Copy the remaining elements of L[], if there are any
+	// Copy the remaining elements of left_half[], if there are any
 	while (i < n1)
-		elements[k++] = L[i++];
+		elements[k++] = left_half[i++];
 
-	// Copy the remaining elements of R[], if there are any
+	// Copy the remaining elements of right_lalf[], if there are any
 	while (j < n2)
-		elements[k++] = R[j++];
+		elements[k++] = right_lalf[j++];
 
 	merged = elements; // Update merged with the sorted elements
 }
