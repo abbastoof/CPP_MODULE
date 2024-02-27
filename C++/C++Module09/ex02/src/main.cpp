@@ -6,14 +6,11 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 20:05:08 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 10:59:32 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/PmergeMe.hpp"
-#include <iostream>
-#include <vector>
-#include <sstream>
 
 
 int main(int argc, char* argv[])
@@ -26,7 +23,6 @@ int main(int argc, char* argv[])
     }
 
     std::vector<int> numbers;
-    // Start from 1 to skip the program name
     for (int i = 1; i < argc; ++i)
 	{
         std::istringstream iss(argv[i]);
@@ -44,7 +40,7 @@ int main(int argc, char* argv[])
             return 1;
         }
     }
-	
+
     PmergeMe sorter;
 
     sorter.sortVector(numbers);
