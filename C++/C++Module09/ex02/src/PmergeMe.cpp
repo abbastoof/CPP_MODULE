@@ -73,7 +73,8 @@ bool PmergeMe::isPairGreaterThan(const std::vector<int> &a, const std::vector<in
 
 void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 {
-	if (pairs.size() <= 1) return;
+	if (pairs.size() <= 1)
+		return;
 
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
@@ -90,7 +91,6 @@ void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 	// 	printf("[%d, %d] ", pair[0], pair[1]);
 	// }
 }
-
 
 // void PmergeMe::mergePairs(const std::vector<std::vector<int>> &pairs, std::vector<int> &merged)
 // {
@@ -168,21 +168,50 @@ void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 
 int PmergeMe::jacobsthal(int n)
 {
-	if (n == 0)
-		return 0;
-	if (n == 1)
-		return 1;
-
-	int j0 = 0, j1 = 1;
-	int jn;
+	std::vector<int> dp(n + 1); // Create a vector to store the Jacobsthal numbers
+								// Base cases for J(0) and J(1) are 0 and 1 respectively
+	dp[0] = 0;
+	dp[1] = 1;
+	// Calculate the Jacobsthal number for each index in the vector using the formula J(n) = J(n-1) + 2*J(n-2)
 	for (int i = 2; i <= n; ++i)
-	{
-		jn = j1 + 2 * j0;
-		j0 = j1;
-		j1 = jn;
-	}
-	return jn;
+		dp[i] = dp[i - 1] + 2 * dp[i - 2];
+	return dp[n];
 }
+
+std::vector<int> PmergeMe::buildJacobInsertionSequence(int length)
+{
+	std::vector<int> sequence;
+	for (int i = 0; i < length; ++i)
+		sequence.push_back(jacobsthal(i));
+	return sequence;
+}
+
+int PmergeMe::calculateInsertionIndex(const std::vector<int>& largNumber, int pendValue, const std::vector<int>& jacobSequence) {
+    // Start searching from the beginning of 'largNumber'
+    int index = 0;
+
+    for (size_t i = 0; i < jacobSequence.size() && index < static_cast<int>(largNumber.size()); ++i) {
+        // Calculate the next index using the Jacobsthal sequence, ensuring it doesn't exceed the size of 'largNumber'
+        int nextIndex = std::min(index + jacobSequence[i], static_cast<int>(largNumber.size()) - 1);
+
+        // If 'pendValue' is less than 'largNumber[nextIndex]', we've found our insertion point
+        if (pendValue < largNumber[nextIndex])
+            return index; // Insert before 'largNumber[nextIndex]'
+
+        // Otherwise, move to 'nextIndex' for the next iteration, ensuring we advance at least one position
+        index = nextIndex + 1;
+    }
+
+    // If we reach here, 'pendValue' should be inserted at the end
+    return static_cast<int>(largNumber.size());
+}
+
+int PmergeMe::binarySearchInsertionIndex(const std::vector<int>& S, int value)
+{
+    auto it = std::lower_bound(S.begin(), S.end(), value);
+    return std::distance(S.begin(), it);
+}
+
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
@@ -209,6 +238,7 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 	// Immediately, since we know the first element in ‘pend’ ( we call it: ‘p1’) is smaller than the first element in the ‘largNumber’ array (‘l1’), we insert it in the ‘0’ index of largNumber.
 
 	largNumber.insert(largNumber.begin(), pend[0]);
+	std::vector<int> jacobSequence = buildJacobInsertionSequence(pend.size()); // Create the Jacobsthal insertion sequence
 
 	// // Merge the pairs into a sorted list and insert the remaining elements
 	// std::vector<int> merged;

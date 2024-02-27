@@ -38,6 +38,9 @@ class PmergeMe
 		void sortPairsByLargerValue(std::vector<std::vector<int>> &pairs);
 		bool isPairGreaterThan(const std::vector<int> &a, const std::vector<int> &b);
 		int jacobsthal(int n);
+		std::vector<int> buildJacobInsertionSequence(int length);
+		int calculateInsertionIndex(const std::vector<int>& S, int pendValue, const std::vector<int>& jacobSequence);
+		int binarySearchInsertionIndex(const std::vector<int>& S, int value);
 
 	private:
 		void fordJohnson(std::vector<int> &vec);
