@@ -140,6 +140,12 @@ void PmergeMe::insertElements(std::vector<int> &sorted, const std::vector<std::v
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
+	int straggler = 0;
+	if (vec.size() %2 != 0)
+	{
+		straggler = vec[vec.size() - 1];
+		vec.pop_back();
+	}
 	if (vec.size() <= 1)
 		return;
 

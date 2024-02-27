@@ -36,7 +36,6 @@ class PmergeMe
 		void mergeSort(std::vector<int>& elements, int left, int right, std::vector<int>& merged);
 		void insertElements(std::vector<int> &sorted, const std::vector<std::vector<int>> &pairs);
 	private:
-
 		void fordJohnson(std::vector<int> &vec);
 };
 
