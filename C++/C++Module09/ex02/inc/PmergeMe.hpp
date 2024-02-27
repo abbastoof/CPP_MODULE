@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:16 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/26 19:53:10 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/27 10:59:17 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <iostream>
 # include <vector>
 # include <list>
+#include <vector>
+#include <sstream>
 
 class PmergeMe
 {
