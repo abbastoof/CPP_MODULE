@@ -42,16 +42,14 @@ std::vector<std::vector<int>> PmergeMe::createPairs(const std::vector<int> &a)
 {
 	std::vector<std::vector<int>> splitArray;
 
+	// since our array is even we can just split it in half
 	for (size_t i = 0; i < a.size(); i += 2)
 	{
 		std::vector<int> pair;
 		pair.push_back(a[i]);
-		// Check if there's a next element to form a complete pair
-		if (i + 1 < a.size())
-			pair.push_back(a[i + 1]);
+		pair.push_back(a[i + 1]);
 		splitArray.push_back(pair);
 	}
-
 	return splitArray;
 }
 
@@ -146,8 +144,9 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 		straggler = vec[vec.size() - 1];
 		vec.pop_back();
 	}
-	if (vec.size() <= 1)
-		return;
+	// if (vec.size() <= 1)
+	// 	return;
+
 
 	std::vector<std::vector<int>> pairs = createPairs(vec);
 	sortPairs(pairs);
