@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/28 13:02:07 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/28 13:40:13 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 		pend.push_back(pair[0]);	   // Smaller value of each pair
 	}
 
-	// Print sorted pairs and initial 'largNumber' and 'pend' arrays
+	// Print sorted pairs and initial 'largNumber' and 'pend' arrays for debugging
 	std::cout << "Sorted pairs by larger value: ";
 	for (auto &pair : pairs)
 		std::cout << "[" << pair[0] << ", " << pair[1] << "] ";
@@ -131,19 +131,44 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 	// Step 4: Generate Jacobsthal sequence
 	std::vector<int> jacobSequence = buildJacobInsertionSequence(pend.size());
 
-	// Print Jacobsthal sequence
+	// Print Jacobsthal sequence for debugging
 	std::cout << "Jacobsthal Sequence: ";
 	for (int num : jacobSequence)
 		std::cout << num << " ";
 	std::cout << "\n";
 
-	// Step 5: Insert elements from 'pend' into 'largNumber'
+	// Modified Step 5: Insert elements from 'pend' into 'largNumber' using Jacobsthal sequence
 	for (int value : pend)
 	{
-		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), value);
-		largNumber.insert(it, value);
+		int start = 0;
+		int end = largNumber.size() - 1;
+		int insertPos = 0;
 
-		// Print 'largNumber' after each insertion
+		while (start <= end)
+		{
+			int mid = start + (end - start) / 2;
+			// Use Jacobsthal sequence to adjust the mid-point
+			int jacobAdjust = jacobsthal(mid % jacobSequence.size());
+			mid += jacobAdjust;
+
+			// Ensure mid is within bounds
+			mid = std::min(std::max(mid, start), end);
+
+			if (largNumber[mid] == value)
+			{
+				insertPos = mid;
+				break;
+			}
+			else if (largNumber[mid] < value)
+				start = mid + 1;
+			else
+				end = mid - 1;
+			insertPos = start;
+		}
+
+		largNumber.insert(largNumber.begin() + insertPos, value);
+
+		// Optional: Print 'largNumber' after each insertion (for debugging)
 		std::cout << "After inserting " << value << " into largNumber: ";
 		for (int num : largNumber)
 			std::cout << num << " ";
@@ -153,10 +178,30 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 	// Step 6: Handle the straggler if present
 	if (hasStraggler)
 	{
-		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), straggler);
-		largNumber.insert(it, straggler);
+		int start = 0;
+		int end = largNumber.size() - 1;
+		int insertPos = 0;
 
-		// Print 'largNumber' after inserting the straggler
+		while (start <= end)
+		{
+			int mid = start + (end - start) / 2;
+
+			if (largNumber[mid] == straggler)
+			{
+				insertPos = mid;
+				break;
+			}
+			else if (largNumber[mid] < straggler)
+				start = mid + 1;
+			else
+				end = mid - 1;
+
+			insertPos = start;
+		}
+
+		largNumber.insert(largNumber.begin() + insertPos, straggler);
+
+		// Optional: Print 'largNumber' after inserting the straggler (for debugging)
 		std::cout << "After inserting straggler " << straggler << " into largNumber: ";
 		for (int num : largNumber)
 			std::cout << num << " ";
