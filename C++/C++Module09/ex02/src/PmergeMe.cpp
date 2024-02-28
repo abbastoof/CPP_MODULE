@@ -82,55 +82,55 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 	std::vector<std::vector<int>> pairs = createPairs(vec);
 	sortPairs(pairs);
 
-	// Step 3: Sort pairs by their larger value and create 'largNumber' and 'pend' arrays
+	// Step 3: Sort pairs by their larger value and create 'largerElements' and 'smallerElements' arrays
 	sortPairsByLargerValue(pairs);
-	std::vector<int> largNumber, pend;
+	std::vector<int> largerElements, smallerElements;
 	for (auto &pair : pairs)
 	{
-		largNumber.push_back(pair[1]); // Larger value of each pair
-		pend.push_back(pair[0]);	   // Smaller value of each pair
+		largerElements.push_back(pair[1]); // Larger value of each pair
+		smallerElements.push_back(pair[0]);	   // Smaller value of each pair
 	}
 
-	// Print sorted pairs and initial 'largNumber' and 'pend' arrays
+	// Print sorted pairs and initial 'largerElements' and 'smallerElements' arrays
 	std::cout << "Sorted pairs by larger value: ";
 	for (auto &pair : pairs)
 		std::cout << "[" << pair[0] << ", " << pair[1] << "] ";
 	std::cout << "\n";
 
-	std::cout << "largNumber: ";
-	for (int num : largNumber)
+	std::cout << "largerElements: ";
+	for (int num : largerElements)
 		std::cout << num << " ";
-	std::cout << "\npend: ";
-	for (int num : pend)
+	std::cout << "\nsmallerElements: ";
+	for (int num : smallerElements)
 		std::cout << num << " ";
 	std::cout << "\n";
 
-	// Step 4: Insert 'pend' into 'largNumber' in sorted order
-	for (int value : pend)
+	// Step 4: Insert 'smallerElements' into 'largerElements' in sorted order
+	for (int value : smallerElements)
 	{
-		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), value);
-		largNumber.insert(it, value);
+		auto it = std::lower_bound(largerElements.begin(), largerElements.end(), value);
+		largerElements.insert(it, value);
 
-		// Print 'largNumber' after each insertion
-		std::cout << "After inserting " << value << " into largNumber: ";
-		for (int num : largNumber)
+		// Print 'largerElements' after each insertion
+		std::cout << "After inserting " << value << " into largerElements: ";
+		for (int num : largerElements)
 			std::cout << num << " ";
 		std::cout << "\n";
 	}
 
-	// Step 5: Insert the straggler into 'largNumber' if necessary
+	// Step 5: Insert the straggler into 'largerElements' if necessary
 	if (hasStraggler)
 	{
-		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), straggler);
-		largNumber.insert(it, straggler);
+		auto it = std::lower_bound(largerElements.begin(), largerElements.end(), straggler);
+		largerElements.insert(it, straggler);
 
-		// Print 'largNumber' after inserting the straggler
-		std::cout << "After inserting straggler " << straggler << " into largNumber: ";
-		for (int num : largNumber)
+		// Print 'largerElements' after inserting the straggler
+		std::cout << "After inserting straggler " << straggler << " into largerElements: ";
+		for (int num : largerElements)
 			std::cout << num << " ";
 		std::cout << "\n";
 	}
 
 	// Update the original vector with the sorted values
-	vec = largNumber;
+	vec = largerElements;
 }
