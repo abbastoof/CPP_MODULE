@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/28 12:16:14 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/28 13:02:07 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ std::vector<std::vector<int>> PmergeMe::createPairs(const std::vector<int> &a)
 		splitArray.push_back(pair);
 	}
 	return splitArray;
+}
+
+void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
+{
+	for (std::vector<int> &pair : pairs)
+	{
+		if (pair[0] > pair[1])
+			std::swap(pair[0], pair[1]);
+	}
 }
 
 void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
