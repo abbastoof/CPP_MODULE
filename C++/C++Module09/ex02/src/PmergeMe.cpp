@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/28 13:40:13 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/28 15:20:12 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,11 @@ void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
 	printf("\n");
 }
 
-int PmergeMe::jacobsthal(int n)
-{
-	if (n == 0)
-		return 0;
-	if (n == 1)
-		return 1;
-
-	int prev = 0;	 // J(0)
-	int current = 1; // J(1)
-	for (int i = 2; i <= n; ++i)
-	{
-		int next = current + 2 * prev; // J(n) = J(n-1) + 2*J(n-2)
-		prev = current;
-		current = next;
-	}
-	return current;
-}
-
-std::vector<int> PmergeMe::buildJacobInsertionSequence(int length)
-{
-	std::vector<int> sequence;
-	for (int i = 0; i < length; ++i)
-		sequence.push_back(jacobsthal(i));
-	return sequence;
-}
-
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
+	if (vec.empty())
+        return; // Nothing to sort
+
 	// Step 1: Handle an odd-sized array
 	if (vec.size() % 2 != 0)
 	{
@@ -114,7 +91,7 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 		pend.push_back(pair[0]);	   // Smaller value of each pair
 	}
 
-	// Print sorted pairs and initial 'largNumber' and 'pend' arrays for debugging
+	// Print sorted pairs and initial 'largNumber' and 'pend' arrays
 	std::cout << "Sorted pairs by larger value: ";
 	for (auto &pair : pairs)
 		std::cout << "[" << pair[0] << ", " << pair[1] << "] ";
@@ -128,80 +105,26 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 		std::cout << num << " ";
 	std::cout << "\n";
 
-	// Step 4: Generate Jacobsthal sequence
-	std::vector<int> jacobSequence = buildJacobInsertionSequence(pend.size());
-
-	// Print Jacobsthal sequence for debugging
-	std::cout << "Jacobsthal Sequence: ";
-	for (int num : jacobSequence)
-		std::cout << num << " ";
-	std::cout << "\n";
-
-	// Modified Step 5: Insert elements from 'pend' into 'largNumber' using Jacobsthal sequence
+	// Step 4: Insert 'pend' into 'largNumber' in sorted order
 	for (int value : pend)
 	{
-		int start = 0;
-		int end = largNumber.size() - 1;
-		int insertPos = 0;
+		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), value);
+		largNumber.insert(it, value);
 
-		while (start <= end)
-		{
-			int mid = start + (end - start) / 2;
-			// Use Jacobsthal sequence to adjust the mid-point
-			int jacobAdjust = jacobsthal(mid % jacobSequence.size());
-			mid += jacobAdjust;
-
-			// Ensure mid is within bounds
-			mid = std::min(std::max(mid, start), end);
-
-			if (largNumber[mid] == value)
-			{
-				insertPos = mid;
-				break;
-			}
-			else if (largNumber[mid] < value)
-				start = mid + 1;
-			else
-				end = mid - 1;
-			insertPos = start;
-		}
-
-		largNumber.insert(largNumber.begin() + insertPos, value);
-
-		// Optional: Print 'largNumber' after each insertion (for debugging)
+		// Print 'largNumber' after each insertion
 		std::cout << "After inserting " << value << " into largNumber: ";
 		for (int num : largNumber)
 			std::cout << num << " ";
 		std::cout << "\n";
 	}
 
-	// Step 6: Handle the straggler if present
+	// Step 5: Insert the straggler into 'largNumber' if necessary
 	if (hasStraggler)
 	{
-		int start = 0;
-		int end = largNumber.size() - 1;
-		int insertPos = 0;
+		auto it = std::lower_bound(largNumber.begin(), largNumber.end(), straggler);
+		largNumber.insert(it, straggler);
 
-		while (start <= end)
-		{
-			int mid = start + (end - start) / 2;
-
-			if (largNumber[mid] == straggler)
-			{
-				insertPos = mid;
-				break;
-			}
-			else if (largNumber[mid] < straggler)
-				start = mid + 1;
-			else
-				end = mid - 1;
-
-			insertPos = start;
-		}
-
-		largNumber.insert(largNumber.begin() + insertPos, straggler);
-
-		// Optional: Print 'largNumber' after inserting the straggler (for debugging)
+		// Print 'largNumber' after inserting the straggler
 		std::cout << "After inserting straggler " << straggler << " into largNumber: ";
 		for (int num : largNumber)
 			std::cout << num << " ";
