@@ -35,13 +35,13 @@ void PmergeMe::sortVector(std::vector<int> &vec)
 
 std::vector<std::vector<int>> PmergeMe::createPairs(const std::vector<int> &a)
 {
-	std::vector<std::vector<int>> splitArray;
+	std::vector<std::vector<int>> pairs;
 	for (size_t i = 0; i < a.size(); i += 2)
 	{
-		std::vector<int> pair = {a[i], i + 1 < a.size() ? a[i + 1] : a[i]}; // Handle odd case by duplicating the last element if necessary
-		splitArray.push_back(pair);
+		std::vector<int> pair = {a[i], a[i + 1]};
+		pairs.push_back(pair);
 	}
-	return splitArray;
+	return pairs;
 }
 
 void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
