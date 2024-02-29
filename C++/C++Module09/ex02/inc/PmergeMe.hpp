@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:16 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/28 15:23:57 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:01:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ class PmergeMe
 		void sortVector(std::vector<int> &vec);
 		std::vector<std::vector<int>> createPairs(const std::vector<int> &a);
 		void sortPairs(std::vector<std::vector<int>> &pairs);
-		void sortPairsByLargerValue(std::vector<std::vector<int>> &pairs);
+		// void sortPairsByLargerValue(std::vector<std::vector<int>> &pairs);
+		void recursiveSortPairsByLargerValue(std::vector<std::vector<int>> &pairs, int n);
+
 
 	private:
 		void fordJohnson(std::vector<int> &vec);

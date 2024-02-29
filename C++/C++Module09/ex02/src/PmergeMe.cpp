@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/28 15:20:12 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:03:14 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,40 @@ void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
 	}
 }
 
-void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
+// void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
+// {
+// 	std::sort(pairs.begin(), pairs.end(), [](const std::vector<int> &a, const std::vector<int> &b) {
+// 		return a[1] < b[1];
+// 	});
+// 	printf("sortPairsByLargerValue :\n");
+// 	for (auto &pair : pairs)
+// 		printf("[%d, %d] ", pair[0], pair[1]);
+// 	printf("\n");
+// }
+
+void PmergeMe::recursiveSortPairsByLargerValue(std::vector<std::vector<int>> &pairs, int n)
 {
-	std::sort(pairs.begin(), pairs.end(), [](const std::vector<int> &a, const std::vector<int> &b)
-			  {
-				  return a[1] < b[1]; // Sort by the second element of each pair
-			  });
-	printf("sortPairsByLargerValue :\n");
-	for (auto &pair : pairs)
-		printf("[%d, %d] ", pair[0], pair[1]);
-	printf("\n");
+	if (n <= 1)
+		return;
+
+	int max_idx = 0;
+	for (int i = 1; i < n; i++)
+	{
+		if (pairs[i][1] > pairs[max_idx][1])
+			max_idx = i;
+	}
+
+	std::swap(pairs[max_idx], pairs[n-1]);
+
+	recursiveSortPairsByLargerValue(pairs, n-1);
 }
+
+
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
-	if (vec.empty())
-        return; // Nothing to sort
+	if (vec.size() < 2)
+		return;
 
 	// Step 1: Handle an odd-sized array
 	if (vec.size() % 2 != 0)
@@ -83,7 +101,8 @@ void PmergeMe::fordJohnson(std::vector<int> &vec)
 	sortPairs(pairs);
 
 	// Step 3: Sort pairs by their larger value and create 'largerElements' and 'smallerElements' arrays
-	sortPairsByLargerValue(pairs);
+	recursiveSortPairsByLargerValue(pairs, pairs.size());
+
 	std::vector<int> largerElements, smallerElements;
 	for (auto &pair : pairs)
 	{
