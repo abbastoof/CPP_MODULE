@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 11:03:14 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:05:42 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,6 @@ void PmergeMe::sortPairs(std::vector<std::vector<int>> &pairs)
 			std::swap(pair[0], pair[1]);
 	}
 }
-
-// void PmergeMe::sortPairsByLargerValue(std::vector<std::vector<int>> &pairs)
-// {
-// 	std::sort(pairs.begin(), pairs.end(), [](const std::vector<int> &a, const std::vector<int> &b) {
-// 		return a[1] < b[1];
-// 	});
-// 	printf("sortPairsByLargerValue :\n");
-// 	for (auto &pair : pairs)
-// 		printf("[%d, %d] ", pair[0], pair[1]);
-// 	printf("\n");
-// }
 
 void PmergeMe::recursiveSortPairsByLargerValue(std::vector<std::vector<int>> &pairs, int n)
 {
