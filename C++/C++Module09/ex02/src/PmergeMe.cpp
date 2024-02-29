@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 20:15:57 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 21:56:16 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,15 @@ PmergeMe<T, Container>::~PmergeMe() {}
 template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 {
+	// Start the timer
+	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
     fordJohnson(cont);
+	// Stop the timer
+	std::chrono::time_point<std::chrono::high_resolution_clock> stop = std::chrono::high_resolution_clock::now();
+	// Calculate the duration
+	std::chrono::duration<double, std::micro> duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	// std::cout << std::endl;
+	std::cout << "Time taken by FordJohnson: " << duration.count() << " microseconds" << std::endl;
 }
 
 template<typename T, template<typename...> typename Container>
@@ -60,7 +68,7 @@ Container<Container<T>> PmergeMe<T, Container>::createPairs(const Container<T>& 
 template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
 {
-    for (auto &pair : pairs)
+    for (Container<T> &pair : pairs)
     {
         if (pair.size() >= 2 && pair[0] > pair[1])
             std::swap(pair[0], pair[1]);
@@ -85,25 +93,25 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
 }
 
 template<typename T, template<typename...> typename Container>
-void PmergeMe<T, Container>::fordJohnson(Container<T>& vec)
+void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
 {
-    if (vec.size() < 2)
+    if (container.size() < 2)
         return;
 
-    if (vec.size() % 2 != 0)
+    if (container.size() % 2 != 0)
     {
         hasStraggler = true;
-        straggler = vec.back();
-        vec.pop_back();
+        straggler = container.back();
+        container.pop_back();
     }
 
-    auto pairs = createPairs(vec);
+    Container<Container<T>> pairs = createPairs(container);
     sortPairs(pairs);
 
     recursiveSortPairsByLargerValue(pairs, pairs.size());
 
     Container<T> largerElements, smallerElements;
-    for (auto& pair : pairs)
+    for (Container<T> & pair : pairs)
     {
         largerElements.push_back(pair[1]);
         smallerElements.push_back(pair[0]);
@@ -114,18 +122,18 @@ void PmergeMe<T, Container>::fordJohnson(Container<T>& vec)
 
     for (size_t i = 0; i < smallerElements.size(); ++i)
     {
-        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements[i]);
+        typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements[i]);
         largerElements.insert(pos, smallerElements[i]);
     }
 
     if (hasStraggler)
     {
-        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), straggler);
+        typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.end(), straggler);
         largerElements.insert(pos, straggler);
         hasStraggler = false;
     }
 
-    vec = largerElements;
+    container = largerElements;
 }
 
 template class PmergeMe<int, std::vector>;
