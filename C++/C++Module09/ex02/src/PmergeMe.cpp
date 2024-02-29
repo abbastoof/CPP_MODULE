@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 20:12:35 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 20:15:57 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 	http://www.progdoc.de/papers/ttp/psi-ttp/psi-ttp.html
 */
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 PmergeMe<T, Container>::PmergeMe() : hasStraggler(false), straggler(T()) {}
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 PmergeMe<T, Container>::PmergeMe(const PmergeMe &rhs) : hasStraggler(rhs.hasStraggler), straggler(rhs.straggler) {}
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 PmergeMe<T, Container> &PmergeMe<T, Container>::operator=(const PmergeMe &rhs)
 {
     if (this != &rhs)
@@ -35,16 +35,16 @@ PmergeMe<T, Container> &PmergeMe<T, Container>::operator=(const PmergeMe &rhs)
     return *this;
 }
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 PmergeMe<T, Container>::~PmergeMe() {}
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 {
     fordJohnson(cont);
 }
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 Container<Container<T>> PmergeMe<T, Container>::createPairs(const Container<T>& a)
 {
     Container<Container<T>> pairs;
@@ -57,7 +57,7 @@ Container<Container<T>> PmergeMe<T, Container>::createPairs(const Container<T>& 
     return pairs;
 }
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
 {
     for (auto &pair : pairs)
@@ -67,7 +67,7 @@ void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
     }
 }
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n)
 {
     if (n <= 1)
@@ -84,7 +84,7 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
     recursiveSortPairsByLargerValue(pairs, n-1);
 }
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T>& vec)
 {
     if (vec.size() < 2)

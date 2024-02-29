@@ -7,7 +7,7 @@
 # include <algorithm>
 # include <sstream>
 
-template<typename T, template<typename...> class Container>
+template<typename T, template<typename...> typename Container>
 class PmergeMe
 {
     public:
