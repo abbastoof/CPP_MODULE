@@ -6,7 +6,7 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 13:37:34 by atoof             #+#    #+#              #
-#    Updated: 2024/02/26 13:20:42 by atoof            ###   ########.fr        #
+#    Updated: 2024/02/29 18:28:12 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 INC_DIR = inc/
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++14
+CFLAGS = -Wall -Wextra -Werror -std=c++17
 RM = rm -rf
 
 vpath %.cpp $(SRC_DIR)

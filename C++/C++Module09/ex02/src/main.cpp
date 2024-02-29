@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/27 10:59:32 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 20:04:43 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
     }
 
     std::vector<int> numbers;
+	std::deque<int> numbers2;
     for (int i = 1; i < argc; ++i)
 	{
         std::istringstream iss(argv[i]);
@@ -33,7 +34,10 @@ int main(int argc, char* argv[])
 			return 1;
 		}
         if (iss >> num) // if the conversion to int is successful
-            numbers.push_back(num);
+		{
+			numbers.push_back(num);
+			numbers2.push_back(num);
+		}
         else
 		{
             std::cerr << "Invalid input: " << argv[i] << ". Please enter only integers." << std::endl;
@@ -41,14 +45,20 @@ int main(int argc, char* argv[])
         }
     }
 
-    PmergeMe sorter;
+	PmergeMe<int, std::vector> sorter;
+	sorter.sortContainer(numbers);
 
-    sorter.sortVector(numbers);
+	for (int num : numbers)
+		std::cout << num << " ";
+	std::cout << std::endl;
 
-    std::cout << "Sorted sequence: ";
-    for (const int& num : numbers)
-        std::cout << num << " ";
-    std::cout << std::endl;
+	PmergeMe<int, std::deque> sorter2;
+	sorter2.sortContainer(numbers2);
+
+	for (int num : numbers2)
+		std::cout << num << " ";
+	std::cout << std::endl;
+
 
     return 0;
 
