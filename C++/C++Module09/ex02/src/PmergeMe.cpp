@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:23 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 11:05:42 by atoof            ###   ########.fr       */
+/*   Updated: 2024/02/29 11:16:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,71 +74,52 @@ void PmergeMe::recursiveSortPairsByLargerValue(std::vector<std::vector<int>> &pa
 
 void PmergeMe::fordJohnson(std::vector<int> &vec)
 {
-	if (vec.size() < 2)
-		return;
+    if (vec.size() < 2)
+        return;
 
-	// Step 1: Handle an odd-sized array
-	if (vec.size() % 2 != 0)
+    // Step 1: Handle an odd-sized array
+    if (vec.size() % 2 != 0)
+    {
+        hasStraggler = true;
+        straggler = vec.back();
+        vec.pop_back();
+    }
+
+    // Step 2: Create and sort pairs
+    std::vector<std::vector<int>> pairs = createPairs(vec);
+    sortPairs(pairs);
+
+    // Step 3: Recursively sort pairs by their larger value
+    recursiveSortPairsByLargerValue(pairs, pairs.size());
+
+    std::vector<int> largerElements, smallerElements;
+    for (auto &pair : pairs)
+    {
+        largerElements.push_back(pair[1]); // Larger value of each pair
+        smallerElements.push_back(pair[0]); // Smaller value of each pair
+    }
+
+    // Insert the smallest element (which is paired with the first element in 'largerElements') at the start
+    largerElements.insert(largerElements.begin(), smallerElements.front());
+    smallerElements.erase(smallerElements.begin());
+
+	// Step 5: Insert the remaining elements using a special ordering
+	// Insertion starts from the second smallest element in 'smallerElements'
+	for (std::vector<int>::size_type i = 0; i < smallerElements.size(); ++i)
 	{
-		hasStraggler = true;
-		straggler = vec.back();
-		vec.pop_back();
+		// Find the position using binary search in the already sorted 'largerElements'
+		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements[i]);
+		largerElements.insert(pos, smallerElements[i]);
 	}
 
-	// Step 2: Create and sort pairs
-	std::vector<std::vector<int>> pairs = createPairs(vec);
-	sortPairs(pairs);
 
-	// Step 3: Sort pairs by their larger value and create 'largerElements' and 'smallerElements' arrays
-	recursiveSortPairsByLargerValue(pairs, pairs.size());
+    // If there's a straggler, insert it into the appropriate position
+    if (hasStraggler)
+    {
+        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), straggler);
+        largerElements.insert(pos, straggler);
+    }
 
-	std::vector<int> largerElements, smallerElements;
-	for (auto &pair : pairs)
-	{
-		largerElements.push_back(pair[1]); // Larger value of each pair
-		smallerElements.push_back(pair[0]);	   // Smaller value of each pair
-	}
-
-	// Print sorted pairs and initial 'largerElements' and 'smallerElements' arrays
-	std::cout << "Sorted pairs by larger value: ";
-	for (auto &pair : pairs)
-		std::cout << "[" << pair[0] << ", " << pair[1] << "] ";
-	std::cout << "\n";
-
-	std::cout << "largerElements: ";
-	for (int num : largerElements)
-		std::cout << num << " ";
-	std::cout << "\nsmallerElements: ";
-	for (int num : smallerElements)
-		std::cout << num << " ";
-	std::cout << "\n";
-
-	// Step 4: Insert 'smallerElements' into 'largerElements' in sorted order
-	for (int value : smallerElements)
-	{
-		auto it = std::lower_bound(largerElements.begin(), largerElements.end(), value);
-		largerElements.insert(it, value);
-
-		// Print 'largerElements' after each insertion
-		std::cout << "After inserting " << value << " into largerElements: ";
-		for (int num : largerElements)
-			std::cout << num << " ";
-		std::cout << "\n";
-	}
-
-	// Step 5: Insert the straggler into 'largerElements' if necessary
-	if (hasStraggler)
-	{
-		auto it = std::lower_bound(largerElements.begin(), largerElements.end(), straggler);
-		largerElements.insert(it, straggler);
-
-		// Print 'largerElements' after inserting the straggler
-		std::cout << "After inserting straggler " << straggler << " into largerElements: ";
-		for (int num : largerElements)
-			std::cout << num << " ";
-		std::cout << "\n";
-	}
-
-	// Update the original vector with the sorted values
-	vec = largerElements;
+    // Update the original vector with the sorted values
+    vec = largerElements;
 }
