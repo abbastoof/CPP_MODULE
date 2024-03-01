@@ -26,6 +26,7 @@ class PmergeMe
         void sortPairs(Container<Container<T>>& pairs);
 
         void recursiveSortPairsByLargerValue(Container<Container<T>>& pairs, int n);
+		void printFunc(Container<Container<T>> pairs, int step);
 
     private:
         void fordJohnson(Container<T>& cont);

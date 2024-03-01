@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/01 12:41:47 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:27:07 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int main(int argc, char* argv[])
 	for (int i = 1; i < argc; ++i){std::cout <<argv[i] << " ";}
 	std::cout << std::endl;
 
-	std::cout << Colors::BRIGHT_BLUE << "Our container is vector: " << Colors::RESET << std::endl;
+	std::cout << Colors::BRIGHT_BLUE << "******************** Vector ********************" << Colors::RESET << std::endl;
 	PmergeMe<int, std::vector> sorter;
 	sorter.sortContainer(numbers);
 	
-	std::cout << Colors::BRIGHT_BLUE << "Our container is deque: " << Colors::RESET << std::endl;
+	std::cout << Colors::BRIGHT_BLUE << "******************** deque ********************" << Colors::RESET << std::endl;
 	PmergeMe<int, std::deque> sorter2;
 	sorter2.sortContainer(numbers2);
 

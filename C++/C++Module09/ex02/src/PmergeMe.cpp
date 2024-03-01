@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/01 12:51:05 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:29:08 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ Container<Container<T>> PmergeMe<T, Container>::createPairs(const Container<T>& 
 {
     Container<Container<T>> pairs;
 
-    for (size_t i = 0; i < a.size(); i += 2) {
+    for (size_t i = 0; i < a.size(); i += 2)
+	{
         Container<T> pair = {a[i], a[i + 1]};
         pairs.push_back(pair);
     }
@@ -102,9 +103,38 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
 }
 
 template<typename T, template<typename...> typename Container>
+void PmergeMe<T, Container>::printFunc(Container<Container<T>> pairs, int step)
+{
+	if (step == 1 || step == 2 || step == 3)
+	{
+		if (step == 1)
+			std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
+		else if (step == 2)
+			std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
+		else if (step == 3)
+			std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
+		for (const auto &pair: pairs)
+			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+		std::cout << std::endl;
+	}
+	else if (step == 4)
+	{
+		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
+		std::cout << "Larg elements: ";
+		for (const auto &pair: pairs)
+			std::cout << pair[1] << " ";
+		std::cout << std::endl;
+		std::cout << "Small elements: ";
+		for (const auto &pair: pairs)
+			std::cout << pair[0] << ", ";
+		std::cout << std::endl;
+	}
+}
+
+template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
 {
-	int printProcess = 1;
+	int printProcess = false;
 
     if (container.size() < 2)
         return;
@@ -118,30 +148,13 @@ void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
 
     Container<Container<T>> pairs = createPairs(container);
 	if (printProcess)
-	{
-		std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
-		for (const auto &pair: pairs)
-			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
-		std::cout << std::endl; 
-	}
+		printFunc(pairs, 1);
     sortPairs(pairs);
 	if (printProcess)
-	{
-		std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
-		for (const auto &pair: pairs)
-			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
-		std::cout << std::endl; 
-	}
-
+		printFunc(pairs, 2);
     recursiveSortPairsByLargerValue(pairs, pairs.size());
 	if (printProcess)
-	{
-		std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
-		for (const auto &pair: pairs)
-			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
-		std::cout << std::endl; 
-	}
-
+		printFunc(pairs, 3);
     Container<T> largerElements, smallerElements;
     for (Container<T> & pair : pairs)
     {
@@ -149,17 +162,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
         smallerElements.push_back(pair[0]);
     }
 	if (printProcess)
-	{
-		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
-		std::cout << "Larg elements: ";
-		for (const auto &pair: pairs)
-			std::cout << pair[1] << " ";
-		std::cout << std::endl;
-		std::cout << "Small elements: ";
-		for (const auto &pair: pairs)
-			std::cout << pair[0] << ", ";
-		std::cout << std::endl;
-	}
+		printFunc(pairs, 4);
 
     largerElements.insert(largerElements.begin(), smallerElements.front());
     smallerElements.erase(smallerElements.begin());
