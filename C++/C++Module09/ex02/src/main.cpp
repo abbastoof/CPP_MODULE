@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 20:04:43 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:05:08 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int main(int argc, char* argv[])
             return 1;
         }
     }
+	std::cout << "Unsorted positive integer sequence: ";
+	for (int i = 1; i < argc; ++i){std::cout <<argv[i] << " ";}
+	std::cout << std::endl;
 
 	PmergeMe<int, std::vector> sorter;
 	sorter.sortContainer(numbers);

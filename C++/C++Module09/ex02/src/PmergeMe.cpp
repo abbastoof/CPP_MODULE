@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/29 22:12:24 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:55:41 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 	My references for this project:
 	https://en.wikipedia.org/wiki/Merge-insertion_sort
 	http://www.progdoc.de/papers/ttp/psi-ttp/psi-ttp.html
-	C templates complete guide 2nd-edition by David Vandevoorde, Nicolai M. Josuttis and Douglas Gregor
+	Especially "C templates complete guide 2nd-edition by David Vandevoorde, Nicolai M. Josuttis and Douglas Gregor" helped 
+	me a lot to understand templates better
 */
 
 template<typename T, template<typename...> typename Container>
@@ -50,7 +51,7 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 	// Calculate the duration
 	std::chrono::duration<double, std::micro> duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 	// std::cout << std::endl;
-	std::cout << "Time taken by FordJohnson: " << duration.count() << " microseconds" << std::endl;
+	std::cout << "Time taken by FordJohnson: " << Colors::GREEN << duration.count() << Colors::RESET <<" microseconds" << std::endl;
 }
 
 template<typename T, template<typename...> typename Container>
