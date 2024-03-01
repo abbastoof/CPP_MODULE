@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Color.hpp                                          :+:      :+:    :+:   */
+/*   Colors.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 13:43:17 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/07 13:43:17 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 11:46:24 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,35 @@
 #define COLORS_HPP
 
 
-namespace Colors
+struct Colors
 {
-	const char *const RESET = "\033[0m";
-	const char *const BLACK = "\033[30m";
-	const char *const RED = "\033[31m";
-	const char *const GREEN = "\033[32m";
-	const char *const YELLOW = "\033[33m";
-	const char *const BLUE = "\033[34m";
-	const char *const MAGENTA = "\033[35m";
-	const char *const CYAN = "\033[36m";
-	const char *const WHITE = "\033[37m";
+    static constexpr const char* RESET = "\033[0m";
+    static constexpr const char* BLACK = "\033[30m";
+    static constexpr const char* RED = "\033[31m";
+    static constexpr const char* GREEN = "\033[32m";
+    static constexpr const char* YELLOW = "\033[33m";
+    static constexpr const char* BLUE = "\033[34m";
+    static constexpr const char* MAGENTA = "\033[35m";
+    static constexpr const char* CYAN = "\033[36m";
+    static constexpr const char* WHITE = "\033[37m";
 
+    static constexpr const char* BRIGHT_BLACK = "\033[90m";
+    static constexpr const char* BRIGHT_RED = "\033[91m";
+    static constexpr const char* BRIGHT_GREEN = "\033[92m";
+    static constexpr const char* BRIGHT_YELLOW = "\033[93m";
+    static constexpr const char* BRIGHT_BLUE = "\033[94m";
+    static constexpr const char* BRIGHT_MAGENTA = "\033[95m";
+    static constexpr const char* BRIGHT_CYAN = "\033[96m";
+    static constexpr const char* BRIGHT_WHITE = "\033[97m";
 
-	const char *const BRIGHT_BLACK = "\033[90m";
-	const char *const BRIGHT_RED = "\033[91m";
-	const char *const BRIGHT_GREEN = "\033[92m";
-	const char *const BRIGHT_YELLOW = "\033[93m";
-	const char *const BRIGHT_BLUE = "\033[94m";
-	const char *const BRIGHT_MAGENTA = "\033[95m";
-	const char *const BRIGHT_CYAN = "\033[96m";
-	const char *const BRIGHT_WHITE = "\033[97m";
-
-
-	const char *const BG_BLACK = "\033[40m";
-	const char *const BG_RED = "\033[41m";
-	const char *const BG_GREEN = "\033[42m";
-	const char *const BG_YELLOW = "\033[43m";
-	const char *const BG_BLUE = "\033[44m";
-	const char *const BG_MAGENTA = "\033[45m";
-	const char *const BG_CYAN = "\033[46m";
-	const char *const BG_WHITE = "\033[47m";
-}
+    static constexpr const char* BG_BLACK = "\033[40m";
+    static constexpr const char* BG_RED = "\033[41m";
+    static constexpr const char* BG_GREEN = "\033[42m";
+    static constexpr const char* BG_YELLOW = "\033[43m";
+    static constexpr const char* BG_BLUE = "\033[44m";
+    static constexpr const char* BG_MAGENTA = "\033[45m";
+    static constexpr const char* BG_CYAN = "\033[46m";
+    static constexpr const char* BG_WHITE = "\033[47m";
+};
 
 #endif
