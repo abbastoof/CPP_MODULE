@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/01 11:55:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/01 12:51:05 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 	std::chrono::time_point<std::chrono::high_resolution_clock> stop = std::chrono::high_resolution_clock::now();
 	// Calculate the duration
 	std::chrono::duration<double, std::micro> duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-	// std::cout << std::endl;
+	// Check the type of the container and print the appropriate message
+    if (typeid(Container<T>) == typeid(std::vector<T>))
+        std::cout << Colors::BRIGHT_BLUE << "This is numbers sorted in vector:" << Colors::RESET <<std::endl;
+    else if (typeid(Container<T>) == typeid(std::deque<T>))
+        std::cout << Colors::BRIGHT_BLUE << "This is numbers sorted in deque:" << Colors::RESET <<std::endl;
+	for (int num : cont)
+		std::cout << num << " ";
+	std::cout << std::endl;
 	std::cout << "Time taken by FordJohnson: " << Colors::GREEN << duration.count() << Colors::RESET <<" microseconds" << std::endl;
 }
 
@@ -97,6 +104,8 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
 template<typename T, template<typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
 {
+	int printProcess = 1;
+
     if (container.size() < 2)
         return;
 
@@ -108,9 +117,30 @@ void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
     }
 
     Container<Container<T>> pairs = createPairs(container);
+	if (printProcess)
+	{
+		std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
+		for (const auto &pair: pairs)
+			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+		std::cout << std::endl; 
+	}
     sortPairs(pairs);
+	if (printProcess)
+	{
+		std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
+		for (const auto &pair: pairs)
+			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+		std::cout << std::endl; 
+	}
 
     recursiveSortPairsByLargerValue(pairs, pairs.size());
+	if (printProcess)
+	{
+		std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
+		for (const auto &pair: pairs)
+			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+		std::cout << std::endl; 
+	}
 
     Container<T> largerElements, smallerElements;
     for (Container<T> & pair : pairs)
@@ -118,6 +148,18 @@ void PmergeMe<T, Container>::fordJohnson(Container<T>& container)
         largerElements.push_back(pair[1]);
         smallerElements.push_back(pair[0]);
     }
+	if (printProcess)
+	{
+		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
+		std::cout << "Larg elements: ";
+		for (const auto &pair: pairs)
+			std::cout << pair[1] << " ";
+		std::cout << std::endl;
+		std::cout << "Small elements: ";
+		for (const auto &pair: pairs)
+			std::cout << pair[0] << ", ";
+		std::cout << std::endl;
+	}
 
     largerElements.insert(largerElements.begin(), smallerElements.front());
     smallerElements.erase(smallerElements.begin());

@@ -8,6 +8,7 @@
 # include <sstream>
 # include <chrono>
 # include "../inc/colors.hpp"
+# include <typeinfo>
 
 template<typename T, template<typename...> typename Container>
 class PmergeMe
