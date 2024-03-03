@@ -22,10 +22,13 @@ $(OBJ_DIR)%.o: %.cpp
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+clean_tree_art:
+	@find . -type f -name '*_shrubbery' -exec rm -f {} +
+
 clean:
 	$(RM) $(OBJ_DIR)
 
-fclean: clean
+fclean: clean clean_tree_art
 	$(RM) $(NAME)
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 11:48:48 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 10:16:50 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/03 13:35:15 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ void Bureaucrat::decrementGrade()
 
 // exceptions
 
-const char *Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const noexcept
 {
 	return ("Grade is too high!");
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const noexcept
 {
 	return ("Grade is too low!");
 }
@@ -107,9 +107,9 @@ std::ostream &operator<<(std::ostream &os, const Bureaucrat &rhs)
 void Bureaucrat::signForm(Form &form)
 {
 	if (form.getSign())
-		std::cout << this->_name << " couldn't sign < " << form.getName() << " because it's already signed." << std::endl;
+		std::cout << this->_name << " couldn't sign " << form.getName() << " because it's already signed." << std::endl;
 	else if (this->_grade > form.getGradeToSign())
-		std::cout << this->_name << " couldn't sign < " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
+		std::cout << this->_name << " couldn't sign " << form.getName() << " because bureaucrat's grade is too low." << std::endl;
 	else
 	{
 		form.beSigned(*this);

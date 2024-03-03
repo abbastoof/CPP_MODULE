@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:40:06 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/01 11:36:46 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/03 12:49:06 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,24 @@ void testBureaucrat(const std::string &name, int grade)
 
 int main(void)
 {
-	std::cout << "\n" << Colors::BG_BLUE << "Test 1" << Colors::RESET << std::endl;
+	std::cout << "\n"
+			  << Colors::BG_BLUE << "Test 1" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat1", MIN_GRADE);
 
-	std::cout << "\n" << Colors::BG_BLUE << "Test 2" << Colors::RESET << std::endl;
+	std::cout << "\n"
+			  << Colors::BG_BLUE << "Test 2" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat2", MAX_GRADE);
 
-	std::cout << "\n" << Colors::BG_BLUE << "Test 3" << Colors::RESET << std::endl;
+	std::cout << "\n"
+			  << Colors::BG_BLUE << "Test 3" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat3", 100);
 
-	std::cout << "\n" << Colors::BG_BLUE << "Test 4" << Colors::RESET << std::endl;
+	std::cout << "\n"
+			  << Colors::BG_BLUE << "Test 4" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat4", 0);
 
-	std::cout << "\n" << Colors::BG_BLUE << "Test 5" << Colors::RESET << std::endl;
+	std::cout << "\n"
+			  << Colors::BG_BLUE << "Test 5" << Colors::RESET << std::endl;
 	testBureaucrat("Bureaucrat5", 151);
 
 	return 0;

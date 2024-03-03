@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 23:35:59 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/12 10:12:57 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/03 13:03:59 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ void Form::beSigned(Bureaucrat &bureaucrat)
 
 // exceptions
 
-const char *Form::GradeTooHighException::what() const throw()
+const char *Form::GradeTooHighException::what() const noexcept
 {
 	return ("Grade is too high!");
 }
 
-const char *Form::GradeTooLowException::what() const throw()
+const char *Form::GradeTooLowException::what() const noexcept
 {
 	return ("Grade is too low!");
 }

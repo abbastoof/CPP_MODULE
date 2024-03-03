@@ -6,22 +6,22 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:40:06 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/06 15:03:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:19:15 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/Bureaucrat.hpp"
-#include "../inc/AForm.hpp"
-#include "../inc/PresidentialPardonForm.hpp"
-#include "../inc/RobotomyRequestForm.hpp"
-#include "../inc/ShrubberyCreationForm.hpp"
-#include "../inc/Colors.hpp"
+#include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+
 
 void test1()
 {
 	try
 	{
-		std::cout << "\n" << Colors::BG_CYAN << "Test 1: ShrubberyCreationForm execution by a high-grade Bureaucrat" << Colors::RESET << std::endl;
+		std::cout << "\nTest 1: ShrubberyCreationForm execution by a high-grade Bureaucrat" << std::endl;
 		Bureaucrat highGradeBureaucrat("HighGrade", 1);
 		ShrubberyCreationForm shrubberyForm("Home");
 		highGradeBureaucrat.signForm(shrubberyForm);
@@ -29,7 +29,7 @@ void test1()
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << Colors::RED << e.what() << Colors::RESET << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -37,7 +37,7 @@ void test2()
 {
 	try
 	{
-		std::cout << "\n" << Colors::BG_CYAN << "Test 2: RobotomyRequestForm execution with random outcome" << Colors::RESET << std::endl;
+		std::cout << "\nTest 2: RobotomyRequestForm execution with random outcome" << std::endl;
 		Bureaucrat midGradeBureaucrat("MidGrade", 45);
 		RobotomyRequestForm robotomyForm("Bender");
 		midGradeBureaucrat.signForm(robotomyForm);
@@ -45,7 +45,7 @@ void test2()
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << Colors::RED << e.what() << Colors::RESET << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -53,7 +53,7 @@ void test3()
 {
 	try
 	{
-		std::cout << "\n" << Colors::BG_CYAN << "Test 3: PresidentialPardonForm execution by a low-grade Bureaucrat" << Colors::RESET << std::endl;
+		std::cout << "\nTest 3: PresidentialPardonForm execution by a low-grade Bureaucrat" << std::endl;
 		Bureaucrat lowGradeBureaucrat("LowGrade", 150);
 		PresidentialPardonForm pardonForm("Zaphod Beeblebrox");
 		lowGradeBureaucrat.signForm(pardonForm);
@@ -61,7 +61,7 @@ void test3()
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << Colors::RED << e.what() << Colors::RESET << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -69,16 +69,74 @@ void test4()
 {
 	try
 	{
-		std::cout << "\n" << Colors::BG_CYAN << "Test 4: Attempt to execute unsigned form" << Colors::RESET << std::endl;
+		std::cout << "\nTest 4: Attempt to execute unsigned form" << std::endl;
 		Bureaucrat highGradeBureaucrat("HighGradeAgain", 1);
 		ShrubberyCreationForm unsignedShrubberyForm("Office");
-
 		highGradeBureaucrat.executeForm(unsignedShrubberyForm);
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << Colors::RED << e.what() << Colors::RESET << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
+}
+
+// Additional tests
+void test5()
+{
+	try
+	{
+		std::cout << "\nTest 5: Minimum Grade Execution for PresidentialPardonForm" << std::endl;
+		Bureaucrat exactGradeBureaucrat("ExactGrade", 5);
+		PresidentialPardonForm pardonForm("Someone");
+		exactGradeBureaucrat.signForm(pardonForm);
+		exactGradeBureaucrat.executeForm(pardonForm);
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+void test6()
+{
+	try
+	{
+		std::cout << "\nTest 6: Grade Boundary Testing for Bureaucrat" << std::endl;
+		Bureaucrat topBureaucrat("TopBureaucrat", 1);
+		topBureaucrat.incrementGrade();
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+
+	try
+	{
+		Bureaucrat bottomBureaucrat("BottomBureaucrat", 150);
+		bottomBureaucrat.decrementGrade();
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+void test7()
+{
+	std::cout << "\nTest 7: File Creation Validation for ShrubberyCreationForm" << std::endl;
+	Bureaucrat highGradeBureaucrat("HighGrade", 1);
+	ShrubberyCreationForm shrubberyForm("Garden");
+	highGradeBureaucrat.signForm(shrubberyForm);
+	highGradeBureaucrat.executeForm(shrubberyForm);
+
+	std::ifstream file("Garden_shrubbery");
+	if (file)
+	{
+		std::cout << "File created successfully" << std::endl;
+		file.close();
+	}
+	else
+		std::cerr << "File not created" << std::endl;
 }
 
 int main()
@@ -87,6 +145,9 @@ int main()
 	test2();
 	test3();
 	test4();
+	test5();
+	test6();
+	test7();
 
 	return 0;
 }
