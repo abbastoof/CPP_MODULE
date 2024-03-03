@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 13:34:29 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/11 19:21:45 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/03 18:46:49 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void ScalarConverter::convertToInt(const std::string scalar)
 	{
 		int i = std::stoi(scalar);
 		std::cout << "char: ";
-		if (std::isprint(static_cast<unsigned char>(i)))
+		if (std::isprint(static_cast<unsigned char>(i)) && i >= 32 && i < 127)
 			std::cout << "'" << static_cast<char>(i) << "'" << std::endl;
 		else
 			std::cout << "Non displayable" << std::endl;
