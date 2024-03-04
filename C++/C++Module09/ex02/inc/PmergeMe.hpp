@@ -25,7 +25,7 @@ class PmergeMe
 
         void sortPairs(Container<Container<T>>& pairs);
 
-        void recursiveSortPairsByLargerValue(Container<Container<T>>& pairs, int n);
+        void recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start);
 		void printFunc(Container<Container<T>> pairs, int step);
 
     private:

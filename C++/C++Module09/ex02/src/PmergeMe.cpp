@@ -185,7 +185,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 	sortPairs(pairs);
 	if (printProcess)
 		printFunc(pairs, 2);
-	recursiveSortPairsByLargerValue(pairs, pairs.size());
+	recursiveSortPairsByLargerValue(pairs, pairs.size(), 0);
 	if (printProcess)
 		printFunc(pairs, 3);
 	Container<T> largerElements, smallerElements;
