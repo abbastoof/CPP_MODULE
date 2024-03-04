@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:05 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 11:06:13 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:52:13 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Array
 	
 	/* The subscript operator [] is normally used to access array elements. */
 	T &operator[](size_t index);
+	const T &operator[](size_t index) const;
 	size_t getSize() const;
 };
 #include "Array.tpp"

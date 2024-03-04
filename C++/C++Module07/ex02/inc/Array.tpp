@@ -6,16 +6,13 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:07:05 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/13 12:18:00 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:51:27 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef ARRAY_TPP
 #define ARRAY_TPP
 
-#include <iostream>
-#include <stdexcept>
 #include "Array.hpp"
 
 /* The default constructor that should create an empty array. */
@@ -48,14 +45,22 @@ Array<T> &Array<T>::operator=(Array const &rhs)
 	return *this;
 }
 
-/* The subscript operator [] is normally used to access array elements. */
+// Non-const version of operator[] for reading and writing
 template <class T>
 T &Array<T>::operator[](size_t index)
 {
-	if (index >= 0 && index <= this->_size)
-			return(_array[index]);
-	else
+	if (index >= _size)
 		throw std::out_of_range("Index out of range");
+	return _array[index];
+}
+
+// Const version of operator[] for read-only access
+template <class T>
+const T &Array<T>::operator[](size_t index) const
+{
+	if (index >= _size)
+		throw std::out_of_range("Index out of range");
+	return _array[index];
 }
 
 /* Destructor */
