@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:38 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/16 18:13:59 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 12:05:04 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main()
 	size = sizeof(array4) / sizeof(double);
 	iter<double>(array4, size, print<double>);
 	std::cout << "Testing with float" << std::endl;
-	float array5[] = { 1.1, 2.2, 3.3, 4.4, 5.5 };
+	float array5[] = { 1.1f, 2.2f, 3.3f, 4.4f, 5.5f };
 	size = sizeof(array5) / sizeof(float);
 	iter<float>(array5, size, print<float>);
 	std::cout << "Testing with bool" << std::endl;
