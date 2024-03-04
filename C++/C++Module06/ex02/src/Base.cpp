@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 00:40:10 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/03 19:06:08 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 11:45:37 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void identify(Base *p)
 		std::cout << "B" << std::endl;
 	else if (dynamic_cast<C *>(p))
 		std::cout << "C" << std::endl;
+	else
+		std::cout << "Pointer is NULL" << std::endl;
 }
 /*
 	In this function, we are using dynamic_cast to check if the pointer is pointing to an object of a specific class.
@@ -53,27 +55,32 @@ void identify(Base &p)
 		A &a = dynamic_cast<A &>(p);
 		(void)a;
 		std::cout << "A" << std::endl;
+		return;
 	}
-	catch (...)
+	catch (const std::bad_cast &)
 	{
-		try
-		{
-			B &b = dynamic_cast<B &>(p);
-			(void)b;
-			std::cout << "B" << std::endl;
-		}
-		catch (...)
-		{
-			try
-			{
-				C &c = dynamic_cast<C &>(p);
-				(void)c;
-				std::cout << "C" << std::endl;
-			}
-			catch (...)
-			{
-				std::cout << "Unknown" << std::endl;
-			}
-		}
+	}
+
+	try
+	{
+		B &b = dynamic_cast<B &>(p);
+		(void)b;
+		std::cout << "B" << std::endl;
+		return;
+	}
+	catch (const std::bad_cast &)
+	{
+	}
+
+	try
+	{
+		C &c = dynamic_cast<C &>(p);
+		(void)c;
+		std::cout << "C" << std::endl;
+		return;
+	}
+	catch (const std::bad_cast &)
+	{
+		std::cout << "Unknown type" << std::endl;
 	}
 }
