@@ -6,156 +6,173 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:13 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/04 12:16:17 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 12:31:21 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <Array.hpp>
 
-#define MAX_VAL 750
-int main(int, char**)
-{
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+// #define MAX_VAL 750
+// int main(int, char**)
+// {
+//     Array<int> numbers(MAX_VAL);
+//     int* mirror = new int[MAX_VAL];
+//     srand(time(NULL));
+//     for (int i = 0; i < MAX_VAL; i++)
+//     {
+//         const int value = rand();
+//         numbers[i] = value;
+//         mirror[i] = value;
+//     }
+//     //SCOPE
+//     {
+//         Array<int> tmp = numbers;
+//         Array<int> test(tmp);
+//     }
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+//     for (int i = 0; i < MAX_VAL; i++)
+//     {
+//         if (mirror[i] != numbers[i])
+//         {
+//             std::cerr << "didn't save the same value!!" << std::endl;
+//             return 1;
+//         }
+//     }
+//     try
+//     {
+//         numbers[-2] = 0;
+//     }
+//     catch(const std::exception& e)
+//     {
+//         std::cerr << e.what() << '\n';
+//     }
+//     try
+//     {
+//         numbers[MAX_VAL] = 0;
+//     }
+//     catch(const std::exception& e)
+//     {
+//         std::cerr << e.what() << '\n';
+//     }
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;
-    return 0;
-}
+//     for (int i = 0; i < MAX_VAL; i++)
+//     {
+//         numbers[i] = rand();
+//     }
+//     delete [] mirror;//
+//     return 0;
+// }
 
 /* My own test */
 
-// int main()
-// {	
-// 	std::cout << "---- TEST EMPTY ----" << std::endl;
-// 	std::cout << "Initializing empty int array..." << std::endl;
-// 	Array<int> empty;
-// 	std::cout << "--------------------" << std::endl;
-// 	if (empty.getSize() != 0)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "Initializing empty string array..." << std::endl;
-// 	Array<std::string> emptyStr;
-// 	std::cout << "--------------------" << std::endl;
-// 	if (emptyStr.getSize() != 0)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "---- TEST SIZE ----" << std::endl;
-// 	std::cout << "Initializing int array with size 5..." << std::endl;
-// 	Array<int> size(5);
-// 	std::cout << "--------------------" << std::endl;
-// 	if (size.getSize() != 5)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "Initializing string array with size 5..." << std::endl;
-// 	Array<std::string> sizeStr(5);
-// 	std::cout << "--------------------" << std::endl;
-// 	if (sizeStr.getSize() != 5)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "---- TEST COPY ----" << std::endl;
-// 	std::cout << "Initializing int array with size 5..." << std::endl;
-// 	Array<int> copy(size);
-// 	std::cout << "--------------------" << std::endl;
-// 	if (copy.getSize() != 5)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "Initializing string array with size 5..." << std::endl;
-// 	Array<std::string> copyStr(sizeStr);
-// 	std::cout << "--------------------" << std::endl;
-// 	if (copyStr.getSize() != 5)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "---- TEST ASSIGN ----" << std::endl;
-// 	std::cout << "Initializing int array with size 5..." << std::endl;
-// 	Array<int> assign;
-// 	assign = size;
-// 	std::cout << "--------------------" << std::endl;
-// 	if (assign.getSize() != 5)
-// 		std::cout << "\033[33mTEST FAIL\033[0m" << std::endl;
-// 	else
-// 		std::cout << "\033[32mTEST OKAY\033[0m" << std::endl;
-// 	std::cout << "--------------------" << std::endl;
-// 	std::cout << "---- TEST SUBSCRIPT and it should throw an exception ----" << std::endl;
-// 	{
-// 		Array<int> number(700);
-// 		int* copy = new int[700];
-// 		srand(time(NULL));
-// 		for (int i = 0; i < 700; i++)
-// 		{
-// 			const int value = rand();
-// 			number[i] = value;
-// 			copy[i] = value;
-// 		}
-// 		try
-// 		{
-// 			number[-2] = 0;
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << e.what() << '\n';
-// 		}
-// 		try
-// 		{
-// 			number[700] = 0;
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << e.what() << '\n';
-// 		}
-// 		delete [] copy;
-// 	}
-// 	return 0;
-// }
+constexpr int TEST_SIZE = 5;
+constexpr int LARGE_TEST_SIZE = 700;
+
+void testEmptyArray()
+{
+	std::cout << "---- TEST EMPTY ----\n";
+	Array<int> emptyInt;
+	std::cout << "Testing empty int array... ";
+	if (emptyInt.getSize() != 0)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+
+	Array<std::string> emptyString;
+	std::cout << "Testing empty string array... ";
+	if (emptyString.getSize() != 0)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+	std::cout << "-------------------\n";
+}
+
+void testArraySize()
+{
+	std::cout << "---- TEST SIZE ----\n";
+	Array<int> sizedInt(TEST_SIZE);
+	std::cout << "Testing int array with size " << TEST_SIZE << "... ";
+	if (sizedInt.getSize() != TEST_SIZE)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+
+	Array<std::string> sizedString(TEST_SIZE);
+	std::cout << "Testing string array with size " << TEST_SIZE << "... ";
+	if (sizedString.getSize() != TEST_SIZE)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+	std::cout << "-------------------\n";
+}
+
+void testCopyConstructor()
+{
+	std::cout << "---- TEST COPY ----\n";
+	Array<int> originalInt(TEST_SIZE);
+	Array<int> copyInt(originalInt);
+	std::cout << "Testing copy of int array... ";
+	if (copyInt.getSize() != TEST_SIZE)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+
+	Array<std::string> originalString(TEST_SIZE);
+	Array<std::string> copyString(originalString);
+	std::cout << "Testing copy of string array... ";
+	if (copyString.getSize() != TEST_SIZE)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+	std::cout << "-------------------\n";
+}
+
+void testAssignmentOperator()
+{
+	std::cout << "---- TEST ASSIGN ----\n";
+	Array<int> originalInt(TEST_SIZE);
+	Array<int> assignedInt;
+	assignedInt = originalInt;
+	std::cout << "Testing assignment of int array... ";
+	if (assignedInt.getSize() != TEST_SIZE)
+		std::cout << "\033[33mFAIL\033[0m\n";
+	else
+		std::cout << "\033[32mOKAY\033[0m\n";
+	std::cout << "-------------------\n";
+}
+
+void testSubscriptAndExceptions()
+{
+	std::cout << "---- TEST SUBSCRIPT and EXCEPTIONS ----\n";
+	Array<int> number(LARGE_TEST_SIZE);
+	try
+	{
+		number[2] = 0;
+		std::cout << "Access within bounds... \033[32mOKAY\033[0m\n";
+	}
+	catch (const std::exception &e)
+	{
+		std::cerr << "Within bounds exception: " << e.what() << '\n';
+	}
+
+	try
+	{
+		number[LARGE_TEST_SIZE] = 0; // This should throw an exception
+		std::cout << "\033[33mFAIL: Out of bounds access did not throw an exception\033[0m\n";
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Out of bounds access... \033[32mOKAY\033[0m\n";
+	}
+	std::cout << "-------------------\n";
+}
+
+int main()
+{
+	testEmptyArray();
+	testArraySize();
+	testCopyConstructor();
+	testAssignmentOperator();
+	testSubscriptAndExceptions();
+	return 0;
+}
