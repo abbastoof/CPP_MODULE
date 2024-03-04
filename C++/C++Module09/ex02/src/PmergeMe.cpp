@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/01 13:29:08 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/04 21:05:53 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 {
 	// Start the timer
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 	fordJohnson(cont);
 	// Stop the timer
-	std::chrono::time_point<std::chrono::high_resolution_clock> stop = std::chrono::high_resolution_clock::now();
+	std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
 	// Calculate the duration
-	std::chrono::duration<double, std::micro> duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	std::chrono::duration<double> diff = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 	// Check the type of the container and print the appropriate message
 	if (typeid(Container<T>) == typeid(std::vector<T>))
 		std::cout << Colors::BRIGHT_BLUE << "This is numbers sorted in vector:" << Colors::RESET << std::endl;
@@ -58,7 +58,7 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 	for (int num : cont)
 		std::cout << num << " ";
 	std::cout << std::endl;
-	std::cout << "Time taken by FordJohnson: " << Colors::GREEN << duration.count() << Colors::RESET << " microseconds" << std::endl;
+	std::cout << "Time taken by FordJohnson: " << Colors::GREEN << diff.count() << Colors::RESET << " microseconds" << std::endl;
 }
 
 template <typename T, template <typename...> typename Container>
@@ -86,55 +86,53 @@ void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
 }
 
 template <typename T, template <typename...> typename Container>
-void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n)
+void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start)
 {
 	if (n <= 1)
-		return;
+		return; // If there is only one or no pair, there's nothing to sort.
 
-	int mid = n / 2;
+	int mid = n / 2; // Find the middle index to divide the pairs into two halves.
 
-	// Temporarily store the left and right halves
-	Container<Container<T>> left_side(pairs.begin(), pairs.begin() + mid);
-	Container<Container<T>> right_side(pairs.begin() + mid, pairs.end());
+	recursiveSortPairsByLargerValue(pairs, mid, start);
+	recursiveSortPairsByLargerValue(pairs, n - mid, start + mid);
 
-	/**************************************** Recursively sort the left and right halves ****************************************/
-	recursiveSortPairsByLargerValue(left_side, left_side.size());
-	recursiveSortPairsByLargerValue(right_side, right_side.size());
+	Container<Container<T>> temp;
 
-	/************************************** Merge the sorted halves back into the original container **************************************/
-	typename Container<Container<T>>::iterator leftIt = left_side.begin();
-	typename Container<Container<T>>::iterator rightIt = right_side.begin();
-	typename Container<Container<T>>::iterator mergeIt = pairs.begin();
+	// Initialize pointers for the two halves.
+	int left = start, right = start + mid, end = start + n;
 
-	while (leftIt != left_side.end() && rightIt != right_side.end())
+	while (left < start + mid && right < end)
 	{
-		if ((*leftIt)[1] <= (*rightIt)[1])
+		if (pairs[left][1] <= pairs[right][1])
 		{
-			*mergeIt = *leftIt;
-			++leftIt;
+			temp.push_back(pairs[left]);
+			left++; // Move to the next pair in the left half.
 		}
 		else
 		{
-			*mergeIt = *rightIt;
-			++rightIt;
+			// Otherwise, the pair in the right half has a smaller value, add it to 'temp'.
+			temp.push_back(pairs[right]);
+			right++;
 		}
-		++mergeIt;
 	}
 
-	/****************************** Copy any remaining elements from the left or right halves ******************************/
-	while (leftIt != left_side.end())
+	// If there are any remaining pairs in the left half, add them to 'temp'.
+	while (left < start + mid)
 	{
-		*mergeIt = *leftIt;
-		++leftIt;
-		++mergeIt;
+		temp.push_back(pairs[left]);
+		left++;
 	}
 
-	while (rightIt != right_side.end())
+	// If there are any remaining pairs in the right half, add them to 'temp'.
+	while (right < end)
 	{
-		*mergeIt = *rightIt;
-		++rightIt;
-		++mergeIt;
+		temp.push_back(pairs[right]);
+		right++;
 	}
+
+	// Copy the merged pairs from 'temp' back into the original 'pairs' container.
+	for (size_t i = 0; i < temp.size(); ++i)
+		pairs[start + i] = temp[i];
 }
 
 template <typename T, template <typename...> typename Container>
