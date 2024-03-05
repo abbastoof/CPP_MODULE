@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/04 21:05:53 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 11:50:01 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,14 @@ void PmergeMe<T, Container>::sortContainer(Container<T>& cont)
     std::cout << std::endl;
 
     // Start the timer
-    auto start = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 
     // Sort the container (replace this with your sorting algorithm)
     std::sort(cont.begin(), cont.end());
 
     // Stop the timer
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-
+    std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> difference = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     // Display the sorted sequence
     std::cout << "After: ";
     for (const auto& item : cont) {
@@ -76,7 +75,7 @@ void PmergeMe<T, Container>::sortContainer(Container<T>& cont)
 
     // Display the time taken for sorting
     std::string containerType = (std::is_same<Container<T>, std::vector<T>>::value) ? "std::vector" : "std::deque";
-    std::cout << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << duration.count() << " us" << std::endl;
+    std::cout << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << difference.count() << " us" << std::endl;
 }
 
 
