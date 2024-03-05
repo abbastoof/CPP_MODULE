@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 11:04:03 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 12:26:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ class Span
 					return "Invalid position";
 				}
 		};
+		Span();
 		Span(int n);
 		~Span();
 		Span(const Span &rhs); // copy constructor

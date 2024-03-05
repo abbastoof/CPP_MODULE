@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:49:38 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 11:24:41 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 12:26:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::
 template <typename T, typename Container>
 typename MutantStack<T, Container>::reverse_iterator MutantStack<T, Container>::rend()
 {
-	return std::stack<T, Container>::c.rend(); //
+	return std::stack<T, Container>::c.rend();
 }
 
 template <typename T, typename Container>
