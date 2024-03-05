@@ -6,7 +6,7 @@
 #    By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 13:37:34 by atoof             #+#    #+#              #
-#    Updated: 2024/02/20 16:41:44 by atoof            ###   ########.fr        #
+#    Updated: 2024/03/05 13:49:48 by atoof            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ INC_DIR = inc/
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++14
 RM = rm -rf
+HEADERS = $(wildcard $(INC_DIR)*.hpp)
 
 vpath %.cpp $(SRC_DIR)
 
@@ -27,7 +28,7 @@ all: $(OBJ_DIR) $(NAME)
 $(NAME): $(addprefix $(OBJ_DIR), $(OBJS))
 	$(CC) $(CFLAGS) -I $(INC_DIR) $^ -o $@
 
-$(OBJ_DIR)%.o: %.cpp
+$(OBJ_DIR)%.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 $(OBJ_DIR):
