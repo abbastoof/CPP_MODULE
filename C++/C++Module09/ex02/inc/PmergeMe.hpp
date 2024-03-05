@@ -15,11 +15,13 @@ class PmergeMe
 {
     public:
         PmergeMe();
+        ~PmergeMe();
+        void sortContainer(Container<T>& cont);
+
+    private:
         PmergeMe(const PmergeMe &rhs);
         PmergeMe &operator=(const PmergeMe &rhs);
-        ~PmergeMe();
 
-        void sortContainer(Container<T>& cont);
 
         Container<Container<T>> createPairs(const Container<T>& a);
 
@@ -27,8 +29,6 @@ class PmergeMe
 
         void recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start);
 		void printFunc(Container<Container<T>> pairs, int step);
-
-    private:
         void fordJohnson(Container<T>& cont);
         bool hasStraggler;
         T straggler;
