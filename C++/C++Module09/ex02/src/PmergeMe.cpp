@@ -40,26 +40,46 @@ PmergeMe<T, Container> &PmergeMe<T, Container>::operator=(const PmergeMe &rhs)
 template <typename T, template <typename...> typename Container>
 PmergeMe<T, Container>::~PmergeMe() {}
 
+#include <iostream>
+#include <chrono>
+#include <vector>
+#include <deque>
+#include <typeinfo>
+#include <type_traits>
+
 template <typename T, template <typename...> typename Container>
-void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
+void PmergeMe<T, Container>::sortContainer(Container<T>& cont)
 {
-	// Start the timer
-	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-	fordJohnson(cont);
-	// Stop the timer
-	std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
-	// Calculate the duration
-	std::chrono::duration<double> diff = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-	// Check the type of the container and print the appropriate message
-	if (typeid(Container<T>) == typeid(std::vector<T>))
-		std::cout << Colors::BRIGHT_BLUE << "This is numbers sorted in vector:" << Colors::RESET << std::endl;
-	else if (typeid(Container<T>) == typeid(std::deque<T>))
-		std::cout << Colors::BRIGHT_BLUE << "This is numbers sorted in deque:" << Colors::RESET << std::endl;
-	for (int num : cont)
-		std::cout << num << " ";
-	std::cout << std::endl;
-	std::cout << "Time taken by FordJohnson: " << Colors::GREEN << diff.count() << Colors::RESET << " microseconds" << std::endl;
+    // Display the unsorted sequence
+    std::cout << "Before: ";
+    for (const auto& item : cont) {
+        std::cout << item << " ";
+    }
+    std::cout << std::endl;
+
+    // Start the timer
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // Sort the container (replace this with your sorting algorithm)
+    std::sort(cont.begin(), cont.end());
+
+    // Stop the timer
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+    // Display the sorted sequence
+    std::cout << "After: ";
+    for (const auto& item : cont) {
+        std::cout << item << " ";
+    }
+    std::cout << std::endl;
+
+    // Display the time taken for sorting
+    std::string containerType = (std::is_same<Container<T>, std::vector<T>>::value) ? "std::vector" : "std::deque";
+    std::cout << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << duration.count() << " us" << std::endl;
 }
+
+
 
 template <typename T, template <typename...> typename Container>
 Container<Container<T>> PmergeMe<T, Container>::createPairs(const Container<T> &a)
