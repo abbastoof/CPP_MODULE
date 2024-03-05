@@ -6,11 +6,11 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:02:21 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/15 20:00:19 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 10:59:27 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/easyfind.hpp"
+#include "../inc/Easyfind.hpp"
 #include "../inc/color.hpp"
 #include <vector>
 #include <iostream>
@@ -23,7 +23,7 @@ void testFind(Container const & container, int value, const std::string& testNam
     try
 	{
         typename Container::const_iterator it = easyfind(container, value);
-        std::cout << setColor(GREEN) << "Test " << testName << ": Found " << value << " at position: " 
+        std::cout << setColor(GREEN) << "Test " << testName << ": Found " << value << " at position: "
                   << std::distance(container.begin(), it) << setColor(RESET) << std::endl;
     }
 	catch (std::exception& e)

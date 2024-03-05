@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:07:28 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/19 17:57:59 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 11:04:03 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	4. Next, implement two member functions: shortestSpan() and longestSpan() They will respectively find out the shortest span or the longest span (or distance, if
 		you prefer) between all the numbers stored, and return it. If there are no numbers stored,
 		or only one, no span can be found. Thus, throw an exception.
-	5. Of course, you will write your own tests and they will be way more thorough than the ones below. Test your Span at least with a minimum of 10 000 numbers. More would be even better. 
+	5. Of course, you will write your own tests and they will be way more thorough than the ones below. Test your Span at least with a minimum of 10 000 numbers. More would be even better.
 
 
 	https://www.cplusplus.com/reference/vector/vector/
@@ -73,7 +73,7 @@ class Span
 		void addNumber(int number); // Add a single number to the Span
 		void addNumber(std::vector<int>::const_iterator position, std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
 		void addNumber(unsigned int n, std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
-		void printVec() const;		
+		void printVec() const;
 		//getters
 		std::vector<int>::const_iterator begin();
 		std::vector<int>::const_iterator end();
