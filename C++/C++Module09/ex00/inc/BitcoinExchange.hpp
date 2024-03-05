@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 16:14:33 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:18:11 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,27 @@
 class BitcoinExchange
 {
 public:
+
+	~BitcoinExchange();
 	BitcoinExchange();
+	void calculatePrice() const;
+	int checkFileLines(const char *filename);
+	void readData(const std::string &filename);
+
+
+
+
+private:
+
 	BitcoinExchange(const BitcoinExchange &rhs);
 	BitcoinExchange &operator=(const BitcoinExchange &rhs);
-	~BitcoinExchange();
 
-	void readData(const std::string &filename);
 	void printData() const;
 	bool checkDate(const std::string &date) const;
 	bool checkPrice(const std::string &price, bool isFromFile) const;
 	bool isLeapYear(int year) const;
 	bool isValidDay(int year, int month, int day) const;
-	int checkFileLines(const char *filename);
 	void printFileData() const;
-	void calculatePrice() const;
-	
-
 	typedef struct s_fileData
 	{
 		std::string date;
@@ -54,8 +59,6 @@ public:
 		std::shared_ptr<s_fileData> next;
 	} t_fileData;
 
-	
-private:
 	std::map<std::string, std::string> _data;
 	std::shared_ptr<t_fileData> _fileData;
 };

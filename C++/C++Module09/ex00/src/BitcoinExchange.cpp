@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 17:21:20 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:22:09 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &rhs)
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 {
 	if (this != &rhs)
-	{
 		_data = rhs._data;
-	}
 	return *this;
 }
 
@@ -66,10 +64,7 @@ void BitcoinExchange::readData(const std::string &filename)
 bool BitcoinExchange::checkDate(const std::string &date) const
 {
 	if (!std::regex_match(date, std::regex("^\\d{4}-(\\d{1,2})-(\\d{1,2})$")))
-	{
-		// std::cerr << "Invalid date format" << std::endl;
 		return false;
-	}
 
 	int year = std::stoi(date.substr(0, 4));
 
@@ -80,16 +75,10 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 	int day = std::stoi(date.substr(secondDash + 1));
 
 	if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
-	{
-		// std::cerr << "invalid date" << std::endl;
 		return false;
-	}
 
 	if (!isValidDay(year, month, day))
-	{
-		// std::cerr << "Invalid day for month " << month << " and year " << year << std::endl;
 		return false;
-	}
 	std::chrono::system_clock::time_point today = std::chrono::system_clock::now();
 	std::time_t today_time = std::chrono::system_clock::to_time_t(today); // convert to C-style time_t
 	std::tm *today_tm = std::localtime(&today_time);					  // convert to tm struct
@@ -99,10 +88,7 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 	int today_day = today_tm->tm_mday;
 
 	if (year > today_year || (year == today_year && month > today_month) || (year == today_year && month == today_month && day > today_day))
-	{
-		// std::cerr << "Date is in the future" << std::endl;
 		return false;
-	}
 	return true;
 }
 
@@ -115,34 +101,23 @@ bool BitcoinExchange::checkPrice(const std::string &price, bool isFromFile) cons
 		if (isFromFile)
 		{
 			if (priceValue < 0 || priceValue > 1000)
-			{
-				// std::cerr << "Price should be between 0 and 1000" << std::endl;
 				return false;
-			}
 		}
 		else
 		{
 			if (priceValue < 0)
-			{
-				// std::cerr << "Price should be positive" << std::endl;
 				return false;
-			}
 			if (!std::regex_match(price, std::regex("^\\d*(\\.\\d+)?$")))
-			{
-				// std::cerr << "Invalid price format" << std::endl;
 				return false;
-			}
 		}
 		return true;
 	}
 	catch (const std::invalid_argument &e)
 	{
-		// std::cerr << "Price is not a number" << std::endl;
 		return false;
 	}
 	catch (const std::out_of_range &e)
 	{
-		// std::cerr << "Price is out of range" << std::endl;
 		return false;
 	}
 }
