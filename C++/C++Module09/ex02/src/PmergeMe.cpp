@@ -138,30 +138,32 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
 template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::printFunc(Container<Container<T>> pairs, int step)
 {
-	if (step == 1 || step == 2 || step == 3)
-	{
-		if (step == 1)
-			std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
-		else if (step == 2)
-			std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
-		else if (step == 3)
-			std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
-		for (const auto &pair : pairs)
-			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
-		std::cout << std::endl;
-	}
-	else if (step == 4)
-	{
-		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
-		std::cout << "Larg elements: ";
-		for (const auto &pair : pairs)
-			std::cout << pair[1] << " ";
-		std::cout << std::endl;
-		std::cout << "Small elements: ";
-		for (const auto &pair : pairs)
-			std::cout << pair[0] << ", ";
-		std::cout << std::endl;
-	}
+    if (step == 1 || step == 2 || step == 3)
+    {
+        if (step == 1)
+            std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
+        else if (step == 2)
+            std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
+        else if (step == 3)
+            std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
+
+        for (const Container<T> &pair : pairs)
+            std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+        std::cout << std::endl;
+    }
+    else if (step == 4)
+    {
+        std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
+        std::cout << "Larg elements: ";
+        for (const Container<T> &pair : pairs)
+            std::cout << pair[1] << " ";
+        std::cout << std::endl;
+
+        std::cout << "Small elements: ";
+        for (const Container<T> &pair : pairs)
+            std::cout << pair[0] << ", ";
+        std::cout << std::endl;
+    }
 }
 
 template <typename T, template <typename...> typename Container>
@@ -202,7 +204,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 
 	for (size_t i = 0; i < smallerElements.size(); ++i)
 	{
-		typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements[i]);
+		typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements[i]); //why typename? https://stackoverflow.com/questions/610245/where-and-why-do-i-have-to-put-the-template-and-typename-keywords
 		largerElements.insert(pos, smallerElements[i]);
 	}
 
