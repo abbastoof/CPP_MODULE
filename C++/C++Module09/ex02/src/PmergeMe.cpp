@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 11:50:01 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 18:07:33 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ PmergeMe<T, Container> &PmergeMe<T, Container>::operator=(const PmergeMe &rhs)
 template <typename T, template <typename...> typename Container>
 PmergeMe<T, Container>::~PmergeMe() {}
 
-#include <iostream>
-#include <chrono>
-#include <vector>
-#include <deque>
-#include <typeinfo>
-#include <type_traits>
-
 template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::sortContainer(Container<T>& cont)
 {
@@ -59,12 +52,10 @@ void PmergeMe<T, Container>::sortContainer(Container<T>& cont)
 
     // Start the timer
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-
-    // Sort the container (replace this with your sorting algorithm)
-    std::sort(cont.begin(), cont.end());
-
+	fordJohnson(cont);
     // Stop the timer
     std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+	
 	std::chrono::duration<double> difference = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     // Display the sorted sequence
     std::cout << "After: ";
@@ -112,8 +103,8 @@ void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container
 
 	int mid = n / 2; // Find the middle index to divide the pairs into two halves.
 
-	recursiveSortPairsByLargerValue(pairs, mid, start);
-	recursiveSortPairsByLargerValue(pairs, n - mid, start + mid);
+	recursiveSortPairsByLargerValue(pairs, mid, start); //leftside
+	recursiveSortPairsByLargerValue(pairs, n - mid, start + mid); //rightside
 
 	Container<Container<T>> temp;
 
