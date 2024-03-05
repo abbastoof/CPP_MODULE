@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:43:03 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 12:40:12 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:02:25 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@
 // }
 
 template <typename T>
-void test_iterator(MutantStack<T> &mstack)
+void test_iterator_int(MutantStack<T> &mstack)
 {
-
+	std::cout << "\n*********************** Testing int ***********************" << std::endl;
 	mstack.push(5);
 	mstack.push(17);
 	std::cout << mstack.top() << std::endl;
@@ -77,6 +77,63 @@ void test_iterator(MutantStack<T> &mstack)
 	mstack.push(5);
 	mstack.push(737);
 	mstack.push(0);
+	std::cout << "Testing iterator" << std::endl;
+	typename MutantStack<T>::iterator it = mstack.begin();
+	typename MutantStack<T>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+	std::stack<T> s(mstack);
+	std::cout << "Size of stack s is: ";
+	std::cout << s.size() << std::endl;
+}
+
+
+template <typename T>
+void test_iterator_float(MutantStack<T> &mstack)
+{
+	std::cout << "\n*********************** Testing float ***********************" << std::endl;
+	mstack.push(5.3);
+	mstack.push(17.3);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3.3);
+	mstack.push(5.3);
+	mstack.push(737.3);
+	mstack.push(0.5);
+	std::cout << "Testing iterator" << std::endl;
+	typename MutantStack<T>::iterator it = mstack.begin();
+	typename MutantStack<T>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+	std::stack<T> s(mstack);
+	std::cout << "Size of stack s is: ";
+	std::cout << s.size() << std::endl;
+}
+
+template <typename T>
+void test_iterator_double(MutantStack<T> &mstack)
+{
+	std::cout << "\n*********************** Testing double ***********************" << std::endl;
+	mstack.push(5.3);
+	mstack.push(17.3);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3.3);
+	mstack.push(5.3);
+	mstack.push(737.3);
+	mstack.push(0.5);
 	std::cout << "Testing iterator" << std::endl;
 	typename MutantStack<T>::iterator it = mstack.begin();
 	typename MutantStack<T>::iterator ite = mstack.end();
@@ -148,15 +205,15 @@ int main()
 	MutantStack<int> mstack;
 	MutantStack<float> mstack2;
 	MutantStack<double> mstack3;
-	test_iterator(mstack);
+	test_iterator_int(mstack);
 	test_reverse_iterator(mstack);
 	test_const_iterator(mstack);
 	test_const_reverse_iterator(mstack);
-	test_iterator(mstack2);
+	test_iterator_float(mstack2);
 	test_reverse_iterator(mstack2);
 	test_const_iterator(mstack2);
 	test_const_reverse_iterator(mstack2);
-	test_iterator(mstack3);
+	test_iterator_double(mstack3);
 	test_reverse_iterator(mstack3);
 	test_const_iterator(mstack3);
 	test_const_reverse_iterator(mstack3);
