@@ -21,12 +21,8 @@ class PmergeMe
     private:
         PmergeMe(const PmergeMe &rhs);
         PmergeMe &operator=(const PmergeMe &rhs);
-
-
         Container<Container<T>> createPairs(const Container<T>& a);
-
         void sortPairs(Container<Container<T>>& pairs);
-
         void recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start);
 		void printFunc(Container<Container<T>> pairs, int step);
         void fordJohnson(Container<T>& cont);
