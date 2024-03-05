@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:43:03 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 13:02:25 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:06:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,15 @@ template <typename T>
 void test_iterator_float(MutantStack<T> &mstack)
 {
 	std::cout << "\n*********************** Testing float ***********************" << std::endl;
-	mstack.push(5.3);
-	mstack.push(17.3);
+	mstack.push(5.3f);
+	mstack.push(17.3f);
 	std::cout << mstack.top() << std::endl;
 	mstack.pop();
 	std::cout << mstack.size() << std::endl;
-	mstack.push(3.3);
-	mstack.push(5.3);
-	mstack.push(737.3);
-	mstack.push(0.5);
+	mstack.push(3.3f);
+	mstack.push(5.3f);
+	mstack.push(737.3f);
+	mstack.push(0.5f);
 	std::cout << "Testing iterator" << std::endl;
 	typename MutantStack<T>::iterator it = mstack.begin();
 	typename MutantStack<T>::iterator ite = mstack.end();
