@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 20:53:23 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 21:18:37 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,59 +142,57 @@ bool BitcoinExchange::isValidDay(int year, int month, int day) const
 
 int BitcoinExchange::checkFileLines(const char *filename)
 {
-	std::ifstream file(filename);
-	if (!file.is_open())
-	{
-		throw std::runtime_error("File not found");
-		return 1;
-	}
-	// Check if the file is empty
-	file.seekg(0, std::ios::end);
-	if (file.tellg() == 0)
-	{
-		std::cerr << "The file is empty: " << filename << std::endl;
-		return 1;
-	}
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("File not found");
+        return 1;
+    }
 
-	// Reset file read position to the beginning
-	file.seekg(0, std::ios::beg);
+    if (file.peek() == std::ifstream::traits_type::eof()) // peek() returns the next character in the input sequence, without extracting it
+    {
+        std::cerr << "The file is empty: " << filename << std::endl;
+        return 1;
+    }
 
-	std::string line;
-	std::shared_ptr<t_fileData> last = nullptr;
-	int count = 0;
-	while (getline(file, line))
-	{
-		std::shared_ptr<t_fileData> newNode = std::make_shared<t_fileData>();
-		newNode->next = nullptr;
+    std::string line;
+    std::getline(file, line); // Skip the header or the first line if not needed
 
-		size_t pipe = line.find(" | ");
-		if (pipe != std::string::npos)
-		{
-			newNode->date = line.substr(0, pipe);
-			newNode->price = line.substr(pipe + 3);
-			++count;
-			if (count == 1)
-				continue;
-			if (!checkDate(newNode->date) || !checkPrice(newNode->price, true))
-			{
-				newNode->date = "Error";
-				newNode->price = "Error";
-			}
-		}
-		else
-		{
-			newNode->date = "Error";
-			newNode->price = "Error";
-		}
-		if (last == nullptr)
-			_fileData = newNode;
-		else
-			last->next = newNode;
-		last = newNode;
-	}
+    std::shared_ptr<t_fileData> last = nullptr;
+    while (std::getline(file, line))
+    {
+        std::shared_ptr<t_fileData> newNode = createNode(line);
 
-	file.close();
-	return 0;
+        if (!newNode) continue; // Skip nodes that failed to be created properly
+
+        if (last == nullptr)
+            _fileData = newNode;
+        else
+            last->next = newNode;
+        last = newNode;
+    }
+
+    file.close();
+    return 0;
+}
+
+std::shared_ptr<BitcoinExchange::t_fileData> BitcoinExchange::createNode(const std::string& line)
+{
+    size_t pipe = line.find(" | ");
+    if (pipe == std::string::npos)
+        return nullptr; // Invalid line format, skip this node
+
+    std::shared_ptr<t_fileData> newNode = std::make_shared<t_fileData>(); // Explicit type instead of auto
+    newNode->date = line.substr(0, pipe);
+    newNode->price = line.substr(pipe + 3);
+
+    if (!checkDate(newNode->date) || !checkPrice(newNode->price, true))
+    {
+        newNode->date = "Error";
+        newNode->price = "Error";
+    }
+
+    return newNode;
 }
 
 void BitcoinExchange::printFileData() const
@@ -211,7 +209,7 @@ void BitcoinExchange::printFileData() const
 void BitcoinExchange::printData() const
 {
 	std::cout << "Data:" << std::endl;
-	for (const std::pair<std::string, std::string> &pair : _data)
+	for (const std::pair<const std::string, std::string> &pair : _data)
 		std::cout << pair.first << " " << pair.second << std::endl;
 }
 

@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 20:34:01 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 21:11:59 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ public:
 
 
 private:
+	typedef struct s_fileData
+	{
+		std::string date;
+		std::string price;
+		std::shared_ptr<s_fileData> next;
+	} t_fileData;
 
 	BitcoinExchange(const BitcoinExchange &rhs);
 	BitcoinExchange &operator=(const BitcoinExchange &rhs);
@@ -48,12 +54,7 @@ private:
 	bool checkDate(const std::string &date) const;
 	bool isValidDay(int year, int month, int day) const;
 	bool checkPrice(const std::string &price, bool isFromFile) const;
-	typedef struct s_fileData
-	{
-		std::string date;
-		std::string price;
-		std::shared_ptr<s_fileData> next;
-	} t_fileData;
+	std::shared_ptr<t_fileData> createNode(const std::string& line);
 
 	std::map<std::string, std::string> _data;
 	std::shared_ptr<t_fileData> _fileData;
