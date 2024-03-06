@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 20:14:25 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 20:53:23 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,15 +149,15 @@ int BitcoinExchange::checkFileLines(const char *filename)
 		return 1;
 	}
 	// Check if the file is empty
-    file.seekg(0, std::ios::end);
-    if (file.tellg() == 0)
-    {
-        std::cerr << "The file is empty: " << filename << std::endl;
-        return 1;
-    }
+	file.seekg(0, std::ios::end);
+	if (file.tellg() == 0)
+	{
+		std::cerr << "The file is empty: " << filename << std::endl;
+		return 1;
+	}
 
-    // Reset file read position to the beginning
-    file.seekg(0, std::ios::beg);
+	// Reset file read position to the beginning
+	file.seekg(0, std::ios::beg);
 
 	std::string line;
 	std::shared_ptr<t_fileData> last = nullptr;
@@ -211,13 +211,13 @@ void BitcoinExchange::printFileData() const
 void BitcoinExchange::printData() const
 {
 	std::cout << "Data:" << std::endl;
-	for (const auto &pair : _data)
+	for (const std::pair<std::string, std::string> &pair : _data)
 		std::cout << pair.first << " " << pair.second << std::endl;
 }
 
 void BitcoinExchange::calculatePrice() const
 {
-	auto current = _fileData;
+	std::shared_ptr<t_fileData> current = _fileData;
 	while (current != nullptr)
 	{
 		if (current->date == "Error" || current->price == "Error")
@@ -227,27 +227,28 @@ void BitcoinExchange::calculatePrice() const
 			continue;
 		}
 
-
 		std::map<std::string, std::string>::const_iterator it = _data.find(current->date);
 		if (it != _data.end())
 		{
 			double calculatedPrice = std::stod(current->price) * std::stod(it->second);
 			std::cout << std::fixed << std::setprecision(2);
 			std::cout << current->date << " => " << calculatedPrice << std::endl;
+			current = current->next;
+			continue;
 		}
-		else
+
+		std::map<std::string, std::string>::const_iterator lower = _data.lower_bound(current->date);
+		if (lower == _data.begin())
 		{
-			auto lower = _data.lower_bound(current->date);
-			if (lower != _data.begin())
-			{
-				--lower;
-				double calculatedPrice = std::stod(current->price) * std::stod(lower->second);
-				std::cout << std::fixed << std::setprecision(2);
-				std::cout << current->date << " => " << calculatedPrice << std::endl;
-			}
-			else
-				std::cerr << "No earlier date found in the database for " << current->date << std::endl;
+			std::cerr << "No earlier date found in the database for " << current->date << std::endl;
+			current = current->next;
+			continue;
 		}
+
+		--lower;
+		double calculatedPrice = std::stod(current->price) * std::stod(lower->second);
+		std::cout << std::fixed << std::setprecision(2);
+		std::cout << current->date << " => " << calculatedPrice << std::endl;
 		current = current->next;
 	}
 }
