@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 19:25:23 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 20:57:14 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "Unsorted positive integer sequence: ";
 	for (int i = 1; i < argc; ++i)
-	{
 		std::cout << argv[i] << " ";
-	}
 	std::cout << std::endl;
 
 	std::cout << Colors::BRIGHT_BLUE << "******************** Vector ********************" << Colors::RESET << std::endl;
