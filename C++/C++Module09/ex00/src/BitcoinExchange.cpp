@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 16:09:04 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 16:50:21 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ bool BitcoinExchange::checkPrice(const std::string &price, bool isFromFile) cons
 		{
 			if (priceValue < 0)
 				return false;
-			if (!std::regex_match(price, std::regex("^\\d*(\\.\\d+)?$")))
+			if (!std::regex_match(price, std::regex("^\\d*(\\.\\d*)?$")))
 				return false;
 		}
 		return true;
@@ -153,7 +153,7 @@ int BitcoinExchange::checkFileLines(const char *filename)
     if (file.tellg() == 0)
     {
         std::cerr << "The file is empty: " << filename << std::endl;
-        return 1; // Indicate an error
+        return 1;
     }
 
     // Reset file read position to the beginning
@@ -226,6 +226,7 @@ void BitcoinExchange::calculatePrice() const
 			current = current->next;
 			continue;
 		}
+
 
 		std::map<std::string, std::string>::const_iterator it = _data.find(current->date);
 		if (it != _data.end())
