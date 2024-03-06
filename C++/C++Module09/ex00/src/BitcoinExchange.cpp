@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 16:50:21 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 20:14:25 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void BitcoinExchange::calculatePrice() const
 		if (it != _data.end())
 		{
 			double calculatedPrice = std::stod(current->price) * std::stod(it->second);
+			std::cout << std::fixed << std::setprecision(2);
 			std::cout << current->date << " => " << calculatedPrice << std::endl;
 		}
 		else
@@ -241,6 +242,7 @@ void BitcoinExchange::calculatePrice() const
 			{
 				--lower;
 				double calculatedPrice = std::stod(current->price) * std::stod(lower->second);
+				std::cout << std::fixed << std::setprecision(2);
 				std::cout << current->date << " => " << calculatedPrice << std::endl;
 			}
 			else
