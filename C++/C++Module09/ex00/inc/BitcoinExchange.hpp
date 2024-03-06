@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:44 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/06 18:45:39 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 20:34:01 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 #include <map>
-#include <unordered_map>
-#include <algorithm>
 #include <iterator>
 #include <fstream>
 #include <sstream>
@@ -27,6 +24,7 @@
 #include <regex>
 #include <chrono>
 #include <memory>
+#include <iomanip>
 
 class BitcoinExchange
 {
