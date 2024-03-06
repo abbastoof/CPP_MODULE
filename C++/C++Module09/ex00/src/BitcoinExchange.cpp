@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 22:22:09 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/06 16:09:04 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,21 @@ int BitcoinExchange::checkFileLines(const char *filename)
 {
 	std::ifstream file(filename);
 	if (!file.is_open())
+	{
 		throw std::runtime_error("File not found");
+		return 1;
+	}
+	// Check if the file is empty
+    file.seekg(0, std::ios::end);
+    if (file.tellg() == 0)
+    {
+        std::cerr << "The file is empty: " << filename << std::endl;
+        return 1; // Indicate an error
+    }
+
+    // Reset file read position to the beginning
+    file.seekg(0, std::ios::beg);
+
 	std::string line;
 	std::shared_ptr<t_fileData> last = nullptr;
 	int count = 0;
