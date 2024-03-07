@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/07 13:19:00 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:57:28 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ bool BitcoinExchange::checkPrice(const std::string &price, bool isFromFile) cons
 		if (isFromFile)
 		{
 			if (priceValue < 0 || priceValue > 1000)
+				return false;
+			if (!std::regex_match(price, std::regex("^\\d*(\\.\\d*)?$")))
 				return false;
 		}
 		else
@@ -204,8 +206,10 @@ std::shared_ptr<BitcoinExchange::t_fileData> BitcoinExchange::createNode(const s
 		// Validate date and price, set to "Error" if invalid
 		if (!checkDate(newNode->date) || !checkPrice(newNode->price, true))
 		{
-			newNode->date = "Error";
-			newNode->price = "Error";
+			if (!checkDate(newNode->date))
+				newNode->date = "Error";
+			if (!checkPrice(newNode->price, true))
+				newNode->price = "Error";
 		}
 	}
 	else
@@ -243,7 +247,10 @@ void BitcoinExchange::calculatePrice() const
 	{
 		if (current->date == "Error" || current->price == "Error")
 		{
-			std::cerr << "Skipping error line with date " << current->date << " and price " << current->price << std::endl;
+			if (current->date == "Error")
+				std::cerr << "invalid date" << std::endl;
+			else if (current->price == "Error")
+				std::cerr << "invalid price" << std::endl;
 			current = current->next;
 			continue;
 		}
