@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/08 11:20:19 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/08 19:35:54 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 
 	// Display the time taken for sorting
 	std::string containerType = (std::is_same<Container<T>, std::vector<T>>::value) ? "std::vector" : "std::deque";
-	std::cout << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << difference.count() << " us" << std::endl;
+	std::cout << std::fixed << std::setprecision(8) << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << difference.count() << " us" << std::endl;
 
 	if (std::is_sorted(cont.begin(), cont.end()))
 		std::cout << "The sequence is sorted.\n";
@@ -135,50 +135,47 @@ template <typename T, template <typename...> typename Container>
 std::vector<int> PmergeMe<T, Container>::generatePowerSequence(int length)
 {
 	std::vector<int> sequence;
-
-	// Start with 2 to maintain the property of the power sequence
-	int current = 2;
-
-	// The first two groups should always be of size 2 according to the algorithm
 	sequence.push_back(2);
-	if (length > 1)
-		sequence.push_back(2);
-
-	// Generate subsequent group sizes
-	while (sequence.size() < static_cast<size_t>(length))
+	while (std::accumulate(sequence.begin(), sequence.end(), 0) <= length)
 	{
-		current = std::pow(2, sequence.size() + 1) - std::accumulate(sequence.begin(), sequence.end(), 0);
-		if (current <= 0)
-			break; // If the calculated size is not positive, stop generating more sizes
-		sequence.push_back(current);
+		int term = pow(2, sequence.size() + 1) - sequence.back();
+		sequence.push_back(term);
 	}
-
 	return sequence;
 }
 
 template <typename T, template <typename...> typename Container>
 std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &elements, const std::vector<int> &groupSizes)
 {
-	std::vector<Container<T>> partitions;
-	size_t start = 0;
+    std::vector<Container<T>> partitions;
+    size_t start = 0;
+    int indexOffset = 3; // Starting index for printing, i.e., y3
 
-	for (int size : groupSizes)
-	{
-		size_t end = start + size;
-		if (end > elements.size())
-			end = elements.size(); // Ensure the end index does not exceed the container's size
+    for (int size : groupSizes) // Iterate over the group sizes in the sequence
+    {
+        size_t end = start + size; // Calculate the end index for the current group
+        if (end > elements.size())
+            end = elements.size(); // Ensure the end index does not exceed the container's size
 
-		// Create a partition and reverse it
-		Container<T> partition(elements.begin() + start, elements.begin() + end);
-		std::reverse(partition.begin(), partition.end());
-		partitions.push_back(partition);
 
-		start = end; // Update the start index for the next partition
-		if (start >= elements.size())
-			break; // If all elements have been partitioned, stop
-	}
+        // Create a partition from the current group
+        Container<T> partition(elements.begin() + start, elements.begin() + end);
 
-	return partitions;
+        // Reverse the partition
+        std::reverse(partition.begin(), partition.end());
+
+        // Print indices after partition reversal
+        std::cout << "After reversal: ";
+        for (int i = end - 1; i >= static_cast<int>(start); --i)
+            std::cout << "y" << indexOffset + i << " ";
+        std::cout << std::endl;
+
+        partitions.push_back(partition);
+        start = end; // Update the start index for the next partition
+        if (start >= elements.size()) // If all elements have been partitioned, stop
+            break;
+    }
+    return partitions;
 }
 
 template <typename T, template <typename...> typename Container>
@@ -199,7 +196,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 	// Create and sort pairs.
 	Container<Container<T>> pairs = createPairs(container);
 	sortPairs(pairs);
-
+	debugPrintPairs(pairs, "Pairs after sorting");
 	// Split pairs into larger and smaller elements.
 	Container<T> largerElements, smallerElements;
 	for (auto &pair : pairs)
@@ -207,30 +204,31 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 		largerElements.push_back(pair[1]);	// Assuming the second element is larger.
 		smallerElements.push_back(pair[0]); // Assuming the first element is smaller.
 	}
+	debugPrint(largerElements, "Larger elements before recursive sort");
 
 	// Recursively sort the larger elements.
 	fordJohnson(largerElements);
-
+	debugPrint(largerElements, "Larger elements after recursive sort");
 	// Merge smaller elements into the sorted list of larger elements.
 	// The first smaller element is merged directly before handling the rest.
 	if (!smallerElements.empty())
 	{
 		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements.front());
 		largerElements.insert(pos, smallerElements.front());
-		smallerElements.erase(smallerElements.begin()); // Remove the first smaller element after merging.
+		smallerElements.erase(smallerElements.begin());
 	}
 
 	// Generate the power sequence for the remaining smaller elements.
-	auto powerSequence = generatePowerSequence(smallerElements.size());
+	auto powerSequence = generatePowerSequence(smallerElements.size()); // We split the smaller elements into groups of sizes that are powers of 2
 	auto partitions = partition(smallerElements, powerSequence);
 
 	// Merge the partitioned smaller elements back into the larger elements.
-	for (const auto &partition : partitions)
+	for (const Container<T> &partition : partitions)
 	{
-		for (auto it = partition.rbegin(); it != partition.rend(); ++it)
-		{ // Insert in reverse order
+		for (auto it = partition.begin(); it != partition.end(); ++it)
+		{
 			auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), *it);
-			largerElements.insert(pos, *it); // Merge into the sorted larger elements list.
+			largerElements.insert(pos, *it);
 		}
 	}
 

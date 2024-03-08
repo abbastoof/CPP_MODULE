@@ -11,6 +11,7 @@
 # include <typeinfo>
 # include <cmath>
 # include <numeric>
+# include <iomanip>
 
 template<typename T, template<typename...> typename Container>
 class PmergeMe
@@ -32,6 +33,22 @@ class PmergeMe
         void fordJohnson(Container<T>& cont);
         bool hasStraggler;
         T straggler;
+		    void debugPrint(const Container<T>& cont, const std::string& message) const {
+        std::cout << message << ": ";
+        std::copy(cont.begin(), cont.end(), std::ostream_iterator<T>(std::cout, " "));
+        std::cout << std::endl;
+    }
+
+    void debugPrintPairs(const Container<Container<T>>& pairs, const std::string& message) const {
+        std::cout << message << ":\n";
+        for (const auto& pair : pairs) {
+            std::cout << "(";
+            std::copy(pair.begin(), pair.end(), std::ostream_iterator<T>(std::cout, " "));
+            std::cout << ") ";
+        }
+        std::cout << std::endl;
+    }
 };
+
 
 #endif	// PMERGEME_HPP

@@ -61,6 +61,12 @@
 		"typeinfo": "cpp",
 		"unordered_map": "cpp",
 		"utility": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"memory_resource": "cpp",
+		"__verbose_abort": "cpp",
+		"charconv": "cpp",
+		"clocale": "cpp",
+		"iomanip": "cpp",
+		"variant": "cpp"
 	}
 }
