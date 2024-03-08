@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 			std::cerr << "Invalid input: " << argv[i] << ". Please enter only integers." << std::endl;
 			return 1;
 		}
-		if (num <= 0)
+		if (num < 0)
 		{
 			std::cerr << "Invalid input: " << argv[i] << ". Please enter only positive integers." << std::endl;
 			return 1;
