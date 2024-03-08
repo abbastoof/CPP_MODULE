@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 18:07:33 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/08 11:20:19 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 	// Display the time taken for sorting
 	std::string containerType = (std::is_same<Container<T>, std::vector<T>>::value) ? "std::vector" : "std::deque";
 	std::cout << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << difference.count() << " us" << std::endl;
+
+	if (std::is_sorted(cont.begin(), cont.end()))
+		std::cout << "The sequence is sorted.\n";
+	else
+		std::cout << "The sequence is not sorted.\n";
 }
 
 template <typename T, template <typename...> typename Container>
@@ -93,56 +98,6 @@ void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
 		if (pair.size() >= 2 && pair[0] > pair[1])
 			std::swap(pair[0], pair[1]);
 	}
-}
-
-template <typename T, template <typename...> typename Container>
-void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start)
-{
-	if (n <= 1)
-		return; // If there is only one or no pair, there's nothing to sort.
-
-	int mid = n / 2; // Find the middle index to divide the pairs into two halves.
-
-	recursiveSortPairsByLargerValue(pairs, mid, start);			  // leftside
-	recursiveSortPairsByLargerValue(pairs, n - mid, start + mid); // rightside
-
-	Container<Container<T>> temp;
-
-	// Initialize pointers for the two halves.
-	int left = start, right = start + mid, end = start + n;
-
-	while (left < start + mid && right < end)
-	{
-		if (pairs[left][1] <= pairs[right][1])
-		{
-			temp.push_back(pairs[left]);
-			left++; // Move to the next pair in the left half.
-		}
-		else
-		{
-			// Otherwise, the pair in the right half has a smaller value, add it to 'temp'.
-			temp.push_back(pairs[right]);
-			right++;
-		}
-	}
-
-	// If there are any remaining pairs in the left half, add them to 'temp'.
-	while (left < start + mid)
-	{
-		temp.push_back(pairs[left]);
-		left++;
-	}
-
-	// If there are any remaining pairs in the right half, add them to 'temp'.
-	while (right < end)
-	{
-		temp.push_back(pairs[right]);
-		right++;
-	}
-
-	// Copy the merged pairs from 'temp' back into the original 'pairs' container.
-	for (size_t i = 0; i < temp.size(); ++i)
-		pairs[start + i] = temp[i];
 }
 
 template <typename T, template <typename...> typename Container>
@@ -229,67 +184,66 @@ std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &
 template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 {
-    if (container.size() <= 1)
-        return; // Base case: the container is already sorted or has a single element
+	if (container.size() <= 1)
+		return; // Base case: already sorted or only one element.
 
-    // Handling the straggler if the number of elements in the container is odd
-    T stragglerElement;
-    bool hasStraggler = container.size() % 2 != 0;
-    if (hasStraggler)
-    {
-        stragglerElement = container.back();
-        container.pop_back(); // Temporarily remove the straggler element
-    }
+	// Handle the straggler element for odd-sized containers.
+	bool hasStraggler = container.size() % 2 != 0;
+	T stragglerElement;
+	if (hasStraggler)
+	{
+		stragglerElement = container.back();
+		container.pop_back(); // Temporarily remove the straggler.
+	}
 
-    // Creating and sorting pairs of elements
-    Container<Container<T>> pairs = createPairs(container);
-    sortPairs(pairs);
+	// Create and sort pairs.
+	Container<Container<T>> pairs = createPairs(container);
+	sortPairs(pairs);
 
-    // Extracting larger and smaller elements from the sorted pairs
-    Container<T> largerElements, smallerElements;
-    for (const auto& pair : pairs)
-    {
-        largerElements.push_back(pair[1]); // Assuming the larger element is the second in the pair
-        smallerElements.push_back(pair[0]); // Assuming the smaller element is the first in the pair
-    }
+	// Split pairs into larger and smaller elements.
+	Container<T> largerElements, smallerElements;
+	for (auto &pair : pairs)
+	{
+		largerElements.push_back(pair[1]);	// Assuming the second element is larger.
+		smallerElements.push_back(pair[0]); // Assuming the first element is smaller.
+	}
 
-    // Recursive sorting of the larger elements
-    fordJohnson(largerElements);
+	// Recursively sort the larger elements.
+	fordJohnson(largerElements);
 
-    // Inserting the first smaller element at the beginning of the sorted larger elements
-    if (!smallerElements.empty())
-    {
-        largerElements.insert(largerElements.begin(), smallerElements.front());
-        smallerElements.erase(smallerElements.begin());
-    }
+	// Merge smaller elements into the sorted list of larger elements.
+	// The first smaller element is merged directly before handling the rest.
+	if (!smallerElements.empty())
+	{
+		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements.front());
+		largerElements.insert(pos, smallerElements.front());
+		smallerElements.erase(smallerElements.begin()); // Remove the first smaller element after merging.
+	}
 
-    // Generating a power sequence for the sizes of groups to partition the remaining smaller elements
-    std::vector<int> powerSequence = generatePowerSequence(smallerElements.size());
+	// Generate the power sequence for the remaining smaller elements.
+	auto powerSequence = generatePowerSequence(smallerElements.size());
+	auto partitions = partition(smallerElements, powerSequence);
 
-    // Partitioning the remaining smaller elements according to the power sequence
-    auto partitions = partition(smallerElements, powerSequence);
+	// Merge the partitioned smaller elements back into the larger elements.
+	for (const auto &partition : partitions)
+	{
+		for (auto it = partition.rbegin(); it != partition.rend(); ++it)
+		{ // Insert in reverse order
+			auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), *it);
+			largerElements.insert(pos, *it); // Merge into the sorted larger elements list.
+		}
+	}
 
-    // Inserting partitioned smaller elements into the sorted sequence of larger elements
-    for (const auto& group : partitions)
-    {
-        for (auto it = group.rbegin(); it != group.rend(); ++it) // Insert in reverse order
-        {
-            auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), *it);
-            largerElements.insert(pos, *it);
-        }
-    }
+	// Reinsert the straggler element, if any, at its correct position.
+	if (hasStraggler)
+	{
+		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), stragglerElement);
+		largerElements.insert(pos, stragglerElement);
+	}
 
-    // Inserting the straggler element, if it exists
-    if (hasStraggler)
-    {
-        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), stragglerElement);
-        largerElements.insert(pos, stragglerElement);
-    }
-
-    // Updating the original container with the sorted sequence
-    container = largerElements;
+	// Update the original container with the now fully sorted sequence.
+	container = largerElements;
 }
-
 
 template class PmergeMe<int, std::vector>;
 template class PmergeMe<int, std::deque>;
