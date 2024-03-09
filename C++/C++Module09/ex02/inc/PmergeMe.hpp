@@ -27,11 +27,11 @@ class PmergeMe
         PmergeMe &operator=(const PmergeMe &rhs);
         Container<Container<T>> createPairs(const Container<T>& a);
         void sortPairs(Container<Container<T>>& pairs);
-        void recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n, int start);
 		void printFunc(Container<Container<T>> pairs, int step);
 		std::vector<Container<T>> partition(const Container<T>& elements, const std::vector<int>& groupSizes);
 		void debugPrint(const Container<T> &cont, const std::string &message) const;
 		void debugPrintPairs(const Container<Container<T>> &pairs, const std::string &message) const;
+		void recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n);
 		std::vector<int> generatePowerSequence(int length);
         void fordJohnson(Container<T>& cont);
         bool hasStraggler;

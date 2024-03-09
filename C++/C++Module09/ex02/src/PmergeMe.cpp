@@ -166,6 +166,58 @@ std::vector<int> PmergeMe<T, Container>::generatePowerSequence(int length)
 }
 
 template <typename T, template <typename...> typename Container>
+void PmergeMe<T, Container>::recursiveSortPairsByLargerValue(Container<Container<T>> &pairs, int n)
+{
+	if (n <= 1)
+		return;
+
+	int mid = n / 2;
+
+	// Temporarily store the left and right halves
+	Container<Container<T>> left_side(pairs.begin(), pairs.begin() + mid);
+	Container<Container<T>> right_side(pairs.begin() + mid, pairs.end());
+
+	/**************************************** Recursively sort the left and right halves ****************************************/
+	recursiveSortPairsByLargerValue(left_side, left_side.size());
+	recursiveSortPairsByLargerValue(right_side, right_side.size());
+
+	/************************************** Merge the sorted halves back into the original container **************************************/
+	typename Container<Container<T>>::iterator leftIt = left_side.begin();
+	typename Container<Container<T>>::iterator rightIt = right_side.begin();
+	typename Container<Container<T>>::iterator mergeIt = pairs.begin();
+
+	while (leftIt != left_side.end() && rightIt != right_side.end())
+	{
+		if ((*leftIt)[1] <= (*rightIt)[1])
+		{
+			*mergeIt = *leftIt;
+			++leftIt;
+		}
+		else
+		{
+			*mergeIt = *rightIt;
+			++rightIt;
+		}
+		++mergeIt;
+	}
+
+	/****************************** Copy any remaining elements from the left or right halves ******************************/
+	while (leftIt != left_side.end())
+	{
+		*mergeIt = *leftIt;
+		++leftIt;
+		++mergeIt;
+	}
+
+	while (rightIt != right_side.end())
+	{
+		*mergeIt = *rightIt;
+		++rightIt;
+		++mergeIt;
+	}
+}
+
+template <typename T, template <typename...> typename Container>
 std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &elements, const std::vector<int> &groupSizes)
 {
 	std::vector<Container<T>> partitions;
@@ -216,39 +268,46 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 	// Create and sort pairs.
 	Container<Container<T>> pairs = createPairs(container);
 	sortPairs(pairs);
-	debugPrintPairs(pairs, "Pairs after sorting");
-	// Split pairs into larger and smaller elements.
+
+	// fordJohnson(largerElements);
+
+	recursiveSortPairsByLargerValue(pairs, pairs.size());
 	Container<T> largerElements, smallerElements;
 	for (auto &pair : pairs)
 	{
 		largerElements.push_back(pair[1]);	// Assuming the second element is larger.
 		smallerElements.push_back(pair[0]); // Assuming the first element is smaller.
 	}
-	debugPrint(largerElements, "Larger elements before recursive sort");
 
-	// Recursively sort the larger elements.
-	fordJohnson(largerElements);
+
 	debugPrint(largerElements, "Larger elements after recursive sort");
+	debugPrint(smallerElements, "Smaller elements after recursive sort");
 	// Merge smaller elements into the sorted list of larger elements.
 	// The first smaller element is merged directly before handling the rest.
 	if (!smallerElements.empty())
 	{
-		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), smallerElements.front());
-		largerElements.insert(pos, smallerElements.front());
+		largerElements.insert(largerElements.begin(), smallerElements.front());
 		smallerElements.erase(smallerElements.begin());
 	}
-
 	// Generate the power sequence for the remaining smaller elements.
 	auto powerSequence = generatePowerSequence(smallerElements.size()); // We split the smaller elements into groups of sizes that are powers of 2
 	auto partitions = partition(smallerElements, powerSequence);
 
-	// Merge the partitioned smaller elements back into the larger elements.
+	// Merge the smaller elements into the sorted list of larger elements.
+	size_t index = 0;
+	size_t insertedElements = 1;
 	for (const Container<T> &partition : partitions)
 	{
+		size_t partitionSize = partition.size();
+		index += partitionSize;
 		for (auto it = partition.begin(); it != partition.end(); ++it)
 		{
-			auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), *it);
+			// std::cout << "Index: " << index << std::endl;
+			// std::cout << "smaller[it]: " << *it << std::endl;
+			// std::cout << "largerElements.begin() + index + insertedElements =" << *(largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it)) << std::endl;
+			auto pos = std::lower_bound(largerElements.begin(), largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it), *it);
 			largerElements.insert(pos, *it);
+			insertedElements++;
 		}
 	}
 
