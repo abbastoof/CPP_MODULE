@@ -101,6 +101,27 @@ void PmergeMe<T, Container>::sortPairs(Container<Container<T>> &pairs)
 }
 
 template <typename T, template <typename...> typename Container>
+void PmergeMe<T, Container>::debugPrint(const Container<T> &cont, const std::string &message) const
+{
+	std::cout << message << ": ";
+	std::copy(cont.begin(), cont.end(), std::ostream_iterator<T>(std::cout, " "));
+	std::cout << std::endl;
+}
+
+template <typename T, template <typename...> typename Container>
+void PmergeMe<T, Container>::debugPrintPairs(const Container<Container<T>> &pairs, const std::string &message) const
+{
+	std::cout << message << ":\n";
+	for (const auto &pair : pairs)
+	{
+		std::cout << "(";
+		std::copy(pair.begin(), pair.end(), std::ostream_iterator<T>(std::cout, " "));
+		std::cout << ") ";
+	}
+	std::cout << std::endl;
+}
+
+template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::printFunc(Container<Container<T>> pairs, int step)
 {
 	if (step == 1 || step == 2 || step == 3)
@@ -147,35 +168,34 @@ std::vector<int> PmergeMe<T, Container>::generatePowerSequence(int length)
 template <typename T, template <typename...> typename Container>
 std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &elements, const std::vector<int> &groupSizes)
 {
-    std::vector<Container<T>> partitions;
-    size_t start = 0;
-    int indexOffset = 3; // Starting index for printing, i.e., y3
+	std::vector<Container<T>> partitions;
+	size_t start = 0;
+	int indexOffset = 3; // Starting index for printing, i.e., y3
 
-    for (int size : groupSizes) // Iterate over the group sizes in the sequence
-    {
-        size_t end = start + size; // Calculate the end index for the current group
-        if (end > elements.size())
-            end = elements.size(); // Ensure the end index does not exceed the container's size
+	for (int size : groupSizes) // Iterate over the group sizes in the sequence
+	{
+		size_t end = start + size; // Calculate the end index for the current group
+		if (end > elements.size())
+			end = elements.size(); // Ensure the end index does not exceed the container's size
 
+		// Create a partition from the current group
+		Container<T> partition(elements.begin() + start, elements.begin() + end);
 
-        // Create a partition from the current group
-        Container<T> partition(elements.begin() + start, elements.begin() + end);
+		// Reverse the partition
+		std::reverse(partition.begin(), partition.end());
 
-        // Reverse the partition
-        std::reverse(partition.begin(), partition.end());
+		// Print indices after partition reversal
+		std::cout << "After reversal: ";
+		for (int i = end - 1; i >= static_cast<int>(start); --i)
+			std::cout << "y" << indexOffset + i << " ";
+		std::cout << std::endl;
 
-        // Print indices after partition reversal
-        std::cout << "After reversal: ";
-        for (int i = end - 1; i >= static_cast<int>(start); --i)
-            std::cout << "y" << indexOffset + i << " ";
-        std::cout << std::endl;
-
-        partitions.push_back(partition);
-        start = end; // Update the start index for the next partition
-        if (start >= elements.size()) // If all elements have been partitioned, stop
-            break;
-    }
-    return partitions;
+		partitions.push_back(partition);
+		start = end;				  // Update the start index for the next partition
+		if (start >= elements.size()) // If all elements have been partitioned, stop
+			break;
+	}
+	return partitions;
 }
 
 template <typename T, template <typename...> typename Container>
