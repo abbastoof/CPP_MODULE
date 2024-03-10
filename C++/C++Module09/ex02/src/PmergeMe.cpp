@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/10 11:36:04 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/10 11:48:16 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &
 {
 	std::vector<Container<T>> partitions;
 	size_t start = 0;
+	bool shouldPrint = false;
 	int indexOffset = 3; // Starting index for printing, i.e., y3
 
 	for (int size : groupSizes) // Iterate over the group sizes in the sequence
@@ -215,10 +216,13 @@ std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &
 		std::reverse(partition.begin(), partition.end());
 
 		// Print indices after partition reversal
-		std::cout << "After reversal: ";
-		for (int i = end - 1; i >= static_cast<int>(start); --i)
-			std::cout << "y" << indexOffset + i << " ";
-		std::cout << std::endl;
+		if (shouldPrint)
+		{
+			std::cout << "Indices after partition reversal: ";
+			for (int i = end - 1; i >= static_cast<int>(start); --i)
+				std::cout << "y" << indexOffset + i << " ";
+			std::cout << std::endl;
+		}
 
 		partitions.push_back(partition);
 		start = end;				  // Update the start index for the next partition
