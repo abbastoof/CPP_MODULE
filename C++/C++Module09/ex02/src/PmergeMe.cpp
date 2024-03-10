@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/10 10:32:40 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/10 10:36:26 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 
 	recursiveSortPairsByLargerValue(pairs, pairs.size());
 	Container<T> largerElements, smallerElements;
-	for (auto &pair : pairs)
+	for (Container<T> &pair : pairs)
 	{
 		largerElements.push_back(pair[1]);	// Assuming the second element is larger.
 		smallerElements.push_back(pair[0]); // Assuming the first element is smaller.
