@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/08 19:35:54 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/10 10:32:40 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 {
 	// Display the unsorted sequence
 	std::cout << "Before: ";
-	for (const auto &item : cont)
-	{
+	for (const T &item : cont)
 		std::cout << item << " ";
-	}
 	std::cout << std::endl;
 
 	// Start the timer
@@ -60,7 +58,7 @@ void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 	std::chrono::duration<double> difference = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 	// Display the sorted sequence
 	std::cout << "After: ";
-	for (const auto &item : cont)
+	for (const T &item : cont)
 	{
 		std::cout << item << " ";
 	}
@@ -112,7 +110,7 @@ template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::debugPrintPairs(const Container<Container<T>> &pairs, const std::string &message) const
 {
 	std::cout << message << ":\n";
-	for (const auto &pair : pairs)
+	for (const Container<T>  &pair : pairs)
 	{
 		std::cout << "(";
 		std::copy(pair.begin(), pair.end(), std::ostream_iterator<T>(std::cout, " "));
@@ -121,36 +119,36 @@ void PmergeMe<T, Container>::debugPrintPairs(const Container<Container<T>> &pair
 	std::cout << std::endl;
 }
 
-template <typename T, template <typename...> typename Container>
-void PmergeMe<T, Container>::printFunc(Container<Container<T>> pairs, int step)
-{
-	if (step == 1 || step == 2 || step == 3)
-	{
-		if (step == 1)
-			std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
-		else if (step == 2)
-			std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
-		else if (step == 3)
-			std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
+// template <typename T, template <typename...> typename Container>
+// void PmergeMe<T, Container>::printFunc(Container<Container<T>> pairs, int step)
+// {
+// 	if (step == 1 || step == 2 || step == 3)
+// 	{
+// 		if (step == 1)
+// 			std::cout << Colors::MAGENTA << "step 1: create pairs of numbers:" << Colors::RESET << std::endl;
+// 		else if (step == 2)
+// 			std::cout << Colors::MAGENTA << "step 2: sort pairs:" << Colors::RESET << std::endl;
+// 		else if (step == 3)
+// 			std::cout << Colors::MAGENTA << "step 3: Recursive sort pairs by larger value:" << Colors::RESET << std::endl;
 
-		for (const Container<T> &pair : pairs)
-			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
-		std::cout << std::endl;
-	}
-	else if (step == 4)
-	{
-		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
-		std::cout << "Larg elements: ";
-		for (const Container<T> &pair : pairs)
-			std::cout << pair[1] << " ";
-		std::cout << std::endl;
+// 		for (const Container<T> &pair : pairs)
+// 			std::cout << "(" << pair[0] << ", " << pair[1] << ") ";
+// 		std::cout << std::endl;
+// 	}
+// 	else if (step == 4)
+// 	{
+// 		std::cout << Colors::MAGENTA << "step 4: Extracting largers and smallers elements:" << Colors::RESET << std::endl;
+// 		std::cout << "Larg elements: ";
+// 		for (const Container<T> &pair : pairs)
+// 			std::cout << pair[1] << " ";
+// 		std::cout << std::endl;
 
-		std::cout << "Small elements: ";
-		for (const Container<T> &pair : pairs)
-			std::cout << pair[0] << ", ";
-		std::cout << std::endl;
-	}
-}
+// 		std::cout << "Small elements: ";
+// 		for (const Container<T> &pair : pairs)
+// 			std::cout << pair[0] << ", ";
+// 		std::cout << std::endl;
+// 	}
+// }
 
 template <typename T, template <typename...> typename Container>
 std::vector<int> PmergeMe<T, Container>::generatePowerSequence(int length)
@@ -290,8 +288,8 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 		smallerElements.erase(smallerElements.begin());
 	}
 	// Generate the power sequence for the remaining smaller elements.
-	auto powerSequence = generatePowerSequence(smallerElements.size()); // We split the smaller elements into groups of sizes that are powers of 2
-	auto partitions = partition(smallerElements, powerSequence);
+	std::vector<int> powerSequence = generatePowerSequence(smallerElements.size()); // We split the smaller elements into groups of sizes that are powers of 2
+	std::vector<Container<T>> partitions = partition(smallerElements, powerSequence);
 
 	// Merge the smaller elements into the sorted list of larger elements.
 	size_t index = 0;
@@ -300,12 +298,12 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 	{
 		size_t partitionSize = partition.size();
 		index += partitionSize;
-		for (auto it = partition.begin(); it != partition.end(); ++it)
+		for (typename Container<T>::const_iterator it = partition.begin(); it != partition.end(); ++it)
 		{
 			// std::cout << "Index: " << index << std::endl;
 			// std::cout << "smaller[it]: " << *it << std::endl;
 			// std::cout << "largerElements.begin() + index + insertedElements =" << *(largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it)) << std::endl;
-			auto pos = std::lower_bound(largerElements.begin(), largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it), *it);
+			typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it), *it);
 			largerElements.insert(pos, *it);
 			insertedElements++;
 		}
@@ -314,7 +312,7 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 	// Reinsert the straggler element, if any, at its correct position.
 	if (hasStraggler)
 	{
-		auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), stragglerElement);
+		typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.end(), stragglerElement);
 		largerElements.insert(pos, stragglerElement);
 	}
 
