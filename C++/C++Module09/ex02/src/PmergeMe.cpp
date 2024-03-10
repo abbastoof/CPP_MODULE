@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/10 10:36:26 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/10 11:36:04 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,17 @@ template <typename T, template <typename...> typename Container>
 PmergeMe<T, Container>::~PmergeMe() {}
 
 template <typename T, template <typename...> typename Container>
-void PmergeMe<T, Container>::sortContainer(Container<T> &cont)
+double PmergeMe<T, Container>::sortContainer(Container<T> &cont)
 {
-	// Display the unsorted sequence
-	std::cout << "Before: ";
-	for (const T &item : cont)
-		std::cout << item << " ";
-	std::cout << std::endl;
-
 	// Start the timer
-	std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-	fordJohnson(cont);
-	// Stop the timer
-	std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+    fordJohnson(cont);
+    // Stop the timer
+    std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
 
-	std::chrono::duration<double> difference = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-	// Display the sorted sequence
-	std::cout << "After: ";
-	for (const T &item : cont)
-	{
-		std::cout << item << " ";
-	}
-	std::cout << std::endl;
-
-	// Display the time taken for sorting
-	std::string containerType = (std::is_same<Container<T>, std::vector<T>>::value) ? "std::vector" : "std::deque";
-	std::cout << std::fixed << std::setprecision(8) << "Time to process a range of " << cont.size() << " elements with " << containerType << " : " << difference.count() << " us" << std::endl;
-
-	if (std::is_sorted(cont.begin(), cont.end()))
-		std::cout << "The sequence is sorted.\n";
-	else
-		std::cout << "The sequence is not sorted.\n";
+    // Calculate and return the duration in microseconds
+    std::chrono::duration<double> difference = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    return difference.count();
 }
 
 template <typename T, template <typename...> typename Container>
@@ -110,7 +90,7 @@ template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::debugPrintPairs(const Container<Container<T>> &pairs, const std::string &message) const
 {
 	std::cout << message << ":\n";
-	for (const Container<T>  &pair : pairs)
+	for (const Container<T> &pair : pairs)
 	{
 		std::cout << "(";
 		std::copy(pair.begin(), pair.end(), std::ostream_iterator<T>(std::cout, " "));
@@ -248,6 +228,25 @@ std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &
 	return partitions;
 }
 
+/*
+	Suppose our larger elements are [10, 20, 30, 40] initially.
+	Our first partition of smaller elements is [5, 15] (size 2).
+	For the first element 5, currentIndex is 0 (starting point), and totalInserted is 1.
+	insertionPoint is calculated as 0 + 1 - 0 = 1. This means we consider inserting 5 somewhere before the second element in the larger list.
+	We use std::lower_bound to find targetPosition, which tells us 5 should be inserted at the beginning of the larger elements list.
+	After insertion, larger elements become [5, 10, 20, 30, 40].
+	For the second element 15, currentIndex remains 0, and totalInserted is now 2.
+	insertionPoint is 0 + 2 - 1 = 1. We again consider inserting 15 somewhere before the second element of the current larger list (which is now [5, 10, 20, 30, 40]).
+	std::lower_bound finds that 15 should be inserted between 10 and 20, so targetPosition points there.
+	After insertion, larger elements become [5, 10, 15, 20, 30, 40].
+	currentIndex then gets updated based on the size of the partition we just processed, 
+	so for the next partition, it would start at 2 (the size of the previous partition).
+	This process continues for each partition, ensuring each smaller element finds its correct place in the sorted larger elements list.
+
+	Using targetPosition ensures each smaller element is inserted in the right order,
+	maintaining the sorted sequence of the larger elements, which is crucial for the merge operation's correctness in a sorting algorithm.
+*/
+
 template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 {
@@ -277,9 +276,8 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 		smallerElements.push_back(pair[0]); // Assuming the first element is smaller.
 	}
 
-
-	debugPrint(largerElements, "Larger elements after recursive sort");
-	debugPrint(smallerElements, "Smaller elements after recursive sort");
+	// debugPrint(largerElements, "Larger elements after recursive sort");
+	// debugPrint(smallerElements, "Smaller elements after recursive sort");
 	// Merge smaller elements into the sorted list of larger elements.
 	// The first smaller element is merged directly before handling the rest.
 	if (!smallerElements.empty())

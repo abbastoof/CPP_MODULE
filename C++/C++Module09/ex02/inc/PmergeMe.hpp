@@ -20,7 +20,7 @@ class PmergeMe
     public:
         PmergeMe();
         ~PmergeMe();
-        void sortContainer(Container<T>& cont);
+        double sortContainer(Container<T> &cont);
 
     private:
         PmergeMe(const PmergeMe &rhs);
