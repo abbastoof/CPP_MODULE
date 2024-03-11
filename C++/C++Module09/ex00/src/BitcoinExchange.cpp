@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:48:36 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/07 17:57:28 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 18:42:32 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void BitcoinExchange::readData(const std::string &filename)
 	ss << file.rdbuf();
 	std::string key, value;
 	int line = 1;
-	while (!ss.eof())
+	while (!ss.eof() && !ss.fail())
 	{
 		std::getline(ss, key, ',');
 		std::getline(ss, value, '\n');

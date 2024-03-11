@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/11 14:37:03 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:58:31 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,8 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 		largerElements.insert(largerElements.begin(), smallerElements.front());
 		smallerElements.erase(smallerElements.begin());
 	}
+	// printFunc(pairs, 3);
+	
 	// Generate the power sequence for the remaining smaller elements.
 	std::vector<int> powerSequence = generatePowerSequence(smallerElements.size()); // We split the smaller elements into groups of sizes that are powers of 2
 	std::vector<Container<T>> partitions = partition(smallerElements, powerSequence);
@@ -284,9 +286,9 @@ void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
 		index += partitionSize;
 		for (typename Container<T>::const_iterator it = partition.begin(); it != partition.end(); ++it)
 		{
-			// std::cout << "Index: " << index << std::endl;
-			// std::cout << "smaller[it]: " << *it << std::endl;
-			// std::cout << "largerElements.begin() + index + insertedElements =" << *(largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it)) << std::endl;
+			std::cout << "Index: " << index << std::endl;
+			std::cout << "smaller[it]: " << *it << std::endl;
+			std::cout << "largerElements.begin() + index + insertedElements =" << *(largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it)) << std::endl;
 			typename Container<T>::iterator pos = std::lower_bound(largerElements.begin(), largerElements.begin() + index + insertedElements - std::distance(partition.begin(), it), *it);
 			largerElements.insert(pos, *it);
 			insertedElements++;

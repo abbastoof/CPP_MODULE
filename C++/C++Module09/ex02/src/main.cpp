@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:20:19 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/10 11:15:20 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:55:04 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int main(int argc, char *argv[])
     {
         std::istringstream iss(argv[i]);
         int num;
-        if (!(iss >> num) || !iss.eof()) // Check for conversion failure or trailing characters
+        if (!(iss >> num) || !iss.eof() || num < 0) // Check for conversion failure or trailing characters or negative integer
         {
-            std::cerr << "Invalid input: " << argv[i] << ". Please enter only integers." << std::endl;
+            std::cerr << "Invalid input: " << argv[i] << ". Please enter only positive integers." << std::endl;
             return 1;
         }
         numbers.push_back(num);

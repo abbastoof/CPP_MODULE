@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 23:32:50 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 23:32:50 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:14:55 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	RPN<int> calculator;
+	RPN<double> calculator;
 
 	try
 	{
-		int result = calculator.evaluate(argv[1]);
+		double result = calculator.evaluate(argv[1]);
 		std::cout << "Result: " << result << std::endl;
 	}
 	catch (const std::runtime_error &e)

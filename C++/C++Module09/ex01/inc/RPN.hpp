@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 23:35:10 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/05 22:24:44 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:11:40 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ public:
 private:
     RPN(const RPN& rhs);
     RPN& operator=(const RPN& rhs);
-    int performOperation(char op, T a, T b);
+    double performOperation(char op, T a, T b);
     void processToken(const std::string& token, std::stack<T>& stack);
 };
 

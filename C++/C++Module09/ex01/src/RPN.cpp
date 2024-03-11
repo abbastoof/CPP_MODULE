@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 23:33:00 by atoof             #+#    #+#             */
-/*   Updated: 2024/02/23 23:33:00 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:52:25 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ T RPN<T>::evaluate(const std::string &expression)
 }
 
 template <typename T>
-int RPN<T>::performOperation(char op, T a, T b)
+double RPN<T>::performOperation(char op, T a, T b)
 {
 	switch (op)
 	{
@@ -77,7 +77,7 @@ template <typename T>
 void RPN<T>::processToken(const std::string &token, std::stack<T> &stack)
 {
 	if (isdigit(token[0]) && token.size() == 1)
-		stack.push(static_cast<T>(std::stoi(token)));
+		stack.push(static_cast<T>(std::stod(token)));
 	else if (isdigit(token[0]) && token.size() > 1)
 		throw std::runtime_error("Our calculator only supports single digit numbers.");
 	else if (token.size() == 1 && std::string("+-*/").find(token[0]) != std::string::npos)
@@ -94,4 +94,4 @@ void RPN<T>::processToken(const std::string &token, std::stack<T> &stack)
 		throw std::runtime_error("Invalid token.");
 }
 
-template class RPN<int>;
+template class RPN<double>;
