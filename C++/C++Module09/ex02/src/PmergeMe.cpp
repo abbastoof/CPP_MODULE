@@ -6,7 +6,7 @@
 /*   By: atoof <atoof@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:08:42 by atoof             #+#    #+#             */
-/*   Updated: 2024/03/10 11:48:16 by atoof            ###   ########.fr       */
+/*   Updated: 2024/03/11 14:37:03 by atoof            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,24 +232,6 @@ std::vector<Container<T>> PmergeMe<T, Container>::partition(const Container<T> &
 	return partitions;
 }
 
-/*
-	Suppose our larger elements are [10, 20, 30, 40] initially.
-	Our first partition of smaller elements is [5, 15] (size 2).
-	For the first element 5, currentIndex is 0 (starting point), and totalInserted is 1.
-	insertionPoint is calculated as 0 + 1 - 0 = 1. This means we consider inserting 5 somewhere before the second element in the larger list.
-	We use std::lower_bound to find targetPosition, which tells us 5 should be inserted at the beginning of the larger elements list.
-	After insertion, larger elements become [5, 10, 20, 30, 40].
-	For the second element 15, currentIndex remains 0, and totalInserted is now 2.
-	insertionPoint is 0 + 2 - 1 = 1. We again consider inserting 15 somewhere before the second element of the current larger list (which is now [5, 10, 20, 30, 40]).
-	std::lower_bound finds that 15 should be inserted between 10 and 20, so targetPosition points there.
-	After insertion, larger elements become [5, 10, 15, 20, 30, 40].
-	currentIndex then gets updated based on the size of the partition we just processed, 
-	so for the next partition, it would start at 2 (the size of the previous partition).
-	This process continues for each partition, ensuring each smaller element finds its correct place in the sorted larger elements list.
-
-	Using targetPosition ensures each smaller element is inserted in the right order,
-	maintaining the sorted sequence of the larger elements, which is crucial for the merge operation's correctness in a sorting algorithm.
-*/
 
 template <typename T, template <typename...> typename Container>
 void PmergeMe<T, Container>::fordJohnson(Container<T> &container)
